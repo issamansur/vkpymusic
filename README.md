@@ -52,6 +52,24 @@ print(user_info)
 tracks = service.search('Coldplay')
 print(tracks)
 ```
+
+## Full example
+### Python:
+```
+from vkpymusic import Service, TokenReceiver
+login = input("   Enter login: ")
+password = input("Enter password: ")
+
+tokenReceiver = TokenReceiver(login, password)
+
+if tokenReceiver.auth():
+    tokenReceiver.get_token()
+    tokenReceiver.save_to_config()
+
+service = Service.parse_config()
+tracks = service.search('idfc tiktok remix')
+Service.save_music(tracks[0])
+```
 # Documentation
 ### Detailed documentation and usage examples for VKpyMusic can be found on the official project page on GitHub: 
 ## https://github.com/issamansur/vkpymusic
