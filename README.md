@@ -46,7 +46,7 @@ service = Service("<your_token>", "<your_client>")
 user_songs = service.get_songs_by_userid(7);
 print(user_info)
 ```
-# Search for tracks by query
+## Search for tracks by query
 ### Python:
 ```
 tracks = service.search('Coldplay')
