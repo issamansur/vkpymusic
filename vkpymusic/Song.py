@@ -22,8 +22,8 @@ class Song:
             safe_string = re.sub(r"[^A-zА-я0-9+\s]", "", string)
             return safe_string
 
-        title = safe_format(Song.title)
-        artist = safe_format(Song.artist)
+        title = safe_format(song.title)
+        artist = safe_format(song.artist)
         safe_song = cls(
             title, artist, song.duration, song.track_id, song.owner_id, song.url
         )
