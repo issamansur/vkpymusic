@@ -1,7 +1,7 @@
 import re
 
 
-class Music:
+class Song:
     def __init__(self, title, artist, duration, track_id, owner_id, url=""):
         self.title = title
         self.artist = artist
@@ -17,17 +17,17 @@ class Music:
         return self.__dict__
 
     @classmethod
-    def safe(cls, music):
+    def safe(cls, song):
         def safe_format(string):
             safe_string = re.sub(r"[^A-zА-я0-9+\s]", "", string)
             return safe_string
 
-        title = safe_format(music.title)
-        artist = safe_format(music.artist)
-        safeMusic = cls(
-            title, artist, music.duration, music.track_id, music.owner_id, music.url
+        title = safe_format(Song.title)
+        artist = safe_format(Song.artist)
+        safe_song = cls(
+            title, artist, song.duration, song.track_id, song.owner_id, song.url
         )
-        return safeMusic
+        return safe_song
 
     @classmethod
     def from_json(cls, item):
@@ -38,5 +38,5 @@ class Music:
         owner_id = str(item["owner_id"])
         url = str(item["url"])
 
-        music = cls(title, artist, duration, track_id, owner_id, url)
-        return music
+        song = cls(title, artist, duration, track_id, owner_id, url)
+        return song

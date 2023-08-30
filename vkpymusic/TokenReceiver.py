@@ -1,5 +1,8 @@
-import os, json, requests
+import os, json, requests, logging
 from .Client import clients
+from .Logger import get_logger
+
+logger: logging = get_logger(__name__)
 
 
 class TokenReceiver:
@@ -80,7 +83,7 @@ class TokenReceiver:
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
 
-                print("Are you bot? You need enter captcha")
+                logger.info("Are you a bot? You need to enter captcha...")
                 os.startfile(captcha_img)
                 captcha_key: str = input("Captcha: ")
                 response_auth = self.__request_auth(captcha=(captcha_sid, captcha_key))
@@ -93,7 +96,7 @@ class TokenReceiver:
                 self.__request_code(sid)
 
                 # response2_json = json.loads(response2.content.decode('utf-8'))
-                print(
+                logger.info(
                     "SMS with a confirmation code has been sent to your phone! The code is valid for a few minutes!"
                 )
                 code = input("Code: ")
@@ -101,7 +104,7 @@ class TokenReceiver:
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
             elif error == "invalid_client":
-                print("Неверный логин или пароль")
+                logger.error("Invalid login or password")
                 return False
             else:
                 self.__login
@@ -110,7 +113,7 @@ class TokenReceiver:
                 return False
         if "access_token" in response_auth_json:
             access_token = response_auth_json["access_token"]
-            print("Токен получен!")
+            logger.info("Token was received!")
             self.__token = access_token
             return True
         self.__on_error(response_auth_json)
@@ -122,9 +125,9 @@ class TokenReceiver:
         """
         token = self.__token
         if not token:
-            print('Please, first call the method "auth"')
+            logger.warn('Please, first call the method "auth"')
             return
-        print(token)
+        logger.info(token)
 
     def save_to_config(self):
         """
@@ -132,7 +135,7 @@ class TokenReceiver:
         """
         token: str = self.__token
         if not token:
-            print('Please, first call the method "auth"')
+            logger.warn('Please, first call the method "auth"')
             return
         if os.path.isfile("config_vk.ini"):
             print('File already exist! Enter "OK" for rewriting it')
@@ -142,6 +145,7 @@ class TokenReceiver:
             output_file.write("[VK]\n")
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
+            logger.info("Token was saved!")
 
     @staticmethod
     def create_path(filename: str) -> str:
@@ -151,8 +155,7 @@ class TokenReceiver:
 
     @staticmethod
     def __on_error(response):
-        print("Unexpected error! Logs was saved in file - vtm_error.txt")
-        print("Please, create an issue in repository for solving this problem")
-        with open(TokenReceiver.create_path("vktoken.error.log"), "a") as output_file:
-            output_file.write("Error!\n")
-            output_file.write(str(response))
+        logger.critical(
+            "Unexpected error! Please, create an issue in repository for solving this problem"
+        )
+        logger.critical(response)

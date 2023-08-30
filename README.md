@@ -1,5 +1,4 @@
-# Description
-## VKpyMusic 
+# VKpyMusic 
 ### is a Python library that provides a simple interface for interacting with the VKontakte (VK) music service API. The library allows developers to easily perform operations related to music and other functionalities available through the VK API.
 ### это библиотека Python, которая предоставляет простой интерфейс для взаимодействия с API музыкального сервиса ВКонтакте (VK). Библиотека позволяет разработчикам легко выполнять операции, связанные с музыкой и другими функциональными возможностями, доступными через VK API.
 
@@ -16,8 +15,7 @@ pip install vkpymusic
 ### To get started with VKpyMusic, you will need a valid VK access token and user agent, which provides access to the VK music service API. But if you don't have them, it's okay - we have our own class to get it.
 ### Чтобы начать работу с VKpyMusic, вам понадобится действительный токен доступа к VK и пользовательский агент, который предоставляет доступ к API музыкального сервиса VK. Но если у вас их нет, ничего страшного - у нас есть свой собственный класс, чтобы получить их.
 
-## Example usage of VKpyMusic for receive token and user agent:
-## Пример использования VKpyMusic для получения токена и пользовательского агента:
+## Example usage of VKpyMusic for receive token and user agent:<br>Пример использования VKpyMusic для получения токена и юзер-агента:
 ### Python:
 ```
 from vkpymusic import TokenReceiver
@@ -31,38 +29,41 @@ if tokenReceiver.auth():
     tokenReceiver.get_token()
     tokenReceiver.save_to_config()
 ```
-## Create an Service instance with your access token and user agent:
-## Создайте экземпляр Service с вашим токеном доступа и пользовательским агентом:
+### Result:
+```
+   Enter login: +...........
+Enter password: .........
+SMS with a confirmation code has been sent to your phone! The code is valid for a few minutes!
+Code: 277765
+Token was received!
+Token was saved!
+```
+## Create an Service instance with your access token and user agent:<br>Создайте экземпляр Service с вашим токеном и юзер-агентом:
 ### Python:
 ```
-from vkpymusic.MusicService import Service
+from vkpymusic import Service
 
 service = Service.parse_config()
 ```
-## Or you can do like this:
-## Или Вы можете сделать так:
+## Or you can do like this:<br>Или Вы можете сделать так:
 ### Python:
 ```
 service = Service("<your_token>", "<your_client>")
 ```
 
-## Get information about the current user
-## Получить информацию о песнях текущего пользователя
+## Get information about the current user<br>Получить информацию о песнях текущего пользователя
 ### Python:
 ```
-user_songs = service.get_songs_by_userid(7);
-print(user_info)
-```
-## Search for tracks by query
-## Поиск треков по запросу
-### Python:
-```
-tracks = service.search('Coldplay')
-print(tracks)
+user_songs = service.get_songs_by_userid(5, 10)
 ```
 
-## Full example
-## Полный пример
+## Search for tracks by query<br>Поиск треков по запросу
+### Python:
+```
+songs = service.search_songs_by_text("Maroon V", 5)
+```
+
+## Full example<br>Полный пример
 ### Python:
 ```
 from vkpymusic import Service, TokenReceiver
@@ -76,9 +77,10 @@ if tokenReceiver.auth():
     tokenReceiver.save_to_config()
 
 service = Service.parse_config()
-tracks = service.search('idfc tiktok remix')
+tracks = service.search_songs_by_text('idfc tiktok remix')
 Service.save_music(tracks[0])
 ```
+
 # Documentation
 ### Detailed documentation and usage examples for VKpyMusic can be found on the official project page on GitHub: 
 ### Детальная документация и примеры использования для VKpyMusic находится на официальной странице на ГитХабе: 

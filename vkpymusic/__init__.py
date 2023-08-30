@@ -1,4 +1,6 @@
-from .Music import Music
-from .Client import clients
 from .TokenReceiver import TokenReceiver
-from .MusicService import Service
+from .Client import clients
+from .Service import Service
+
+from .Playlist import Playlist
+from .Song import Song

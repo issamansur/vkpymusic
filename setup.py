@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding="utf8") as fh:
     long_description = fh.read()
 
 setup(
     name="vkpymusic",
-    version="1.0.0",
-    description="A short description of your library",
+    version="2.0.1",
+    description="Python library for VK Audio",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
