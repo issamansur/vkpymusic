@@ -10,7 +10,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
-    keywords="vk music python downloader api",
+    keywords="vk api music downloader python",
     author="Issa Mansur (EDEXADE)",
     author_email="issa_mansur@mail.ru",
     url="https://github.com/issamansur/vkpymusic",
