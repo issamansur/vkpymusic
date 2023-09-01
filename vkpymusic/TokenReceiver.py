@@ -1,8 +1,56 @@
 import os, json, requests, logging
+from typing import Callable
 from .Client import clients
 from .Logger import get_logger
 
 logger: logging = get_logger(__name__)
+
+
+def on_captcha_handler(url: str) -> str:
+    """
+    Default handler to captcha.
+
+    Args:
+        url (str): Url to captcha image.
+
+    Returns:
+        str: Key/decoded captcha.
+    """
+    logger.info("Are you a bot? You need to enter captcha...")
+    os.startfile(url)
+    captcha_key: str = input("Captcha: ")
+    return captcha_key
+
+
+def on_2fa_handler() -> str:
+    """
+    Default handler to 2fa.
+
+    Returns:
+        str: code from VK/SMS.
+    """
+    logger.info(
+        "SMS with a confirmation code has been sent to your phone! The code is valid for a few minutes!"
+    )
+    code = input("Code: ")
+    return code
+
+
+def on_invalid_client_handler():
+    """
+    Default handler to invalid_client.
+    """
+    logger.error("Invalid login or password")
+
+
+def on_critical_error_handler(response_auth_json):
+    """
+    Args:
+        response_auth_json (...): Message or object to research.
+
+    Default handler to ctitical error.
+    """
+    print(f"on_critical_error: {response_auth_json}")
 
 
 class TokenReceiver:
@@ -66,9 +114,20 @@ class TokenReceiver:
 
         return response_json
 
-    def auth(self) -> bool:
+    def auth(
+        self,
+        on_captcha: Callable[[str], str] = on_captcha_handler,
+        on_2fa: Callable[[], str] = on_2fa_handler,
+        on_invalid_client: Callable[[], None] = on_invalid_client_handler,
+        on_critical_error: Callable[..., None] = on_critical_error_handler,
+    ) -> bool:
         """
         Performs authorization using the available login and password. If necessary, interactively accepts a code from SMS or captcha.
+        Args:
+            on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return key.
+            on_2fa (Callable[[], str]): Handler to 2 factor auth. Return captcha.
+            on_invalid_client (Callable[[], None]): Handler to invalid client.
+            on_critical_error (Callable[[Any], None]): Handler to critical error. Get response.
 
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
@@ -83,9 +142,8 @@ class TokenReceiver:
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
 
-                logger.info("Are you a bot? You need to enter captcha...")
-                os.startfile(captcha_img)
-                captcha_key: str = input("Captcha: ")
+                captcha_key: str = on_captcha(captcha_img)
+
                 response_auth = self.__request_auth(captcha=(captcha_sid, captcha_key))
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
@@ -96,19 +154,18 @@ class TokenReceiver:
                 self.__request_code(sid)
 
                 # response2_json = json.loads(response2.content.decode('utf-8'))
-                logger.info(
-                    "SMS with a confirmation code has been sent to your phone! The code is valid for a few minutes!"
-                )
-                code = input("Code: ")
+                code: str = on_2fa()
+
                 response_auth = self.__request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
             elif error == "invalid_client":
-                logger.error("Invalid login or password")
+                on_invalid_client()
                 return False
             else:
                 del self.__login
                 del self.__password
+                on_critical_error(response_auth_json)
                 self.__on_error(response_auth_json)
                 return False
         if "access_token" in response_auth_json:
@@ -117,6 +174,7 @@ class TokenReceiver:
             self.__token = access_token
             return True
         self.__on_error(response_auth_json)
+        on_critical_error(response_auth_json)
         return False
 
     def get_token(self) -> str:
@@ -133,6 +191,9 @@ class TokenReceiver:
     def save_to_config(self, filename: str = "config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
+
+        Args:
+            filename (str): Filename of config (default value = "config_vk.ini").
         """
         token: str = self.__token
         if not token:
