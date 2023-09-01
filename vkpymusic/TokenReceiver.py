@@ -107,9 +107,9 @@ class TokenReceiver:
                 logger.error("Invalid login or password")
                 return False
             else:
-                self.__login
-                self.__password
-                error(response_auth_json)
+                del self.__login
+                del self.__password
+                self.__on_error(response_auth_json)
                 return False
         if "access_token" in response_auth_json:
             access_token = response_auth_json["access_token"]
