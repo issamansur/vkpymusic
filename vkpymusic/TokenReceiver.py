@@ -119,7 +119,7 @@ class TokenReceiver:
         self.__on_error(response_auth_json)
         return False
 
-    def get_token(self):
+    def get_token(self) -> str:
         """
         Prints token in console (if authorisation was succesful)
         """
@@ -128,8 +128,9 @@ class TokenReceiver:
             logger.warn('Please, first call the method "auth"')
             return
         logger.info(token)
+        return token
 
-    def save_to_config(self):
+    def save_to_config(self, filename: str = "config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
         """
@@ -137,7 +138,7 @@ class TokenReceiver:
         if not token:
             logger.warn('Please, first call the method "auth"')
             return
-        if os.path.isfile("config_vk.ini"):
+        if os.path.isfile(filename):
             print('File already exist! Enter "OK" for rewriting it')
             if input().lower() != "ok":
                 return
