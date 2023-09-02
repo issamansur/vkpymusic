@@ -135,6 +135,9 @@ class TokenReceiver:
         response_auth: requests.Response = self.__request_auth()
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
+        del self.__login
+        del self.__password
+
         while "error" in response_auth_json:
             error = response_auth_json["error"]
 
@@ -163,8 +166,6 @@ class TokenReceiver:
                 on_invalid_client()
                 return False
             else:
-                del self.__login
-                del self.__password
                 on_critical_error(response_auth_json)
                 self.__on_error(response_auth_json)
                 return False
