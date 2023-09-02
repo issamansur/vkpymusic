@@ -6,53 +6,6 @@ from .Logger import get_logger
 logger: logging = get_logger(__name__)
 
 
-def on_captcha_handler(url: str) -> str:
-    """
-    Default handler to captcha.
-
-    Args:
-        url (str): Url to captcha image.
-
-    Returns:
-        str: Key/decoded captcha.
-    """
-    logger.info("Are you a bot? You need to enter captcha...")
-    os.startfile(url)
-    captcha_key: str = input("Captcha: ")
-    return captcha_key
-
-
-def on_2fa_handler() -> str:
-    """
-    Default handler to 2fa.
-
-    Returns:
-        str: code from VK/SMS.
-    """
-    logger.info(
-        "SMS with a confirmation code has been sent to your phone! The code is valid for a few minutes!"
-    )
-    code = input("Code: ")
-    return code
-
-
-def on_invalid_client_handler():
-    """
-    Default handler to invalid_client.
-    """
-    logger.error("Invalid login or password")
-
-
-def on_critical_error_handler(response_auth_json):
-    """
-    Default handler to ctitical error.
-
-    Args:
-        response_auth_json (...): Message or object to research.
-    """
-    print(f"on_critical_error: {response_auth_json}")
-
-
 class TokenReceiver:
     def __init__(self, login, password, client="Kate"):
         self.__login: str = str(login)
@@ -116,10 +69,10 @@ class TokenReceiver:
 
     async def auth(
         self,
-        on_captcha: Callable[[str], str] = on_captcha_handler,
-        on_2fa: Callable[[], str] = on_2fa_handler,
-        on_invalid_client: Callable[[], None] = on_invalid_client_handler,
-        on_critical_error: Callable[..., None] = on_critical_error_handler,
+        on_captcha: Callable[[str], str],
+        on_2fa: Callable[[], str],
+        on_invalid_client: Callable[[], None],
+        on_critical_error: Callable[..., None],
     ) -> bool:
         """
         Performs ASYNC authorization using the available login and password. If necessary, interactively accepts a code from SMS or captcha.
