@@ -45,18 +45,18 @@ def on_invalid_client_handler():
 
 def on_critical_error_handler(response_auth_json):
     """
+    Default handler to ctitical error.
+
     Args:
         response_auth_json (...): Message or object to research.
-
-    Default handler to ctitical error.
     """
     print(f"on_critical_error: {response_auth_json}")
 
 
 class TokenReceiver:
     def __init__(self, login, password, client="Kate"):
-        self.__login = str(login)
-        self.__password = str(password)
+        self.__login: str = str(login)
+        self.__password: str = str(password)
 
         if client in clients:
             self.client = clients[client]
@@ -123,6 +123,7 @@ class TokenReceiver:
     ) -> bool:
         """
         Performs authorization using the available login and password. If necessary, interactively accepts a code from SMS or captcha.
+
         Args:
             on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return key.
             on_2fa (Callable[[], str]): Handler to 2 factor auth. Return captcha.
@@ -180,11 +181,11 @@ class TokenReceiver:
 
     def get_token(self) -> str:
         """
-        Prints token in console (if authorisation was succesful)
+        Prints token in console (if authorisation was succesful).
         """
         token = self.__token
         if not token:
-            logger.warn('Please, first call the method "auth"')
+            logger.warn('Please, first call the method "auth".')
             return
         logger.info(token)
         return token
@@ -219,6 +220,6 @@ class TokenReceiver:
     @staticmethod
     def __on_error(response):
         logger.critical(
-            "Unexpected error! Please, create an issue in repository for solving this problem"
+            "Unexpected error! Please, create an issue in repository for solving this problem."
         )
         logger.critical(response)

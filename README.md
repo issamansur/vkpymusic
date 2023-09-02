@@ -1,6 +1,6 @@
 ![Лицензия](https://img.shields.io/badge/Лицензия-MIT-blue)
 ![Совместимость с Python](https://img.shields.io/badge/Python-3.0--3.9-blue)
-![Версия библиотеки](https://img.shields.io/badge/pip-2.0.3-blue)
+![Версия библиотеки](https://img.shields.io/badge/pip-2.0.4-blue)
 
 # VKpyMusic 
 ### is a Python library that provides a simple interface for interacting with the VKontakte (VK) music service API. The library allows developers to easily perform operations related to music and other functionalities available through the VK API.
@@ -85,14 +85,15 @@ tracks = service.search_songs_by_text('idfc tiktok remix')
 Service.save_music(tracks[0])
 ```
 
-# Documentation
+# Documentation<br>Документация
 ### Detailed documentation and usage examples for VKpyMusic can be found on the official project page on GitHub: 
 ### Детальная документация и примеры использования для VKpyMusic находится на официальной странице на ГитХабе: 
 ## https://github.com/issamansur/vkpymusic
+## https://issamansur.github.io/vkpymusic/
 
 
 # Contributions and Support
-### Если у вас есть какие-либо предложения по улучшению VKpyMusic или вы обнаружите какие-либо проблемы, пожалуйста, создайте новую проблему на странице проекта GitHub. Мы приветствуем ваши запросы на удаление и готовы помочь вам с любыми проблемами, с которыми вы столкнетесь.
+### Если у вас есть какие-либо предложения по улучшению VKpyMusic или вы обнаружите какие-либо проблемы, пожалуйста, создайте новую проблему на странице проекта GitHub. Мы приветствуем ваши запросы на исправления и готовы помочь вам с любыми проблемами, с которыми вы столкнетесь.
 ### If you have any suggestions for improving VKpyMusic or if you find any issues, please create a new issue on the GitHub project page. We welcome your pull requests and are here to assist you with any problems you encounter.
 
 # License
