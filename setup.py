@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf8") as fh:
 
 setup(
     name="vkpymusic",
-    version="2.0.3",
+    version="2.0.4",
     description="Python library for VK Audio",
     long_description=long_description,
     long_description_content_type="text/markdown",
