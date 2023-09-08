@@ -152,7 +152,6 @@ class Service:
             items = response["response"]["items"]
         except Exception as e:
             logger.error(e)
-
         playlists: list[Playlist] = []
         for item in items:
             playlist = Playlist.from_json(item)
@@ -401,7 +400,7 @@ class Service:
         Returns:
             str: relative path of downloaded music.
         """
-        song = Song.safe(song)
+        song.to_safe()
         file_name_mp3 = f"{song}.mp3"
         url = song.url
 
