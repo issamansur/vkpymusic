@@ -6,7 +6,7 @@ from .Logger import get_logger
 logger: logging = get_logger(__name__)
 
 
-class TokenReceiver:
+class TokenReceiverAsync:
     def __init__(self, login, password, client="Kate"):
         self.__login: str = str(login)
         self.__password: str = str(password)

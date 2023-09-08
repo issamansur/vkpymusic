@@ -16,18 +16,13 @@ class Song:
     def to_dict(self) -> dict:
         return self.__dict__
 
-    @classmethod
-    def safe(cls, song):
+    def to_safe(self):
         def safe_format(string):
             safe_string = re.sub(r"[^A-zА-я0-9+\s]", "", string)
             return safe_string
 
-        title = safe_format(song.title)
-        artist = safe_format(song.artist)
-        safe_song = cls(
-            title, artist, song.duration, song.track_id, song.owner_id, song.url
-        )
-        return safe_song
+        self.title = safe_format(self.title)
+        self.artist = safe_format(self.artist)
 
     @classmethod
     def from_json(cls, item):
