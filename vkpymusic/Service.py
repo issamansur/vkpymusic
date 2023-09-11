@@ -130,6 +130,15 @@ class Service:
 
         return self.__get_response("searchPlaylists", params)
 
+    def __searchAlbums(self, text: str, count: int = 50, offset: int = 0) -> Response:
+        params = [
+            ("q", text),
+            ("count", count),
+            ("offset", offset),
+        ]
+
+        return self.__get_response("searchAlbums", params)
+
     ############
     # CONVERTERS
 
@@ -363,6 +372,7 @@ class Service:
     ) -> list[Playlist]:
         """
         Search playlists by text/query.
+        Playlist - it user's collection of songs.
 
         Args:
             text (str):   Text of query. Can be title of playlist, genre, etc.
@@ -376,6 +386,39 @@ class Service:
 
         try:
             response = self.__searchPlaylists(text, count, offset)
+            playlists = self.__response_to_playlists(response)
+        except Exception as e:
+            logger.error(e)
+            return
+
+        if len(playlists) == 0:
+            logger.info("No results found ._.")
+        else:
+            logger.info("Results:")
+            for i, playlist in enumerate(playlists, start=1):
+                logger.info(f"{i}) {playlist}")
+        return playlists
+
+    def search_albums_by_text(
+        self, text: str, count: int = 5, offset: int = 0
+    ) -> list[Playlist]:
+        """
+        Search albums by text/query.
+        Album - artists's album/collection of songs.
+        In obj context - same as 'Playlist'.
+
+        Args:
+            text (str):   Text of query. Can be title of album, name of artist, etc.
+            count (int):  Count of resulting playlists (for VK API: default = 50, max = 100).
+            offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
+
+        Returns:
+            list[Playlist]: List of albums.
+        """
+        logger.info(f"Request by text: {text}")
+
+        try:
+            response = self.__searchAlbums(text, count, offset)
             playlists = self.__response_to_playlists(response)
         except Exception as e:
             logger.error(e)
