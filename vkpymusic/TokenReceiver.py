@@ -61,7 +61,7 @@ class TokenReceiver:
         if client in clients:
             self.client = clients[client]
         else:
-            self.client = client["Kate"]
+            self.client = clients["Kate"]
         self.__token = None
 
     def __request_auth(self, code=None, captcha=None):

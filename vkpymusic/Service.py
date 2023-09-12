@@ -38,6 +38,23 @@ class Service:
         except Exception as e:
             logger.warning(e)
 
+    @staticmethod
+    def del_config(filename: str = "config_vk.ini"):
+        """
+        Delete config created by 'TokenReceiver'.
+
+        Args:
+            filename (str): Filename of config (default value = "config_vk.ini").
+        """
+        dirname = os.path.dirname(__file__)
+        configfile_path = os.path.join(dirname, filename)
+
+        try:
+            os.remove(configfile_path)
+            logger.info("Config successful deleted!")
+        except Exception as e:
+            logger.warning(e)
+
     ##########################
     # COMMON REQUEST FOR AUDIO
 
