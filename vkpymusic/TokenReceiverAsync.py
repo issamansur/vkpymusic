@@ -165,7 +165,7 @@ class TokenReceiverAsync:
             print('File already exist! Enter "OK" for rewriting it')
             if input().lower() != "ok":
                 return
-        with open(self.create_path("config_vk.ini"), "w") as output_file:
+        with open(self.create_path(filename), "w") as output_file:
             output_file.write("[VK]\n")
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
