@@ -14,7 +14,7 @@ class TokenReceiverAsync:
         if client in clients:
             self.client = clients[client]
         else:
-            self.client = client["Kate"]
+            self.client = clients["Kate"]
         self.__token = None
 
     async def __request_auth(self, code=None, captcha=None):
@@ -119,17 +119,25 @@ class TokenReceiverAsync:
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
             elif error == "invalid_client":
+                del self.__login
+                del self.__password
                 await on_invalid_client()
                 return False
             else:
+                del self.__login
+                del self.__password
                 await on_critical_error(response_auth_json)
                 self.__on_error(response_auth_json)
                 return False
         if "access_token" in response_auth_json:
+            del self.__login
+            del self.__password
             access_token = response_auth_json["access_token"]
             logger.info("Token was received!")
             self.__token = access_token
             return True
+        del self.__login
+        del self.__password
         self.__on_error(response_auth_json)
         await on_critical_error(response_auth_json)
         return False
