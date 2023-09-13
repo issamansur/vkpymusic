@@ -121,6 +121,13 @@ class TokenReceiverAsync:
 
                 response_auth = await self.__request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
+                
+            elif error == "invalid_request":
+                logger.warn("Invalid code. Try again!")
+                code: str = on_2fa()
+
+                response_auth = self.__request_auth(code=code)
+                response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
             elif error == "invalid_client":
                 del self.__login
@@ -173,7 +180,7 @@ class TokenReceiverAsync:
             print('File already exist! Enter "OK" for rewriting it')
             if input().lower() != "ok":
                 return
-        os.makedirs(full_fp, exist_ok=True)
+        os.makedirs(os.path.dirname(full_fp), exist_ok=True)
         with open(full_fp, "w") as output_file:
             output_file.write("[VK]\n")
             output_file.write(f"user_agent={self.client.user_agent}\n")
