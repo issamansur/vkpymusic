@@ -1,5 +1,11 @@
-import os, json, requests, logging
 from typing import Callable
+
+import os
+import logging
+
+import json
+import requests
+
 from .Client import clients
 from .Logger import get_logger
 
@@ -17,7 +23,7 @@ def on_captcha_handler(url: str) -> str:
         str: Key/decoded captcha.
     """
     logger.info("Are you a bot? You need to enter captcha...")
-    os.startfile(url)
+    os.system(url)
     captcha_key: str = input("Captcha: ")
     return captcha_key
 
@@ -122,7 +128,8 @@ class TokenReceiver:
         on_critical_error: Callable[..., None] = on_critical_error_handler,
     ) -> bool:
         """
-        Performs authorization using the available login and password. If necessary, interactively accepts a code from SMS or captcha.
+        Performs authorization using the available login and password.
+        If necessary, interactively accepts a code from SMS or captcha.
 
         Args:
             on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return key.
@@ -195,31 +202,42 @@ class TokenReceiver:
         logger.info(token)
         return token
 
-    def save_to_config(self, filename: str = "config_vk.ini"):
+    def save_to_config(self, file_path: str = "config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
 
         Args:
-            filename (str): Filename of config (default value = "config_vk.ini").
+            file_path (str): Filename of config (default value = "config_vk.ini").
         """
         token: str = self.__token
         if not token:
             logger.warn('Please, first call the method "auth"')
             return
-        if os.path.isfile(filename):
+        full_fp = self.create_path(file_path)
+        if os.path.isfile(full_fp):
             print('File already exist! Enter "OK" for rewriting it')
             if input().lower() != "ok":
                 return
-        with open(self.create_path(filename), "w") as output_file:
+        os.makedirs(full_fp, exist_ok=True)
+        with open(full_fp, "w") as output_file:
             output_file.write("[VK]\n")
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
             logger.info("Token was saved!")
 
     @staticmethod
-    def create_path(filename: str) -> str:
+    def create_path(file_path: str) -> str:
+        """
+        Create path before and after this for different funcs. 
+
+        Args:
+            file_path (str): Relative path to file.
+
+        Returns:
+            str: Absolute path to file.
+        """
         dirname = os.path.dirname(__file__)
-        path = os.path.join(dirname, filename)
+        path = os.path.join(dirname, file_path)
         return path
 
     @staticmethod

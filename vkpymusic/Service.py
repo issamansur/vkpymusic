@@ -452,7 +452,7 @@ class Service:
     @staticmethod
     def save_music(song: Song) -> str:
         """
-        Save song to '{workDirectory}\\Music\\{songname}.mp3'.
+        Save song to '{workDirectory}/Music/{songname}.mp3'.
 
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
@@ -471,10 +471,10 @@ class Service:
         response = requests.get(url=url)
         if response.status_code == 200:
             if not os.path.exists("Music"):
-                os.makedirs(f"Music")
+                os.makedirs("Music")
                 logger.info("Folder 'Music' was created")
 
-            file_path = os.path.join("Music", file_name_mp3)
+            file_path = os.path.join(os.getcwd(), "Music", file_name_mp3)
 
             if not os.path.exists(file_path):
                 if "index.m3u8" in url:
