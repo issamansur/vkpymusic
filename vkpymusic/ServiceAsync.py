@@ -163,12 +163,11 @@ class ServiceAsync:
     # CONVERTERS
 
     async def __response_to_songs(self, response: Response) \
-            -> tuple[list[Song], int]:
+            -> list[Song]:
         response = response.json()
         count = 0
         try:
             items = response["response"]["items"]
-            count = int(response["response"]["count"])
         except Exception as e:
             logger.error(e)
 
@@ -176,7 +175,7 @@ class ServiceAsync:
         for item in items:
             song = Song.from_json(item)
             songs.append(song)
-        return songs, count
+        return songs
 
     async def __response_to_playlists(self, response: Response):
         # response = json.loads(response.content.decode("utf-8"))
@@ -221,7 +220,7 @@ class ServiceAsync:
 
     async def get_songs_by_userid(
             self, user_id: str or int, count: int = 100, offset: int = 0
-    ) -> (list[Song], int):
+    ) -> list[Song]:
         """
         Search songs by owner/user id.
 
@@ -238,7 +237,7 @@ class ServiceAsync:
 
         try:
             response: Response = await self.__get(user_id, count, offset)
-            songs, count = await self.__response_to_songs(response)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -249,7 +248,7 @@ class ServiceAsync:
             logger.info("Results:")
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
-        return songs, count
+        return songs
 
     async def get_songs_by_playlist_id(
             self,
@@ -258,7 +257,7 @@ class ServiceAsync:
             access_key: str,
             count: int = 100,
             offset: int = 0,
-    ) -> (list[Song], int):
+    ) -> list[Song]:
         """
         Get songs by playlist id.
 
@@ -279,7 +278,7 @@ class ServiceAsync:
             response: Response = await self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
-            songs, count = await self.__response_to_songs(response)
+            songs await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -290,11 +289,11 @@ class ServiceAsync:
             logger.info("Results:")
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
-        return songs, count
+        return songs
 
     async def get_songs_by_playlist(
             self, playlist: Playlist, count: int = 10, offset: int = 0
-    ) -> (list[Song], int):
+    ) -> list[Song]:
         """
         Get songs by instance of 'Playlist'.
 
@@ -316,7 +315,7 @@ class ServiceAsync:
                 playlist.playlist_id,
                 playlist.access_key,
             )
-            songs, count = await self.__response_to_songs(response)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -327,11 +326,11 @@ class ServiceAsync:
             logger.info("Results:")
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
-        return songs, count
+        return songs
 
     async def search_songs_by_text(
             self, text: str, count: int = 3, offset: int = 0
-    ) -> (list[Song], int):
+    ) -> list[Song]:
         """
         Search songs by text/query.
 
@@ -347,7 +346,7 @@ class ServiceAsync:
 
         try:
             response: Response = await self.__search(text, count, offset)
-            songs, count = await self.__response_to_songs(response)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -358,7 +357,7 @@ class ServiceAsync:
             logger.info("Results:")
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
-        return songs, count
+        return songs
 
     async def get_playlists_by_userid(
             self, user_id: str or int, count: int = 5, offset: int = 0
