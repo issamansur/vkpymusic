@@ -1,17 +1,17 @@
-import os, configparser, json, logging
+import os, configparser, logging
 
-from requests import Response, Session
-import requests
+from httpx import AsyncClient, Response
+
+import aiofiles
 
 from .Logger import get_logger
 from .Playlist import Playlist
 from .Song import Song
 
-
 logger: logging = get_logger(__name__)
 
 
-class Service:
+class ServiceAsync:
     def __init__(self, user_agent: str, token: str):
         self.user_agent = user_agent
         self.__token = token
@@ -34,7 +34,7 @@ class Service:
             user_agent = config["VK"]["user_agent"]
             token = config["VK"]["token_for_audio"]
 
-            return Service(user_agent, token)
+            return ServiceAsync(user_agent, token)
         except Exception as e:
             logger.warning(e)
 
@@ -58,8 +58,8 @@ class Service:
     ##########################
     # COMMON REQUEST FOR AUDIO
 
-    def __get_response(
-        self, method: str, params: list[tuple[str, str or int]]
+    async def __get_response(
+            self, method: str, params: list[tuple[str, str or int]]
     ) -> Response:
         api_headers = {"User-Agent": self.user_agent}
         api_url = f"https://api.vk.com/method/audio.{method}"
@@ -74,33 +74,34 @@ class Service:
         for pair in params:
             api_parameters.append(pair)
 
-        session = Session()
+        # session = ClientSession()
+        session = AsyncClient()
         session.headers.update(api_headers)
-        response = session.post(
+        response = await session.post(
             url=api_url,
-            data=api_parameters,
+            params=api_parameters
+            # ssl=ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
         )
-        session.close()
-
+        await session.aclose()
         return response
 
     ##############
     # ANY REQUESTS
 
-    def __getCount(self, user_id: int) -> Response:
+    async def __getCount(self, user_id: int) -> Response:
         params = [
             ("owner_id", user_id),
         ]
 
-        return self.__get_response("getCount", params)
+        return await self.__get_response("getCount", params)
 
-    def __get(
-        self,
-        user_id: int,
-        count: int = 100,
-        offset: int = 0,
-        playlist_id: int or None = None,
-        access_key: str or None = None,
+    async def __get(
+            self,
+            user_id: int,
+            count: int = 100,
+            offset: int = 0,
+            playlist_id: int or None = None,
+            access_key: str or None = None,
     ) -> Response:
         params = [
             ("owner_id", user_id),
@@ -112,9 +113,10 @@ class Service:
             params.append(("album_id", playlist_id))
             params.append(("access_key", access_key))
 
-        return self.__get_response("get", params)
+        return await self.__get_response("get", params)
 
-    def __search(self, text: str, count: int = 100, offset: int = 0) -> Response:
+    async def __search(self, text: str, count: int = 100,
+                       offset: int = 0) -> Response:
         params = [
             ("q", text),
             ("count", count),
@@ -123,10 +125,10 @@ class Service:
             ("autocomplete", 1),
         ]
 
-        return self.__get_response("search", params)
+        return await self.__get_response("search", params)
 
-    def __getPlaylists(
-        self, user_id: int, count: int = 50, offset: int = 0
+    async def __getPlaylists(
+            self, user_id: int, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
             ("owner_id", user_id),
@@ -134,10 +136,10 @@ class Service:
             ("offset", offset),
         ]
 
-        return self.__get_response("getPlaylists", params)
+        return await self.__get_response("getPlaylists", params)
 
-    def __searchPlaylists(
-        self, text: str, count: int = 50, offset: int = 0
+    async def __searchPlaylists(
+            self, text: str, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
             ("q", text),
@@ -145,22 +147,25 @@ class Service:
             ("offset", offset),
         ]
 
-        return self.__get_response("searchPlaylists", params)
+        return await self.__get_response("searchPlaylists", params)
 
-    def __searchAlbums(self, text: str, count: int = 50, offset: int = 0) -> Response:
+    async def __searchAlbums(self, text: str, count: int = 50,
+                             offset: int = 0) -> Response:
         params = [
             ("q", text),
             ("count", count),
             ("offset", offset),
         ]
 
-        return self.__get_response("searchAlbums", params)
+        return await self.__get_response("searchAlbums", params)
 
     ############
     # CONVERTERS
 
-    def __response_to_songs(self, response: Response):
-        response = json.loads(response.content.decode("utf-8"))
+    async def __response_to_songs(self, response: Response) \
+            -> list[Song]:
+        response = response.json()
+        count = 0
         try:
             items = response["response"]["items"]
         except Exception as e:
@@ -172,8 +177,9 @@ class Service:
             songs.append(song)
         return songs
 
-    def __response_to_playlists(self, response: Response):
-        response = json.loads(response.content.decode("utf-8"))
+    async def __response_to_playlists(self, response: Response):
+        # response = json.loads(response.content.decode("utf-8"))
+        response = response.json(encoding="utf-8")
         try:
             items = response["response"]["items"]
         except Exception as e:
@@ -187,7 +193,7 @@ class Service:
     ##############
     # MAIN METHODS
 
-    def get_count_by_user_id(self, user_id: str or int) -> int:
+    async def get_count_by_user_id(self, user_id: str or int) -> int:
         """
         Get count of all user's songs.
 
@@ -201,8 +207,9 @@ class Service:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response = self.__getCount(user_id)
-            data = json.loads(response.content.decode("utf-8"))
+            response = await self.__getCount(user_id)
+            # data = json.loads(response.content.decode("utf-8"))
+            data = response.json(encoding="utf-8")
             songs_count = int(data["response"])
         except Exception as e:
             logger.error(e)
@@ -211,8 +218,8 @@ class Service:
         logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
 
-    def get_songs_by_userid(
-        self, user_id: str or int, count: int = 100, offset: int = 0
+    async def get_songs_by_userid(
+            self, user_id: str or int, count: int = 100, offset: int = 0
     ) -> list[Song]:
         """
         Search songs by owner/user id.
@@ -229,8 +236,8 @@ class Service:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response: Response = self.__get(user_id, count, offset)
-            songs = self.__response_to_songs(response)
+            response: Response = await self.__get(user_id, count, offset)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -243,13 +250,13 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def get_songs_by_playlist_id(
-        self,
-        user_id: str or int,
-        playlist_id: int,
-        access_key: str,
-        count: int = 100,
-        offset: int = 0,
+    async def get_songs_by_playlist_id(
+            self,
+            user_id: str or int,
+            playlist_id: int,
+            access_key: str,
+            count: int = 100,
+            offset: int = 0,
     ) -> list[Song]:
         """
         Get songs by playlist id.
@@ -268,10 +275,10 @@ class Service:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response: Response = self.__get(
+            response: Response = await self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
-            songs = self.__response_to_songs(response)
+            songs await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -284,8 +291,8 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def get_songs_by_playlist(
-        self, playlist: Playlist, count: int = 10, offset: int = 0
+    async def get_songs_by_playlist(
+            self, playlist: Playlist, count: int = 10, offset: int = 0
     ) -> list[Song]:
         """
         Get songs by instance of 'Playlist'.
@@ -301,14 +308,14 @@ class Service:
         logger.info(f"Request by playlist: {playlist}")
 
         try:
-            response: Response = self.__get(
+            response: Response = await self.__get(
                 playlist.owner_id,
                 count,
                 offset,
                 playlist.playlist_id,
                 playlist.access_key,
             )
-            songs = self.__response_to_songs(response)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -321,8 +328,8 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def search_songs_by_text(
-        self, text: str, count: int = 3, offset: int = 0
+    async def search_songs_by_text(
+            self, text: str, count: int = 3, offset: int = 0
     ) -> list[Song]:
         """
         Search songs by text/query.
@@ -338,8 +345,8 @@ class Service:
         logger.info(f'Request by text: "{text}" в количестве {count}')
 
         try:
-            response = self.__search(text, count, offset)
-            songs = self.__response_to_songs(response)
+            response: Response = await self.__search(text, count, offset)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -352,8 +359,8 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def get_playlists_by_userid(
-        self, user_id: str or int, count: int = 5, offset: int = 0
+    async def get_playlists_by_userid(
+            self, user_id: str or int, count: int = 5, offset: int = 0
     ) -> list[Playlist]:
         """
         Get playlist by owner/user id.
@@ -370,8 +377,9 @@ class Service:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response = self.__getPlaylists(user_id, count, offset)
-            playlists = self.__response_to_playlists(response)
+            response: Response = await self.__getPlaylists(user_id, count,
+                                                           offset)
+            playlists = await self.__response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -384,8 +392,8 @@ class Service:
                 logger.info(f"{i}) {playlist}")
         return playlists
 
-    def search_playlists_by_text(
-        self, text: str, count: int = 5, offset: int = 0
+    async def search_playlists_by_text(
+            self, text: str, count: int = 5, offset: int = 0
     ) -> list[Playlist]:
         """
         Search playlists by text/query.
@@ -402,8 +410,9 @@ class Service:
         logger.info(f"Request by text: {text}")
 
         try:
-            response = self.__searchPlaylists(text, count, offset)
-            playlists = self.__response_to_playlists(response)
+            response: Response = await self.__searchPlaylists(text, count,
+                                                              offset)
+            playlists = await self.__response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -416,8 +425,8 @@ class Service:
                 logger.info(f"{i}) {playlist}")
         return playlists
 
-    def search_albums_by_text(
-        self, text: str, count: int = 5, offset: int = 0
+    async def search_albums_by_text(
+            self, text: str, count: int = 5, offset: int = 0
     ) -> list[Playlist]:
         """
         Search albums by text/query.
@@ -435,8 +444,9 @@ class Service:
         logger.info(f"Request by text: {text}")
 
         try:
-            response = self.__searchAlbums(text, count, offset)
-            playlists = self.__response_to_playlists(response)
+            response: Response = \
+                await self.__searchAlbums(text, count, offset)
+            playlists = await self.__response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -450,12 +460,13 @@ class Service:
         return playlists
 
     @staticmethod
-    def save_music(song: Song) -> str:
+    async def save_music(song: Song, overwrite: bool = False) -> str:
         """
         Save song to '{workDirectory}/Music/{songname}.mp3'.
 
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
+            overwrite (bool): Overwrite file if it exists
 
         Returns:
             str: relative path of downloaded music.
@@ -468,7 +479,9 @@ class Service:
             logger.warning("Url no found")
             return
 
-        response = requests.get(url=url)
+        session = AsyncClient()
+        response = await session.get(url=url)
+
         if response.status_code == 200:
             if not os.path.exists("Music"):
                 os.makedirs("Music")
@@ -479,20 +492,22 @@ class Service:
             if not os.path.exists(file_path):
                 if "index.m3u8" in url:
                     logger.error(".m3u8 detected!")
+                    await session.aclose()
                     return
             else:
                 logger.warning(
-                    f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)"
+                    f"File with name {file_name_mp3} exists."
                 )
+                if not overwrite:
+                    await session.aclose()
+                    return file_path
 
-                res = input().lower()
-                if res.lower() != "y" and res.lower() != "yes":
-                    return
-
-        response.close()
         logger.info(f"Downloading {song}...")
-        with open(file_path, "wb") as output_file:
-            output_file.write(response.content)
+        async with aiofiles.open(file_path, "wb") as output_file:
+            await output_file.write(response.read())
+
+        await response.aclose()
+        await session.aclose()
 
         logger.info(f"Success! Music was downloaded in '{file_path}'")
         return file_path
