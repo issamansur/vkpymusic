@@ -9,9 +9,11 @@ async def main():
     # service = Service("<your_token>", "<your_client>")
 
     if service is not None:
-        songs, count = await service.search_songs_by_text(input())
+        songs = await service.search_songs_by_text(input())
         if songs:
             await service.save_music(songs[0])
+        else:
+            print("No songs found ._.")
     else:
         print("File config not found!")
         print("Run first 'examples\\receive_token_example.py'")
