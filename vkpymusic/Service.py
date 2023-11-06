@@ -123,7 +123,7 @@ class Service:
             ("autocomplete", 1),
         ]
 
-        return self.__get_response("search", params)
+        return self.__get_response("search", params, offset)
 
     def __getPlaylists(
         self, user_id: int, count: int = 50, offset: int = 0
@@ -338,7 +338,7 @@ class Service:
         logger.info(f'Request by text: "{text}" в количестве {count}')
 
         try:
-            response = self.__search(text, count)
+            response = self.__search(text, count, offset)
             songs = self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)

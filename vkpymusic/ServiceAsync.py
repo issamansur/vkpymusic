@@ -343,7 +343,7 @@ class ServiceAsync:
         logger.info(f'Request by text: "{text}" в количестве {count}')
 
         try:
-            response: ClientResponse = await self.__search(text, count)
+            response: ClientResponse = await self.__search(text, count, offset)
             songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
