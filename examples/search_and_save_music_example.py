@@ -6,7 +6,7 @@ service = Service.parse_config()
 # service = Service("<your_token>", "<your_client>")
 
 if service is not None:
-    songs = service.get_songs_by_text(input())
+    songs = service.search_songs_by_text(input())
     if len(songs) != 0:
         service.save_music(songs[0])
 else:
