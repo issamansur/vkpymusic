@@ -123,7 +123,7 @@ class Service:
             ("autocomplete", 1),
         ]
 
-        return self.__get_response("search", params, offset)
+        return self.__get_response("search", params)
 
     def __getPlaylists(
         self, user_id: int, count: int = 50, offset: int = 0

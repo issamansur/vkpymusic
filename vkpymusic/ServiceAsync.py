@@ -1,7 +1,7 @@
 import os, configparser, logging
 
-from aiohttp import ClientResponse, ClientSession
-import aiohttp
+from httpx import AsyncClient, Response
+
 import aiofiles
 
 from .Logger import get_logger
@@ -60,7 +60,7 @@ class ServiceAsync:
 
     async def __get_response(
             self, method: str, params: list[tuple[str, str or int]]
-    ) -> ClientResponse:
+    ) -> Response:
         api_headers = {"User-Agent": self.user_agent}
         api_url = f"https://api.vk.com/method/audio.{method}"
         api_parameters = [
@@ -74,20 +74,21 @@ class ServiceAsync:
         for pair in params:
             api_parameters.append(pair)
 
-        session = ClientSession()
+        # session = ClientSession()
+        session = AsyncClient()
         session.headers.update(api_headers)
         response = await session.post(
             url=api_url,
-            data=api_parameters,
+            params=api_parameters
+            # ssl=ssl.create_default_context(purpose=ssl.Purpose.CLIENT_AUTH)
         )
-        await session.close()
-
+        await session.aclose()
         return response
 
     ##############
     # ANY REQUESTS
 
-    async def __getCount(self, user_id: int) -> ClientResponse:
+    async def __getCount(self, user_id: int) -> Response:
         params = [
             ("owner_id", user_id),
         ]
@@ -101,7 +102,7 @@ class ServiceAsync:
             offset: int = 0,
             playlist_id: int or None = None,
             access_key: str or None = None,
-    ) -> ClientResponse:
+    ) -> Response:
         params = [
             ("owner_id", user_id),
             ("count", count),
@@ -115,7 +116,7 @@ class ServiceAsync:
         return await self.__get_response("get", params)
 
     async def __search(self, text: str, count: int = 100,
-                       offset: int = 0) -> ClientResponse:
+                       offset: int = 0) -> Response:
         params = [
             ("q", text),
             ("count", count),
@@ -128,7 +129,7 @@ class ServiceAsync:
 
     async def __getPlaylists(
             self, user_id: int, count: int = 50, offset: int = 0
-    ) -> ClientResponse:
+    ) -> Response:
         params = [
             ("owner_id", user_id),
             ("count", count),
@@ -139,7 +140,7 @@ class ServiceAsync:
 
     async def __searchPlaylists(
             self, text: str, count: int = 50, offset: int = 0
-    ) -> ClientResponse:
+    ) -> Response:
         params = [
             ("q", text),
             ("count", count),
@@ -149,7 +150,7 @@ class ServiceAsync:
         return await self.__get_response("searchPlaylists", params)
 
     async def __searchAlbums(self, text: str, count: int = 50,
-                             offset: int = 0) -> ClientResponse:
+                             offset: int = 0) -> Response:
         params = [
             ("q", text),
             ("count", count),
@@ -161,11 +162,11 @@ class ServiceAsync:
     ############
     # CONVERTERS
 
-    async def __response_to_songs(self, response: ClientResponse):
-        await response.read()
-        response = await response.json()
+    async def __response_to_songs(self, response: Response):
+        response = response.json()
         try:
             items = response["response"]["items"]
+            count = response["response"]["count"]
         except Exception as e:
             logger.error(e)
 
@@ -175,9 +176,9 @@ class ServiceAsync:
             songs.append(song)
         return songs
 
-    async def __response_to_playlists(self, response: ClientResponse):
+    async def __response_to_playlists(self, response: Response):
         # response = json.loads(response.content.decode("utf-8"))
-        response = await response.json(encoding="utf-8")
+        response = response.json(encoding="utf-8")
         try:
             items = response["response"]["items"]
         except Exception as e:
@@ -205,9 +206,9 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response = self.__getCount(user_id)
+            response = await self.__getCount(user_id)
             # data = json.loads(response.content.decode("utf-8"))
-            data = await response.json(encoding="utf-8")
+            data = response.json(encoding="utf-8")
             songs_count = int(data["response"])
         except Exception as e:
             logger.error(e)
@@ -234,7 +235,7 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response: ClientResponse = await self.__get(user_id, count, offset)
+            response: Response = await self.__get(user_id, count, offset)
             songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
@@ -273,7 +274,7 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response: ClientResponse = await self.__get(
+            response: Response = await self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
             songs = await self.__response_to_songs(response)
@@ -306,7 +307,7 @@ class ServiceAsync:
         logger.info(f"Request by playlist: {playlist}")
 
         try:
-            response: ClientResponse = await self.__get(
+            response: Response = await self.__get(
                 playlist.owner_id,
                 count,
                 offset,
@@ -343,7 +344,7 @@ class ServiceAsync:
         logger.info(f'Request by text: "{text}" в количестве {count}')
 
         try:
-            response: ClientResponse = await self.__search(text, count, offset)
+            response: Response = await self.__search(text, count, offset)
             songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
@@ -375,7 +376,8 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response: ClientResponse = await self.__getPlaylists(user_id, count, offset)
+            response: Response = await self.__getPlaylists(user_id, count,
+                                                           offset)
             playlists = await self.__response_to_playlists(response)
         except Exception as e:
             logger.error(e)
@@ -407,7 +409,8 @@ class ServiceAsync:
         logger.info(f"Request by text: {text}")
 
         try:
-            response: ClientResponse = await self.__searchPlaylists(text, count, offset)
+            response: Response = await self.__searchPlaylists(text, count,
+                                                              offset)
             playlists = await self.__response_to_playlists(response)
         except Exception as e:
             logger.error(e)
@@ -440,7 +443,7 @@ class ServiceAsync:
         logger.info(f"Request by text: {text}")
 
         try:
-            response: ClientResponse =\
+            response: Response = \
                 await self.__searchAlbums(text, count, offset)
             playlists = await self.__response_to_playlists(response)
         except Exception as e:
@@ -456,7 +459,7 @@ class ServiceAsync:
         return playlists
 
     @staticmethod
-    async def save_music(song: Song, overwrite: bool=False) -> str:
+    async def save_music(song: Song, overwrite: bool = False) -> str:
         """
         Save song to '{workDirectory}/Music/{songname}.mp3'.
 
@@ -475,10 +478,10 @@ class ServiceAsync:
             logger.warning("Url no found")
             return
 
-        session = aiohttp.ClientSession()
+        session = AsyncClient()
         response = await session.get(url=url)
 
-        if response.status == 200:
+        if response.status_code == 200:
             if not os.path.exists("Music"):
                 os.makedirs("Music")
                 logger.info("Folder 'Music' was created")
@@ -488,22 +491,22 @@ class ServiceAsync:
             if not os.path.exists(file_path):
                 if "index.m3u8" in url:
                     logger.error(".m3u8 detected!")
-                    await session.close()
+                    await session.aclose()
                     return
             else:
                 logger.warning(
                     f"File with name {file_name_mp3} exists."
                 )
                 if not overwrite:
-                    await session.close()
+                    await session.aclose()
                     return file_path
 
         logger.info(f"Downloading {song}...")
         async with aiofiles.open(file_path, "wb") as output_file:
-            await output_file.write(await response.read())
+            await output_file.write(response.read())
 
         response.close()
-        await session.close()
+        await session.aclose()
 
         logger.info(f"Success! Music was downloaded in '{file_path}'")
         return file_path

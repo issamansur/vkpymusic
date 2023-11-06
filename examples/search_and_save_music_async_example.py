@@ -10,7 +10,7 @@ async def main():
 
     if service is not None:
         songs = await service.search_songs_by_text(input())
-        if len(songs) != 0:
+        if songs:
             await service.save_music(songs[0])
     else:
         print("File config not found!")
