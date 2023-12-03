@@ -278,7 +278,7 @@ class ServiceAsync:
             response: Response = await self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
-            songs await self.__response_to_songs(response)
+            songs = await self.__response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
