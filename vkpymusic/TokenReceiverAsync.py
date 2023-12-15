@@ -126,7 +126,7 @@ class TokenReceiverAsync:
                 logger.warn("Invalid code. Try again!")
                 code: str = on_2fa()
 
-                response_auth = self.__request_auth(code=code)
+                response_auth = await self.__request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
             elif error == "invalid_client":
