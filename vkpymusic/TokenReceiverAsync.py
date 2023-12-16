@@ -1,8 +1,7 @@
 import os
 import json
 import logging
-import requests
-from requests import Response, Session
+from httpx import AsyncClient, Response
 # > Local Imports
 from .Client import clients
 from .Logger import get_logger
@@ -44,9 +43,9 @@ class TokenReceiverAsync:
             query_params.append(("captcha_key", captcha[1]))
         if code:
             query_params.append(("code", code))
-        with Session() as session:
+        async with AsyncClient() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
-            respone = session.post("https://oauth.vk.com/token", data=query_params)
+            respone = await session.post("https://oauth.vk.com/token", data=query_params)
         return respone
     
     async def __request_code(self, sid: Union[str, int]):
@@ -54,13 +53,13 @@ class TokenReceiverAsync:
             ("sid", str(sid)),
             ("v", "5.131")
         ]
-        with Session() as session:
+        async with AsyncClient() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
-        response: Response = session.post(
-            "https://api.vk.com/method/auth.validatePhone",
-            data=query_params,
-            allow_redirects=True
-        )
+            response = await session.post(
+                "https://api.vk.com/method/auth.validatePhone",
+                data=query_params,
+                allow_redirects=True
+            )
         response_json = json.loads(response.content.decode("utf-8"))
         # right_response_json = {
         #     "response": {
@@ -94,7 +93,7 @@ class TokenReceiverAsync:
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
         """
-        response_auth: requests.Response = await self.__request_auth()
+        response_auth = await self.__request_auth()
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
         while "error" in response_auth_json:
             error = response_auth_json["error"]
@@ -102,9 +101,7 @@ class TokenReceiverAsync:
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
                 captcha_key: str = await on_captcha(captcha_img)
-                response_auth = await self.__request_auth(
-                    captcha=(captcha_sid, captcha_key)
-                )
+                response_auth = await self.__request_auth(captcha=(captcha_sid, captcha_key))
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "need_validation":
                 sid = response_auth_json["validation_sid"]

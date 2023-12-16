@@ -51,8 +51,7 @@ class Service:
         Args:
             filename (str): Filename of config (default value = "config_vk.ini").
         """
-        dirname = os.path.dirname(__file__)
-        configfile_path = os.path.join(dirname, filename)
+        configfile_path = os.path.join(os.path.dirname(__file__), filename)
         try:
             os.remove(configfile_path)
             logger.info("Config successful deleted!")

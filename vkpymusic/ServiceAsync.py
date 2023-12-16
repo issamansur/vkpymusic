@@ -20,15 +20,14 @@ class ServiceAsync:
         self.__token = token
     
     @classmethod
-    def parse_config(cls, filename: str = "config_vk.ini"):
+    def parse_config(cls, filename: str="config_vk.ini"):
         """
         Create an instance of Service from config.
         
         Args:
             filename (str): Filename of config (default value = "config_vk.ini").
         """
-        dirname = os.path.dirname(__file__)
-        configfile_path = os.path.join(dirname, filename)
+        configfile_path = os.path.join(os.path.dirname(__file__), filename)
         try:
             config = configparser.ConfigParser()
             config.read(configfile_path, encoding="utf-8")
