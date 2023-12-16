@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vkpymusic"
-version = "2.2.4"
+version = "3.0.0"
 homepage = "https://github.com/issamansur/vkpymusic"
 repository = "https://github.com/issamansur/vkpymusic"
 description = "Python library for VK Audio (API)"
@@ -8,6 +8,7 @@ keywords = ["vk", "api", "music", "downloader", "python"]
 authors = ["Issa Mansur (EDEXADE) <issa_mansur@mail.ru>"]
 license = "MIT"
 readme = "README.md"
+include = ["LICENSE"]
 classifiers = [
     "Operating System :: OS Independent"
 ]
