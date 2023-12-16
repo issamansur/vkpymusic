@@ -6,7 +6,7 @@ from httpx import AsyncClient, Response
 from .Client import clients
 from .Logger import get_logger
 # > Typing
-from typing import Callable, Union, Tuple
+from typing import Awaitable, Callable, Union, Tuple
 
 # ! Vars
 logger: logging.Logger = get_logger(__name__)
@@ -75,10 +75,10 @@ class TokenReceiverAsync:
     
     async def auth(
         self,
-        on_captcha: Callable[[str], str],
-        on_2fa: Callable[[], str],
-        on_invalid_client: Callable[[], None],
-        on_critical_error: Callable[..., None],
+        on_captcha: Callable[[str], Awaitable[str]],
+        on_2fa: Callable[[], Awaitable[str]],
+        on_invalid_client: Callable[[], Awaitable[None]],
+        on_critical_error: Callable[..., Awaitable[None]],
     ) -> bool:
         """
         Performs ASYNC authorization using the available login and password.
