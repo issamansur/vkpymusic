@@ -1,31 +1,33 @@
-from typing import Callable
-
 import os
-import logging
-
 import json
+import logging
 import requests
-
+from requests import Response, Session
+# > Local Imports
 from .Client import clients
 from .Logger import get_logger
+# > Typing
+from typing import Callable, Union, Tuple
 
-logger: logging = get_logger(__name__)
+# ! Vars
+logger: logging.Logger = get_logger(__name__)
 
-
+# ! Main Class
 class TokenReceiverAsync:
     def __init__(self, login, password, client="Kate"):
         self.__login: str = str(login)
         self.__password: str = str(password)
-
         if client in clients:
             self.client = clients[client]
         else:
             self.client = clients["Kate"]
         self.__token = None
-
-    async def __request_auth(self, code=None, captcha=None):
-        session = requests.session()
-        session.headers.update({"User-Agent": self.client.user_agent})
+    
+    async def __request_auth(
+        self,
+        code: str=None,
+        captcha: Tuple[int, str]=None
+    ) -> Response:
         query_params = [
             ("grant_type", "password"),
             ("client_id", self.client.client_id),
@@ -42,24 +44,24 @@ class TokenReceiverAsync:
             query_params.append(("captcha_key", captcha[1]))
         if code:
             query_params.append(("code", code))
-
-        request = session.post("https://oauth.vk.com/token", data=query_params)
-        session.close()
-        return request
-
-    async def __request_code(self, sid):
-        session = requests.session()
-        session.headers.update({"User-Agent": self.client.user_agent})
-        query_params = [("sid", str(sid)), ("v", "5.131")]
-        response: requests.Response = session.post(
+        with Session() as session:
+            session.headers.update({"User-Agent": self.client.user_agent})
+            respone = session.post("https://oauth.vk.com/token", data=query_params)
+        return respone
+    
+    async def __request_code(self, sid: Union[str, int]):
+        query_params = [
+            ("sid", str(sid)),
+            ("v", "5.131")
+        ]
+        with Session() as session:
+            session.headers.update({"User-Agent": self.client.user_agent})
+        response: Response = session.post(
             "https://api.vk.com/method/auth.validatePhone",
             data=query_params,
-            allow_redirects=True,
+            allow_redirects=True
         )
-        session.close()
-
         response_json = json.loads(response.content.decode("utf-8"))
-
         # right_response_json = {
         #     "response": {
         #         "type": "general",
@@ -70,9 +72,8 @@ class TokenReceiverAsync:
         #         "validation_resend": "sms"
         #     }
         # }
-
         return response_json
-
+    
     async def auth(
         self,
         on_captcha: Callable[[str], str],
@@ -83,52 +84,41 @@ class TokenReceiverAsync:
         """
         Performs ASYNC authorization using the available login and password.
         If necessary, interactively accepts a code from SMS or captcha.
-
+        
         Args:
             on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return key.
             on_2fa (Callable[[], str]): ASYNC handler to 2 factor auth. Return captcha.
             on_invalid_client (Callable[[], None]): ASYNC handler to invalid client.
             on_critical_error (Callable[[Any], None]): ASYNC handler to crit error. Get response.
-
+        
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
         """
         response_auth: requests.Response = await self.__request_auth()
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-
         while "error" in response_auth_json:
             error = response_auth_json["error"]
-
             if error == "need_captcha":
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
-
                 captcha_key: str = await on_captcha(captcha_img)
-
                 response_auth = await self.__request_auth(
                     captcha=(captcha_sid, captcha_key)
                 )
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-
             elif error == "need_validation":
                 sid = response_auth_json["validation_sid"]
-
                 # response2: requests.Response =
                 await self.__request_code(sid)
-
                 # response2_json = json.loads(response2.content.decode('utf-8'))
                 code: str = await on_2fa()
-
                 response_auth = await self.__request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-                
             elif error == "invalid_request":
                 logger.warn("Invalid code. Try again!")
                 code: str = await on_2fa()
-
                 response_auth = await self.__request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-
             elif error == "invalid_client":
                 del self.__login
                 del self.__password
@@ -152,7 +142,7 @@ class TokenReceiverAsync:
         self.__on_error(response_auth_json)
         await on_critical_error(response_auth_json)
         return False
-
+    
     def get_token(self) -> str:
         """
         Prints token in console (if authorisation was succesful).
@@ -163,11 +153,11 @@ class TokenReceiverAsync:
             return
         logger.info(token)
         return token
-
-    def save_to_config(self, file_path: str = "config_vk.ini"):
+    
+    def save_to_config(self, file_path: str="config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
-
+        
         Args:
             file_path (str): Filename of config (default value = "config_vk.ini").
         """
@@ -186,25 +176,21 @@ class TokenReceiverAsync:
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
             logger.info("Token was saved!")
-
+    
     @staticmethod
     def create_path(file_path: str) -> str:
         """
         Create path before and after this for different funcs.
-
+        
         Args:
             file_path (str): Relative path to file.
-
+        
         Returns:
             str: Absolute path to file.
         """
-        dirname = os.path.dirname(__file__)
-        path = os.path.join(dirname, file_path)
-        return path
-
+        return os.path.join(os.path.dirname(__file__), file_path)
+    
     @staticmethod
     def __on_error(response):
-        logger.critical(
-            "Unexpected error! Please, create an issue in repository for solving this problem."
-        )
+        logger.critical("Unexpected error! Please, create an issue in repository for solving this problem.")
         logger.critical(response)
