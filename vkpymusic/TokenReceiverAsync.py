@@ -45,7 +45,7 @@ class TokenReceiverAsync:
             query_params.append(("code", code))
         async with AsyncClient() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
-            respone = await session.post("https://oauth.vk.com/token", data=query_params)
+            respone = await session.post("https://oauth.vk.com/token", params=query_params)
         return respone
     
     async def __request_code(self, sid: Union[str, int]):
@@ -57,8 +57,8 @@ class TokenReceiverAsync:
             session.headers.update({"User-Agent": self.client.user_agent})
             response = await session.post(
                 "https://api.vk.com/method/auth.validatePhone",
-                data=query_params,
-                allow_redirects=True
+                params=query_params,
+                follow_redirects=True
             )
         response_json = json.loads(response.content.decode("utf-8"))
         # right_response_json = {
