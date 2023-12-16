@@ -16,7 +16,6 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.8"
 requests = ">=2.31"
-aiohttp = ">=3.8"
 aiofiles = ">=23.2"
 httpx = ">=0.25"
 
