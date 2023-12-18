@@ -14,10 +14,10 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = ">=3.7,<3.12"
 requests = ">=2.31"
 aiofiles = ">=23.2"
-httpx = ">=0.25"
+httpx = ">=0.24"
 
 [build-system]
 requires = ["poetry-core"]
