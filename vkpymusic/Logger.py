@@ -1,7 +1,9 @@
-import os, datetime, logging
+import os
+import logging
+import datetime
 
 
-class bcolors:
+class BCOLORS:
     CRITICAL = "\033[95m"
     OKBLUE = "\033[94m"
     OKCYAN = "\033[96m"
@@ -10,14 +12,12 @@ class bcolors:
     ERROR = "\033[91m"
     ENDC = "\033[0m"
 
-
 _log_format = "%(asctime)s | [%(name)s | (%(filename)s) .%(funcName)s(%(lineno)d)] [%(levelname)s] %(message)s"
 
 
 def get_file_handler():
     file_path = f"logs/vkpymusic_{datetime.date.today()}.log"
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
-
     file_handler = logging.FileHandler(file_path)
     file_handler.setLevel(logging.WARNING)
     file_handler.setFormatter(logging.Formatter(_log_format))

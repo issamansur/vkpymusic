@@ -1,7 +1,14 @@
 class Playlist:
     def __init__(
-        self, title, description, photo, count, owner_id, playlist_id, access_key
-    ):
+        self,
+        title: str,
+        description: str,
+        photo: str,
+        count: int,
+        owner_id: int,
+        playlist_id: int,
+        access_key: str
+    ) -> None:
         self.title = title
         self.description = description
         self.photo = photo
@@ -25,7 +32,6 @@ class Playlist:
         owner_id = int(item["owner_id"])
         playlist_id = int(item["id"])
         access_key = str(item["access_key"])
-
         playlist = cls(
             title, description, photo, count, owner_id, playlist_id, access_key
         )

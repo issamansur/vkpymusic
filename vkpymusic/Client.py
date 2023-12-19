@@ -1,5 +1,10 @@
 class Client:
-    def __init__(self, user_agent, client_id, client_secret):
+    def __init__(
+        self,
+        user_agent: str,
+        client_id: str,
+        client_secret: str
+    ) -> None:
         self.user_agent = user_agent
         self.client_id = client_id
         self.client_secret = client_secret
@@ -11,4 +16,7 @@ KateMobile = Client(
     client_secret='lxhD8OD7dMsqtXIm5IUY'
 )
 
-clients = {'Kate': KateMobile}
+
+clients = {
+    'Kate': KateMobile
+}

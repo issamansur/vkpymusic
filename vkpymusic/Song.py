@@ -20,7 +20,6 @@ class Song:
         def safe_format(string):
             safe_string = re.sub(r"[^A-zА-я0-9+\s]", "", string)
             return safe_string
-
         self.title = safe_format(self.title)
         self.artist = safe_format(self.artist)
 
@@ -32,6 +31,5 @@ class Song:
         track_id = str(item["id"])
         owner_id = str(item["owner_id"])
         url = str(item["url"])
-
         song = cls(title, artist, duration, track_id, owner_id, url)
         return song

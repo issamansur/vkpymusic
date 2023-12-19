@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vkpymusic"
-version = "3.0.0"
+version = "3.0.1"
 homepage = "https://github.com/issamansur/vkpymusic"
 repository = "https://github.com/issamansur/vkpymusic"
 description = "Python library for VK Audio (API)"
@@ -14,10 +14,10 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.7"
-requests = ">=2.31.0"
-aiohttp = ">=3.8.6"
-aiofiles = ">=23.2.1"
+python = ">=3.7,<3.12"
+requests = ">=2.31"
+aiofiles = ">=23.2"
+httpx = ">=0.24"
 
 [build-system]
 requires = ["poetry-core"]
