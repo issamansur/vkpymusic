@@ -9,12 +9,13 @@ from .playlist import Playlist
 from . import utils
 
 __all__ = [
-    'client',
-    'token_receiver',
-    'token_receiver_async',
-    'service',
-    'service_async',
-    'song',
-    'playlist',
+    'Client',
+    'clients',
+    'TokenReceiver',
+    'TokenReceiverAsync',
+    'Service',
+    'ServiceAsync',
+    'Song',
+    'Playlist',
     'utils',
 ]

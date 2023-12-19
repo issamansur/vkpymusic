@@ -7,7 +7,7 @@ import requests
 from requests import Session, Response
 
 from .client import clients
-from .utils.logger import get_logger
+from .utils import get_logger
 
 
 logger: logging.Logger = get_logger(__name__)

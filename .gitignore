@@ -1,7 +1,11 @@
 .vscode/
 __pycache__
-logs/
-123.py
+
 vkpymusic.egg-info/
 build/
 dist/
+
+logs/
+Music/
+123.py
+config_vk.ini

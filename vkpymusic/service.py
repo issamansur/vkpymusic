@@ -9,8 +9,7 @@ from requests import Response, Session
 
 from .playlist import Playlist
 from .song import Song
-from .utils.converter import Converter
-from .utils.logger import get_logger
+from .utils import Converter, get_logger
 
 
 logger: logging.Logger = get_logger(__name__)

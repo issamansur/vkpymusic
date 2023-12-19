@@ -6,7 +6,7 @@ from typing import Awaitable, Callable, Union, Tuple
 from httpx import AsyncClient, Response
 
 from .client import clients
-from .utils.logger import get_logger
+from .utils import get_logger
 
 
 logger: logging.Logger = get_logger(__name__)
