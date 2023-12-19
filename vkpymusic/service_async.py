@@ -1,51 +1,45 @@
 import os
 import configparser
-import json
 import logging
-from typing import Optional, Union, List, Tuple
+from typing import Optional, Union, Tuple, List
 
-import requests
-from requests import Response, Session
+import aiofiles
+from httpx import AsyncClient, Response
 
-from .Logger import get_logger
-from .Playlist import Playlist
-from .Song import Song
+from .song import Song
+from .playlist import Playlist
+from .utils.converter import Converter
+from .utils.logger import get_logger
 
 
 logger: logging.Logger = get_logger(__name__)
 
 
-class Service:
+class ServiceAsync:
     def __init__(self, user_agent: str, token: str):
         self.user_agent = user_agent
         self.__token = token
 
     @classmethod
-    def parse_config(
-        cls,
-        filename: str="config_vk.ini"
-    ):
+    def parse_config(cls, filename: str="config_vk.ini"):
         """
         Create an instance of Service from config.
         
         Args:
             filename (str): Filename of config (default value = "config_vk.ini").
         """
-        dirname = os.path.dirname(__file__)
-        configfile_path = os.path.join(dirname, filename)
+        configfile_path = os.path.join(os.path.dirname(__file__), filename)
         try:
             config = configparser.ConfigParser()
             config.read(configfile_path, encoding="utf-8")
             user_agent = config["VK"]["user_agent"]
             token = config["VK"]["token_for_audio"]
-            return Service(user_agent, token)
+            return ServiceAsync(user_agent, token)
         except Exception as e:
             logger.warning(e)
 
     @staticmethod
-    def del_config(
-        filename: str="config_vk.ini"
-    ):
+    def del_config(filename: str="config_vk.ini"):
         """
         Delete config created by 'TokenReceiver'.
         
@@ -59,7 +53,7 @@ class Service:
         except Exception as e:
             logger.warning(e)
 
-    def __get_response(
+    async def __get_response(
         self,
         method: str,
         params: List[Tuple[str, Union[str, int]]]
@@ -75,36 +69,34 @@ class Service:
         ]
         for pair in params:
             parameters.append(pair)
-        with Session() as session:
+        async with AsyncClient() as session:
             session.headers.update(headers)
-            response = session.post(url=url, data=parameters)
+            response = await session.post(url=url, params=parameters)
         return response
 
-    def __getCount(self, user_id: int) -> Response:
-        params = [
-            ("owner_id", user_id)
-        ]
-        return self.__get_response("getCount", params)
+    async def __getCount(self, user_id: int) -> Response:
+        params = [("owner_id", user_id)]
+        return await self.__get_response("getCount", params)
 
-    def __get(
+    async def __get(
         self,
         user_id: int,
-        count: int = 100,
-        offset: int = 0,
+        count: int=100,
+        offset: int=0,
         playlist_id: Optional[int]=None,
-        access_key: Optional[str]=None,
+        access_key: Optional[str]=None
     ) -> Response:
         params = [
             ("owner_id", user_id),
             ("count", count),
-            ("offset", offset),
+            ("offset", offset)
         ]
         if playlist_id:
             params.append(("album_id", playlist_id))
             params.append(("access_key", access_key))
-        return self.__get_response("get", params)
+        return await self.__get_response("get", params)
 
-    def __search(
+    async def __search(
         self,
         text: str,
         count: int=100,
@@ -117,9 +109,9 @@ class Service:
             ("sort", 0),
             ("autocomplete", 1),
         ]
-        return self.__get_response("search", params)
+        return await self.__get_response("search", params)
 
-    def __getPlaylists(
+    async def __getPlaylists(
         self,
         user_id: int,
         count: int=50,
@@ -130,9 +122,9 @@ class Service:
             ("count", count),
             ("offset", offset),
         ]
-        return self.__get_response("getPlaylists", params)
+        return await self.__get_response("getPlaylists", params)
 
-    def __searchPlaylists(
+    async def __searchPlaylists(
         self,
         text: str,
         count: int=50,
@@ -143,9 +135,9 @@ class Service:
             ("count", count),
             ("offset", offset),
         ]
-        return self.__get_response("searchPlaylists", params)
+        return await self.__get_response("searchPlaylists", params)
 
-    def __searchAlbums(
+    async def __searchAlbums(
         self,
         text: str,
         count: int=50,
@@ -156,33 +148,9 @@ class Service:
             ("count", count),
             ("offset", offset),
         ]
-        return self.__get_response("searchAlbums", params)
+        return await self.__get_response("searchAlbums", params)
 
-    def __response_to_songs(self, response: Response):
-        response = json.loads(response.content.decode("utf-8"))
-        try:
-            items = response["response"]["items"]
-        except Exception as e:
-            logger.error(e)
-        songs: List[Song] = []
-        for item in items:
-            song = Song.from_json(item)
-            songs.append(song)
-        return songs
-
-    def __response_to_playlists(self, response: Response):
-        response = json.loads(response.content.decode("utf-8"))
-        try:
-            items = response["response"]["items"]
-        except Exception as e:
-            logger.error(e)
-        playlists: List[Playlist] = []
-        for item in items:
-            playlist = Playlist.from_json(item)
-            playlists.append(playlist)
-        return playlists
-
-    def get_count_by_user_id(
+    async def get_count_by_user_id(
         self,
         user_id: Union[str, int]
     ) -> int:
@@ -198,8 +166,9 @@ class Service:
         user_id = int(user_id)
         logger.info(f"Request by user: {user_id}")
         try:
-            response = self.__getCount(user_id)
-            data = json.loads(response.content.decode("utf-8"))
+            response = await self.__getCount(user_id)
+            # data = json.loads(response.content.decode("utf-8"))
+            data = response.json(encoding="utf-8")
             songs_count = int(data["response"])
         except Exception as e:
             logger.error(e)
@@ -207,7 +176,7 @@ class Service:
         logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
 
-    def get_songs_by_userid(
+    async def get_songs_by_userid(
         self,
         user_id: Union[str, int],
         count: int=100,
@@ -220,15 +189,14 @@ class Service:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
             count (int):          Count of resulting songs (for VK API: default/max = 100).
             offset (int):         Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
         Returns:
             list[Song]: List of songs.
         """
         user_id = int(user_id)
         logger.info(f"Request by user: {user_id}")
         try:
-            response: Response = self.__get(user_id, count, offset)
-            songs = self.__response_to_songs(response)
+            response: Response = await self.__get(user_id, count, offset)
+            songs = await Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -240,7 +208,7 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def get_songs_by_playlist_id(
+    async def get_songs_by_playlist_id(
         self,
         user_id: Union[str, int],
         playlist_id: int,
@@ -250,7 +218,6 @@ class Service:
     ) -> List[Song]:
         """
         Get songs by playlist id.
-        
         Args:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
             playlist_id (int):    VK playlist id. (Take it from methods for playlist).
@@ -264,10 +231,10 @@ class Service:
         user_id = int(user_id)
         logger.info(f"Request by user: {user_id}")
         try:
-            response: Response = self.__get(
+            response: Response = await self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
-            songs = self.__response_to_songs(response)
+            songs = await Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -279,7 +246,7 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def get_songs_by_playlist(
+    async def get_songs_by_playlist(
         self,
         playlist: Playlist,
         count: int=10,
@@ -298,14 +265,14 @@ class Service:
         """
         logger.info(f"Request by playlist: {playlist}")
         try:
-            response: Response = self.__get(
+            response: Response = await self.__get(
                 playlist.owner_id,
                 count,
                 offset,
                 playlist.playlist_id,
                 playlist.access_key,
             )
-            songs = self.__response_to_songs(response)
+            songs = await Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -317,7 +284,7 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def search_songs_by_text(
+    async def search_songs_by_text(
         self,
         text: str,
         count: int=3,
@@ -336,8 +303,8 @@ class Service:
         """
         logger.info(f'Request by text: "{text}" в количестве {count}')
         try:
-            response = self.__search(text, count, offset)
-            songs = self.__response_to_songs(response)
+            response: Response = await self.__search(text, count, offset)
+            songs = await Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -349,16 +316,17 @@ class Service:
                 logger.info(f"{i}) {song}")
         return songs
 
-    def get_playlists_by_userid(
+    async def get_playlists_by_userid(
         self,
         user_id: Union[str, int],
-        count: int=5, offset: int=0
+        count: int=5,
+        offset: int=0
     ) -> List[Playlist]:
         """
         Get playlist by owner/user id.
-        
+
         Args:
-            user_id (str or int): VK user id. (NOT USERNAME! vk.com/id*******).
+            user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
             count (int):          Count of resulting playlists (for VK API: default = 50, max = 100).
             offset (int):         Set offset for result. For example, count = 100, offset = 100 -> 101-200.
         
@@ -367,9 +335,12 @@ class Service:
         """
         user_id = int(user_id)
         logger.info(f"Request by user: {user_id}")
+
         try:
-            response = self.__getPlaylists(user_id, count, offset)
-            playlists = self.__response_to_playlists(response)
+            response: Response = await self.__getPlaylists(
+                user_id, count, offset
+            )
+            playlists = await Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -381,7 +352,7 @@ class Service:
                 logger.info(f"{i}) {playlist}")
         return playlists
 
-    def search_playlists_by_text(
+    async def search_playlists_by_text(
         self,
         text: str,
         count: int=5,
@@ -395,14 +366,16 @@ class Service:
             text (str):   Text of query. Can be title of playlist, genre, etc.
             count (int):  Count of resulting playlists (for VK API: default = 50, max = 100).
             offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Playlist]: List of playlists.
         """
         logger.info(f"Request by text: {text}")
         try:
-            response = self.__searchPlaylists(text, count, offset)
-            playlists = self.__response_to_playlists(response)
+            response: Response = await self.__searchPlaylists(
+                text, count, offset
+            )
+            playlists = await Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -414,7 +387,7 @@ class Service:
                 logger.info(f"{i}) {playlist}")
         return playlists
 
-    def search_albums_by_text(
+    async def search_albums_by_text(
         self,
         text: str,
         count: int=5,
@@ -435,8 +408,10 @@ class Service:
         """
         logger.info(f"Request by text: {text}")
         try:
-            response = self.__searchAlbums(text, count, offset)
-            playlists = self.__response_to_playlists(response)
+            response: Response = await self.__searchAlbums(
+                text, count, offset
+            )
+            playlists = await Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -449,12 +424,16 @@ class Service:
         return playlists
 
     @staticmethod
-    def save_music(song: Song) -> str:
+    async def save_music(
+        song: Song,
+        overwrite: bool=False
+    ) -> str:
         """
         Save song to '{workDirectory}/Music/{songname}.mp3'.
         
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
+            overwrite (bool): Overwrite file if it exists
         
         Returns:
             str: relative path of downloaded music.
@@ -462,27 +441,23 @@ class Service:
         song.to_safe()
         file_name_mp3 = f"{song}.mp3"
         url = song.url
-        if url == "":
-            logger.warning("Url no found")
-            return
-        response = requests.get(url=url)
-        if response.status_code == 200:
-            if not os.path.exists("Music"):
-                os.makedirs("Music")
-                logger.info("Folder 'Music' was created")
-            file_path = os.path.join(os.getcwd(), "Music", file_name_mp3)
-            if not os.path.exists(file_path):
-                if "index.m3u8" in url:
-                    logger.error(".m3u8 detected!")
-                    return
-            else:
-                logger.warning(f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)")
-                res = input().lower()
-                if res.lower() != "y" and res.lower() != "yes":
-                    return
-        response.close()
-        logger.info(f"Downloading {song}...")
-        with open(file_path, "wb") as output_file:
-            output_file.write(response.content)
+        async with AsyncClient() as session:
+            response = await session.get(url=url)
+            if response.status_code == 200:
+                if not os.path.exists("Music"):
+                    os.makedirs("Music")
+                    logger.info("Folder 'Music' was created")
+                file_path = os.path.join(os.getcwd(), "Music", file_name_mp3)
+                if not os.path.exists(file_path):
+                    if "index.m3u8" in url:
+                        logger.error(".m3u8 detected!")
+                        return
+                else:
+                    logger.warning(f"File with name '{file_name_mp3}' exists.")
+                    if not overwrite:
+                        return file_path
+            logger.info(f"Downloading {song}...")
+            async with aiofiles.open(file_path, "wb") as output_file:
+                await output_file.write(response.read())
         logger.info(f"Success! Music was downloaded in '{file_path}'")
         return file_path
