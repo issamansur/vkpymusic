@@ -1,17 +1,17 @@
 import os
 import json
 import logging
-from httpx import AsyncClient, Response
-# > Local Imports
-from .Client import clients
-from .Logger import get_logger
-# > Typing
 from typing import Awaitable, Callable, Union, Tuple
 
-# ! Vars
+from httpx import AsyncClient, Response
+
+from .Client import clients
+from .Logger import get_logger
+
+
 logger: logging.Logger = get_logger(__name__)
 
-# ! Main Class
+
 class TokenReceiverAsync:
     def __init__(self, login, password, client="Kate"):
         self.__login: str = str(login)
@@ -21,7 +21,7 @@ class TokenReceiverAsync:
         else:
             self.client = clients["Kate"]
         self.__token = None
-    
+
     async def __request_auth(
         self,
         code: str=None,
@@ -45,9 +45,9 @@ class TokenReceiverAsync:
             query_params.append(("code", code))
         async with AsyncClient() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
-            respone = await session.post("https://oauth.vk.com/token", params=query_params)
-        return respone
-    
+            response = await session.post("https://oauth.vk.com/token", params=query_params)
+        return response
+
     async def __request_code(self, sid: Union[str, int]):
         query_params = [
             ("sid", str(sid)),
@@ -72,7 +72,7 @@ class TokenReceiverAsync:
         #     }
         # }
         return response_json
-    
+
     async def auth(
         self,
         on_captcha: Callable[[str], Awaitable[str]],
@@ -139,7 +139,7 @@ class TokenReceiverAsync:
         self.__on_error(response_auth_json)
         await on_critical_error(response_auth_json)
         return False
-    
+
     def get_token(self) -> str:
         """
         Prints token in console (if authorisation was succesful).
@@ -150,7 +150,7 @@ class TokenReceiverAsync:
             return
         logger.info(token)
         return token
-    
+
     def save_to_config(self, file_path: str="config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
@@ -173,7 +173,7 @@ class TokenReceiverAsync:
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
             logger.info("Token was saved!")
-    
+
     @staticmethod
     def create_path(file_path: str) -> str:
         """
@@ -186,7 +186,7 @@ class TokenReceiverAsync:
             str: Absolute path to file.
         """
         return os.path.join(os.path.dirname(__file__), file_path)
-    
+
     @staticmethod
     def __on_error(response):
         logger.critical("Unexpected error! Please, create an issue in repository for solving this problem.")

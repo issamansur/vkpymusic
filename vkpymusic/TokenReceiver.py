@@ -1,18 +1,18 @@
 import os
 import json
 import logging
-import requests
-from requests import Session, Response
-# > Local Imports
-from .Client import clients
-from .Logger import get_logger
-# > Typing
 from typing import Callable, Tuple, Union, Optional
 
-# ! Vars
+import requests
+from requests import Session, Response
+
+from .Client import clients
+from .Logger import get_logger
+
+
 logger: logging.Logger = get_logger(__name__)
 
-# ! On Methods
+
 def on_captcha_handler(url: str) -> str:
     """
     Default handler to captcha.
@@ -70,7 +70,7 @@ class TokenReceiver:
         else:
             self.client = clients["Kate"]
         self.__token = None
-    
+
     def __request_auth(
         self,
         code: Optional[str]=None,
@@ -94,9 +94,9 @@ class TokenReceiver:
             query_params.append(("code", code))
         with Session() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
-            respone = session.post("https://oauth.vk.com/token", data=query_params)
-        return respone
-    
+            response = session.post("https://oauth.vk.com/token", data=query_params)
+        return response
+
     def __request_code(self, sid: Union[str, int]):
         query_params = [
             ("sid", str(sid)),
@@ -121,7 +121,7 @@ class TokenReceiver:
         #     }
         # }
         return response_json
-    
+
     def auth(
         self,
         on_captcha: Callable[[str], str] = on_captcha_handler,
@@ -189,7 +189,7 @@ class TokenReceiver:
         self.__on_error(response_auth_json)
         on_critical_error(response_auth_json)
         return False
-    
+
     def get_token(self) -> Optional[str]:
         """
         Prints token in console (if authorisation was succesful).
@@ -200,7 +200,7 @@ class TokenReceiver:
             return
         logger.info(token)
         return token
-    
+
     def save_to_config(
         self,
         file_path: str="config_vk.ini"
@@ -226,7 +226,7 @@ class TokenReceiver:
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
             logger.info("Token was saved!")
-    
+
     @staticmethod
     def create_path(file_path: str) -> str:
         """
@@ -239,7 +239,7 @@ class TokenReceiver:
             str: Absolute path to file.
         """
         return os.path.join(os.path.dirname(__file__), file_path)
-    
+
     @staticmethod
     def __on_error(response):
         logger.critical("Unexpected error! Please, create an issue in repository for solving this problem.")

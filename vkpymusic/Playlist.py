@@ -16,13 +16,13 @@ class Playlist:
         self.owner_id = owner_id
         self.playlist_id = playlist_id
         self.access_key = access_key
-    
+
     def __str__(self):
         return f"{self.title} ({self.count} tracks)"
-    
+
     def to_dict(self) -> dict:
         return self.__dict__
-    
+
     @classmethod
     def from_json(cls, item):
         title = str(item["title"])

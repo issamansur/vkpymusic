@@ -1,24 +1,25 @@
 import os
+import configparser
 import json
 import logging
-import requests
-import configparser
-from requests import Response, Session
-# > Typing
 from typing import Optional, Union, List, Tuple
-# > Local Imports
+
+import requests
+from requests import Response, Session
+
 from .Logger import get_logger
 from .Playlist import Playlist
 from .Song import Song
 
+
 logger: logging.Logger = get_logger(__name__)
 
-# ! Main Class
+
 class Service:
     def __init__(self, user_agent: str, token: str):
         self.user_agent = user_agent
         self.__token = token
-    
+
     @classmethod
     def parse_config(
         cls,
@@ -40,7 +41,7 @@ class Service:
             return Service(user_agent, token)
         except Exception as e:
             logger.warning(e)
-    
+
     @staticmethod
     def del_config(
         filename: str="config_vk.ini"
@@ -57,7 +58,7 @@ class Service:
             logger.info("Config successful deleted!")
         except Exception as e:
             logger.warning(e)
-    
+
     def __get_response(
         self,
         method: str,
@@ -76,15 +77,15 @@ class Service:
             parameters.append(pair)
         with Session() as session:
             session.headers.update(headers)
-            respone = session.post(url=url, data=parameters)
-        return respone
-    
+            response = session.post(url=url, data=parameters)
+        return response
+
     def __getCount(self, user_id: int) -> Response:
         params = [
             ("owner_id", user_id)
         ]
         return self.__get_response("getCount", params)
-    
+
     def __get(
         self,
         user_id: int,
@@ -102,7 +103,7 @@ class Service:
             params.append(("album_id", playlist_id))
             params.append(("access_key", access_key))
         return self.__get_response("get", params)
-    
+
     def __search(
         self,
         text: str,
@@ -117,7 +118,7 @@ class Service:
             ("autocomplete", 1),
         ]
         return self.__get_response("search", params)
-    
+
     def __getPlaylists(
         self,
         user_id: int,
@@ -130,7 +131,7 @@ class Service:
             ("offset", offset),
         ]
         return self.__get_response("getPlaylists", params)
-    
+
     def __searchPlaylists(
         self,
         text: str,
@@ -143,7 +144,7 @@ class Service:
             ("offset", offset),
         ]
         return self.__get_response("searchPlaylists", params)
-    
+
     def __searchAlbums(
         self,
         text: str,
@@ -156,7 +157,7 @@ class Service:
             ("offset", offset),
         ]
         return self.__get_response("searchAlbums", params)
-    
+
     def __response_to_songs(self, response: Response):
         response = json.loads(response.content.decode("utf-8"))
         try:
@@ -168,7 +169,7 @@ class Service:
             song = Song.from_json(item)
             songs.append(song)
         return songs
-    
+
     def __response_to_playlists(self, response: Response):
         response = json.loads(response.content.decode("utf-8"))
         try:
@@ -180,7 +181,7 @@ class Service:
             playlist = Playlist.from_json(item)
             playlists.append(playlist)
         return playlists
-    
+
     def get_count_by_user_id(
         self,
         user_id: Union[str, int]
@@ -205,7 +206,7 @@ class Service:
             return
         logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
-    
+
     def get_songs_by_userid(
         self,
         user_id: Union[str, int],
@@ -238,7 +239,7 @@ class Service:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     def get_songs_by_playlist_id(
         self,
         user_id: Union[str, int],
@@ -277,7 +278,7 @@ class Service:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     def get_songs_by_playlist(
         self,
         playlist: Playlist,
@@ -315,7 +316,7 @@ class Service:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     def search_songs_by_text(
         self,
         text: str,
@@ -347,7 +348,7 @@ class Service:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     def get_playlists_by_userid(
         self,
         user_id: Union[str, int],
@@ -379,7 +380,7 @@ class Service:
             for i, playlist in enumerate(playlists, start=1):
                 logger.info(f"{i}) {playlist}")
         return playlists
-    
+
     def search_playlists_by_text(
         self,
         text: str,
@@ -412,7 +413,7 @@ class Service:
             for i, playlist in enumerate(playlists, start=1):
                 logger.info(f"{i}) {playlist}")
         return playlists
-    
+
     def search_albums_by_text(
         self,
         text: str,
@@ -446,7 +447,7 @@ class Service:
             for i, playlist in enumerate(playlists, start=1):
                 logger.info(f"{i}) {playlist}")
         return playlists
-    
+
     @staticmethod
     def save_music(song: Song) -> str:
         """

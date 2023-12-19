@@ -1,24 +1,24 @@
 import os
-import logging
-import aiofiles
 import configparser
-from httpx import AsyncClient, Response
-# > Typing
+import logging
 from typing import Optional, Union, Tuple, List
-# > Local Imports
+
+import aiofiles
+from httpx import AsyncClient, Response
+
 from .Song import Song
 from .Playlist import Playlist
 from .Logger import get_logger
 
-# ! Vars
+
 logger: logging.Logger = get_logger(__name__)
 
-# ! Main Class
+
 class ServiceAsync:
     def __init__(self, user_agent: str, token: str):
         self.user_agent = user_agent
         self.__token = token
-    
+
     @classmethod
     def parse_config(cls, filename: str="config_vk.ini"):
         """
@@ -36,7 +36,7 @@ class ServiceAsync:
             return ServiceAsync(user_agent, token)
         except Exception as e:
             logger.warning(e)
-    
+
     @staticmethod
     def del_config(filename: str="config_vk.ini"):
         """
@@ -51,7 +51,7 @@ class ServiceAsync:
             logger.info("Config successful deleted!")
         except Exception as e:
             logger.warning(e)
-    
+
     async def __get_response(
         self,
         method: str,
@@ -72,11 +72,11 @@ class ServiceAsync:
             session.headers.update(headers)
             response = await session.post(url=url, params=parameters)
         return response
-    
+
     async def __getCount(self, user_id: int) -> Response:
         params = [("owner_id", user_id)]
         return await self.__get_response("getCount", params)
-    
+
     async def __get(
         self,
         user_id: int,
@@ -94,7 +94,7 @@ class ServiceAsync:
             params.append(("album_id", playlist_id))
             params.append(("access_key", access_key))
         return await self.__get_response("get", params)
-    
+
     async def __search(
         self,
         text: str,
@@ -109,7 +109,7 @@ class ServiceAsync:
             ("autocomplete", 1),
         ]
         return await self.__get_response("search", params)
-    
+
     async def __getPlaylists(
         self,
         user_id: int,
@@ -122,7 +122,7 @@ class ServiceAsync:
             ("offset", offset),
         ]
         return await self.__get_response("getPlaylists", params)
-    
+
     async def __searchPlaylists(
         self,
         text: str,
@@ -135,7 +135,7 @@ class ServiceAsync:
             ("offset", offset),
         ]
         return await self.__get_response("searchPlaylists", params)
-    
+
     async def __searchAlbums(
         self,
         text: str,
@@ -148,7 +148,7 @@ class ServiceAsync:
             ("offset", offset),
         ]
         return await self.__get_response("searchAlbums", params)
-    
+
     async def __response_to_songs(
         self,
         response: Response
@@ -163,7 +163,7 @@ class ServiceAsync:
             song = Song.from_json(item)
             songs.append(song)
         return songs
-    
+
     async def __response_to_playlists(
         self,
         response: Response
@@ -178,7 +178,7 @@ class ServiceAsync:
             playlist = Playlist.from_json(item)
             playlists.append(playlist)
         return playlists
-    
+
     async def get_count_by_user_id(
         self,
         user_id: Union[str, int]
@@ -204,7 +204,7 @@ class ServiceAsync:
             return
         logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
-    
+
     async def get_songs_by_userid(
         self,
         user_id: Union[str, int],
@@ -236,7 +236,7 @@ class ServiceAsync:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     async def get_songs_by_playlist_id(
         self,
         user_id: Union[str, int],
@@ -274,7 +274,7 @@ class ServiceAsync:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     async def get_songs_by_playlist(
         self,
         playlist: Playlist,
@@ -312,7 +312,7 @@ class ServiceAsync:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     async def search_songs_by_text(
         self,
         text: str,
@@ -344,7 +344,7 @@ class ServiceAsync:
             for i, song in enumerate(songs, start=1):
                 logger.info(f"{i}) {song}")
         return songs
-    
+
     async def get_playlists_by_userid(
         self,
         user_id: Union[str, int],
@@ -353,7 +353,7 @@ class ServiceAsync:
     ) -> List[Playlist]:
         """
         Get playlist by owner/user id.
-        
+
         Args:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
             count (int):          Count of resulting playlists (for VK API: default = 50, max = 100).
@@ -364,7 +364,7 @@ class ServiceAsync:
         """
         user_id = int(user_id)
         logger.info(f"Request by user: {user_id}")
-        
+
         try:
             response: Response = await self.__getPlaylists(
                 user_id, count, offset
@@ -380,7 +380,7 @@ class ServiceAsync:
             for i, playlist in enumerate(playlists, start=1):
                 logger.info(f"{i}) {playlist}")
         return playlists
-    
+
     async def search_playlists_by_text(
         self,
         text: str,
@@ -395,7 +395,7 @@ class ServiceAsync:
             text (str):   Text of query. Can be title of playlist, genre, etc.
             count (int):  Count of resulting playlists (for VK API: default = 50, max = 100).
             offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Playlist]: List of playlists.
         """
@@ -415,7 +415,7 @@ class ServiceAsync:
             for i, playlist in enumerate(playlists, start=1):
                 logger.info(f"{i}) {playlist}")
         return playlists
-    
+
     async def search_albums_by_text(
         self,
         text: str,
@@ -451,7 +451,7 @@ class ServiceAsync:
             for i, playlist in enumerate(playlists, start=1):
                 logger.info(f"{i}) {playlist}")
         return playlists
-    
+
     @staticmethod
     async def save_music(
         song: Song,
