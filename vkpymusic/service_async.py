@@ -1,3 +1,12 @@
+"""
+This module contains the main class 'ServiceAsync' for async working with VK API.
+
+Example usage:
+    >>> service = ServiceAsync.parse_config()
+    >>> songs = await service.search_songs_by_text("Imagine Dragons")
+    >>> song = songs[0]
+    >>> await Service.save_music(song)
+"""
 import os
 import configparser
 import logging
@@ -15,7 +24,17 @@ logger: logging.Logger = get_logger(__name__)
 
 
 class ServiceAsync:
+    """
+    A class that provides methods for working with VK API.
+    
+    Attributes:
+        user_agent (str): The user agent string.
+        __token (str): The access token.
+    """
     def __init__(self, user_agent: str, token: str):
+        """
+        Initializes a Service object.
+        """
         self.user_agent = user_agent
         self.__token = token
 
@@ -57,6 +76,16 @@ class ServiceAsync:
         method: str,
         params: List[Tuple[str, Union[str, int]]]
     ) -> Response:
+        """
+        Get response from VK API.
+
+        Args:
+            method (str): Method of VK API.
+            params (list[tuple[str, Union[str, int]]]): List of tuples with params for method.
+        
+        Returns:
+            Response: Response from VK.
+        """
         headers = {"User-Agent": self.user_agent}
         url = f"https://api.vk.com/method/audio.{method}"
         parameters = [

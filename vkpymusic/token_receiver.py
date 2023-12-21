@@ -1,3 +1,17 @@
+"""
+This module contains the 'TokenReceiver' class, which is responsible for performing authorization
+using the available login and password. It interacts with the VK API to obtain an access token.
+
+The TokenReceiver class provides methods for handling captcha, 2-factor authentication, and
+various error scenarios. It also allows saving the obtained token and user agent data to a config file.
+
+Example usage:
+    >>> receiver = TokenReceiver(login="my_username", password="my_password")
+    >>> if receiver.auth():
+    >>>    receiver.get_token()
+    >>>    receiver.save_to_config()
+"""
+
 import os
 import json
 import logging
@@ -27,6 +41,7 @@ def on_captcha_handler(url: str) -> str:
     captcha_key: str = input("Captcha: ")
     return captcha_key
 
+
 def on_2fa_handler() -> str:
     """
     Default handler to 2fa.
@@ -40,11 +55,13 @@ def on_2fa_handler() -> str:
     code = input("Code: ")
     return code
 
+
 def on_invalid_client_handler():
     """
     Default handler to invalid_client.
     """
     logger.error("Invalid login or password")
+
 
 def on_critical_error_handler(response_auth_json):
     """
@@ -55,14 +72,25 @@ def on_critical_error_handler(response_auth_json):
     """
     print(f"on_critical_error: {response_auth_json}")
 
-# ! Main Class
+
 class TokenReceiver:
+    """
+    Class for receiving token from VK.
+    """
     def __init__(
         self,
         login: str,
         password: str,
         client: str="Kate"
     ) -> None:
+        """
+        Initialize TokenReceiver.
+
+        Args:
+            login (str): Login to VK.
+            password (str): Password to VK.
+            client (str): Client to VK (default value = "Kate").
+        """
         self.__login: str = str(login)
         self.__password: str = str(password)
         if client in clients:

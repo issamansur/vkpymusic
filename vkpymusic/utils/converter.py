@@ -1,21 +1,6 @@
 """
-The `converter` module provides the `Converter` class used 
-for converting responses from VK into lists of songs or playlists.
-
-Classes:
-    Converter: A class that converts a response from VK into a list of songs or playlists.
-
-Functions:
-    response_to_songs(response: Response) -> List[Song]: Converts a response into a list of songs.
-    response_to_playlists(response: Response) -> List[Playlist]: Converts a response into a list of playlists.
-
-Exceptions:
-    - Describe any exceptions that can be raised in this module here.
-
-Usage Examples:
-    - Describe examples of how to use this module here.
+This module contains the Converter class.
 """
-
 
 import json
 import logging

@@ -1,3 +1,13 @@
+"""
+This module contains the main class 'Service' for working with VK API.
+
+Example usage:
+    >>> service = Service.parse_config()
+    >>> songs = service.search_songs_by_text("Imagine Dragons")
+    >>> for song in songs:
+    >>>     Service.save_music(song)
+"""
+
 import os
 import configparser
 import json
@@ -16,7 +26,21 @@ logger: logging.Logger = get_logger(__name__)
 
 
 class Service:
+    """
+    A class for working with VK API.
+    
+    Attributes:
+        user_agent (str): User agent string.
+        __token (str):    Token for VK API.
+    """
     def __init__(self, user_agent: str, token: str):
+        """
+        Initializes a Service object.
+
+        Args:
+            user_agent (str): User agent string.
+            token (str):      Token for VK API.
+        """
         self.user_agent = user_agent
         self.__token = token
 

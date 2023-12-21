@@ -1,4 +1,21 @@
+"""
+This module contains the Playlist class.
+"""
+
 class Playlist:
+    """
+    A class that represents a playlist.
+    
+    Attributes:
+        title (str): The title of the playlist.
+        description (str): The description of the playlist.
+        photo (str): The URL of the playlist's photo.
+        count (int): The number of tracks in the playlist.
+        owner_id (int): The ID of the playlist's owner.
+        playlist_id (int): The ID of the playlist.
+        access_key (str): The access key of the playlist.
+    """
+
     def __init__(
         self,
         title: str,
@@ -9,6 +26,18 @@ class Playlist:
         playlist_id: int,
         access_key: str
     ) -> None:
+        """
+        Initializes a Playlist object.
+
+        Args:
+            title (str): The title of the playlist.
+            description (str): The description of the playlist.
+            photo (str): The URL of the playlist's photo.
+            count (int): The number of tracks in the playlist.
+            owner_id (int): The ID of the playlist's owner.
+            playlist_id (int): The ID of the playlist.
+            access_key (str): The access key of the playlist.
+        """
         self.title = title
         self.description = description
         self.photo = photo
@@ -21,10 +50,25 @@ class Playlist:
         return f"{self.title} ({self.count} tracks)"
 
     def to_dict(self) -> dict:
+        """
+        Converts the playlist to a dictionary.
+
+        Returns:
+            dict: The playlist as a dictionary.
+        """
         return self.__dict__
 
     @classmethod
     def from_json(cls, item):
+        """
+        Converts a JSON object to a Playlist object.
+
+        Args:
+            item (dict): A JSON object.
+
+        Returns:
+            Playlist: The Playlist object.
+        """
         title = str(item["title"])
         description = str(item["description"])
         photo = str(item["photo"]["photo_1200"])

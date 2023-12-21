@@ -1,8 +1,6 @@
 """
 This module provides a logger utility for vkpymusic.
 
-It defines a logger class and functions to configure and retrieve loggers.
-
 Classes:
 - BCOLORS: A class that defines color codes for log messages.
 

@@ -1,3 +1,7 @@
+"""
+This module contains the Song class.
+"""
+
 import re
 
 
