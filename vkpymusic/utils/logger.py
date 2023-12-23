@@ -8,7 +8,6 @@ Functions:
 - _get_file_handler: Returns a file handler for logging to a file.
 - _get_stream_handler: Returns a stream handler for logging to the console.
 - get_logger: Returns a logger instance with configured handlers.
-
 """
 
 import os
@@ -16,8 +15,11 @@ import logging
 import datetime
 
 
-# Color codes for log messages
 class BCOLORS:
+    """
+    A class that defines color codes for log messages.
+    """
+
     CRITICAL = "\033[95m"
     OKBLUE = "\033[94m"
     OKCYAN = "\033[96m"

@@ -6,7 +6,30 @@ import re
 
 
 class Song:
+    """
+    A class that represents a song.
+
+    Attributes:
+        title (str): The title of the song.
+        artist (str): The artist of the song.
+        duration (int): The duration of the song in seconds.
+        track_id (str): The ID of the song.
+        owner_id (str): The ID of the song's owner.
+        url (str): The URL of the song.
+    """
+
     def __init__(self, title, artist, duration, track_id, owner_id, url=""):
+        """
+        Initializes a Song object.
+
+        Args:
+            title (str): The title of the song.
+            artist (str): The artist of the song.
+            duration (int): The duration of the song in seconds.
+            track_id (str): The ID of the song.
+            owner_id (str): The ID of the song's owner.
+            url (str): The URL of the song.
+        """
         self.title = title
         self.artist = artist
         self.duration = duration
@@ -18,17 +41,37 @@ class Song:
         return f"{self.title} - {self.artist}"
 
     def to_dict(self) -> dict:
+        """
+        Converts the song to a dictionary.
+
+        Returns:
+            dict: The song as a dictionary.
+        """
         return self.__dict__
 
     def to_safe(self):
+        """
+        Removes all non-alphanumeric characters from the song's title and artist.
+        """
+
         def safe_format(string):
             safe_string = re.sub(r"[^A-zА-я0-9+\s]", "", string)
             return safe_string
+
         self.title = safe_format(self.title)
         self.artist = safe_format(self.artist)
 
     @classmethod
-    def from_json(cls, item):
+    def from_json(cls, item) -> "Song":
+        """
+        Creates a Song object from a JSON object.
+
+        Args:
+            item (dict): A JSON object.
+
+        Returns:
+            Song: A Song object.
+        """
         title = str(item["title"])
         artist = str(item["artist"])
         duration = int(item["duration"])

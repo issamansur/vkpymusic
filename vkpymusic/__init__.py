@@ -1,5 +1,5 @@
 """
-VKpuMusic
+VKpyMusic
 ~~~~~~~~~
 
 A library for interacting with music in VK.
@@ -11,7 +11,6 @@ playlists of the user in VK.
 
 :copyright: (c) 2023-present issamansur (EDEXADE, inc)
 :license: MIT, see LICENSE for more details.
-
 """
 
 __title__ = "vkpymusic"
