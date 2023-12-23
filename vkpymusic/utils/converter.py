@@ -25,7 +25,7 @@ class Converter:
     """
 
     @staticmethod
-    def response_to_songs(response: Response):
+    def response_to_songs(response: Response) -> List[Song]:
         """Converts a response to a list of songs.
 
         Args:
@@ -46,7 +46,7 @@ class Converter:
         return songs
 
     @staticmethod
-    def response_to_playlists(response: Response):
+    def response_to_playlists(response: Response) -> List[Playlist]:
         """Converts a response to a list of playlists.
 
         Args:
