@@ -1,9 +1,11 @@
 """
-This module contains the 'TokenReceiverAsync' class, which is responsible for performing authorization
-using the available login and password. It interacts with the VK API to obtain an access token.
+This module contains the 'TokenReceiverAsync' class, which is responsible 
+for performing authorization using the available login and password. 
+It interacts with the VK API to obtain an access token.
 
-The TokenReceiver class provides methods for handling captcha, 2-factor authentication, and
-various error scenarios. It also allows saving the obtained token and user agent data to a config file.
+The TokenReceiver class provides methods for handling captcha, 
+2-factor authentication, and various error scenarios. 
+It also allows saving the obtained token and user agent data to a config file.
 
 Example usage:
     >>> receiver = TokenReceiver(login="my_username", password="my_password")
@@ -27,6 +29,17 @@ logger: logging.Logger = get_logger(__name__)
 
 
 class TokenReceiverAsync:
+    """
+    A class that is responsible for performing authorization using the available login and password.
+    It interacts with the VK API to obtain an access token.
+
+    Attributes:
+        client (Client): The client object.
+        __login (str): The login.
+        __password (str): The password.
+        __token (str): The token.
+    """
+
     def __init__(self, login, password, client="Kate"):
         self.__login: str = str(login)
         self.__password: str = str(password)
@@ -37,9 +50,7 @@ class TokenReceiverAsync:
         self.__token = None
 
     async def __request_auth(
-        self,
-        code: str=None,
-        captcha: Tuple[int, str]=None
+        self, code: str = None, captcha: Tuple[int, str] = None
     ) -> Response:
         query_params = [
             ("grant_type", "password"),
@@ -59,20 +70,19 @@ class TokenReceiverAsync:
             query_params.append(("code", code))
         async with AsyncClient() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
-            response = await session.post("https://oauth.vk.com/token", params=query_params)
+            response = await session.post(
+                "https://oauth.vk.com/token", params=query_params
+            )
         return response
 
     async def __request_code(self, sid: Union[str, int]):
-        query_params = [
-            ("sid", str(sid)),
-            ("v", "5.131")
-        ]
+        query_params = [("sid", str(sid)), ("v", "5.131")]
         async with AsyncClient() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
             response = await session.post(
                 "https://api.vk.com/method/auth.validatePhone",
                 params=query_params,
-                follow_redirects=True
+                follow_redirects=True,
             )
         response_json = json.loads(response.content.decode("utf-8"))
         # right_response_json = {
@@ -97,13 +107,13 @@ class TokenReceiverAsync:
         """
         Performs ASYNC authorization using the available login and password.
         If necessary, interactively accepts a code from SMS or captcha.
-        
+
         Args:
             on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return key.
             on_2fa (Callable[[], str]): ASYNC handler to 2 factor auth. Return captcha.
             on_invalid_client (Callable[[], None]): ASYNC handler to invalid client.
             on_critical_error (Callable[[Any], None]): ASYNC handler to crit error. Get response.
-        
+
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
         """
@@ -115,7 +125,9 @@ class TokenReceiverAsync:
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
                 captcha_key: str = await on_captcha(captcha_img)
-                response_auth = await self.__request_auth(captcha=(captcha_sid, captcha_key))
+                response_auth = await self.__request_auth(
+                    captcha=(captcha_sid, captcha_key)
+                )
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "need_validation":
                 sid = response_auth_json["validation_sid"]
@@ -165,10 +177,10 @@ class TokenReceiverAsync:
         logger.info(token)
         return token
 
-    def save_to_config(self, file_path: str="config_vk.ini"):
+    def save_to_config(self, file_path: str = "config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
-        
+
         Args:
             file_path (str): Filename of config (default value = "config_vk.ini").
         """
@@ -192,10 +204,10 @@ class TokenReceiverAsync:
     def create_path(file_path: str) -> str:
         """
         Create path before and after this for different funcs.
-        
+
         Args:
             file_path (str): Relative path to file.
-        
+
         Returns:
             str: Absolute path to file.
         """
@@ -203,5 +215,7 @@ class TokenReceiverAsync:
 
     @staticmethod
     def __on_error(response):
-        logger.critical("Unexpected error! Please, create an issue in repository for solving this problem.")
+        logger.critical(
+            "Unexpected error! Please, create an issue in repository for solving this problem."
+        )
         logger.critical(response)

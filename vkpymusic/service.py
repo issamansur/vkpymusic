@@ -28,11 +28,12 @@ logger: logging.Logger = get_logger(__name__)
 class Service:
     """
     A class for working with VK API.
-    
+
     Attributes:
         user_agent (str): User agent string.
         __token (str):    Token for VK API.
     """
+
     def __init__(self, user_agent: str, token: str):
         """
         Initializes a Service object.
@@ -45,15 +46,12 @@ class Service:
         self.__token = token
 
     @classmethod
-    def parse_config(
-        cls,
-        filename: str="config_vk.ini"
-    ):
+    def parse_config(cls, filename: str = "config_vk.ini"):
         """
         Create an instance of Service from config.
-        
+
         Args:
-            filename (str): Filename of config (default value = "config_vk.ini").
+            filename (str): Filename of config (default = "config_vk.ini").
         """
         dirname = os.path.dirname(__file__)
         configfile_path = os.path.join(dirname, filename)
@@ -67,12 +65,10 @@ class Service:
             logger.warning(e)
 
     @staticmethod
-    def del_config(
-        filename: str="config_vk.ini"
-    ):
+    def del_config(filename: str = "config_vk.ini"):
         """
         Delete config created by 'TokenReceiver'.
-        
+
         Args:
             filename (str): Filename of config (default value = "config_vk.ini").
         """
@@ -84,9 +80,7 @@ class Service:
             logger.warning(e)
 
     def __get_response(
-        self,
-        method: str,
-        params: List[Tuple[str, Union[str, int]]]
+        self, method: str, params: List[Tuple[str, Union[str, int]]]
     ) -> Response:
         headers = {"User-Agent": self.user_agent}
         url = f"https://api.vk.com/method/audio.{method}"
@@ -105,9 +99,7 @@ class Service:
         return response
 
     def __getCount(self, user_id: int) -> Response:
-        params = [
-            ("owner_id", user_id)
-        ]
+        params = [("owner_id", user_id)]
         return self.__get_response("getCount", params)
 
     def __get(
@@ -115,8 +107,8 @@ class Service:
         user_id: int,
         count: int = 100,
         offset: int = 0,
-        playlist_id: Optional[int]=None,
-        access_key: Optional[str]=None,
+        playlist_id: Optional[int] = None,
+        access_key: Optional[str] = None,
     ) -> Response:
         params = [
             ("owner_id", user_id),
@@ -128,12 +120,7 @@ class Service:
             params.append(("access_key", access_key))
         return self.__get_response("get", params)
 
-    def __search(
-        self,
-        text: str,
-        count: int=100,
-        offset: int=0
-    ) -> Response:
+    def __search(self, text: str, count: int = 100, offset: int = 0) -> Response:
         params = [
             ("q", text),
             ("count", count),
@@ -144,10 +131,7 @@ class Service:
         return self.__get_response("search", params)
 
     def __getPlaylists(
-        self,
-        user_id: int,
-        count: int=50,
-        offset: int=0
+        self, user_id: int, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
             ("owner_id", user_id),
@@ -157,10 +141,7 @@ class Service:
         return self.__get_response("getPlaylists", params)
 
     def __searchPlaylists(
-        self,
-        text: str,
-        count: int=50,
-        offset: int=0
+        self, text: str, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
             ("q", text),
@@ -169,12 +150,7 @@ class Service:
         ]
         return self.__get_response("searchPlaylists", params)
 
-    def __searchAlbums(
-        self,
-        text: str,
-        count: int=50,
-        offset: int=0
-    ) -> Response:
+    def __searchAlbums(self, text: str, count: int = 50, offset: int = 0) -> Response:
         params = [
             ("q", text),
             ("count", count),
@@ -182,16 +158,13 @@ class Service:
         ]
         return self.__get_response("searchAlbums", params)
 
-    def get_count_by_user_id(
-        self,
-        user_id: Union[str, int]
-    ) -> int:
+    def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
         """
         Get count of all user's songs.
-        
+
         Args:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
-        
+
         Returns:
             int: count of all user's songs.
         """
@@ -208,19 +181,16 @@ class Service:
         return songs_count
 
     def get_songs_by_userid(
-        self,
-        user_id: Union[str, int],
-        count: int=100,
-        offset: int=0
+        self, user_id: Union[str, int], count: int = 100, offset: int = 0
     ) -> List[Song]:
         """
         Search songs by owner/user id.
-        
+
         Args:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
             count (int):          Count of resulting songs (for VK API: default/max = 100).
             offset (int):         Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Song]: List of songs.
         """
@@ -245,19 +215,19 @@ class Service:
         user_id: Union[str, int],
         playlist_id: int,
         access_key: str,
-        count: int=100,
-        offset: int=0,
+        count: int = 100,
+        offset: int = 0,
     ) -> List[Song]:
         """
         Get songs by playlist id.
-        
+
         Args:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
             playlist_id (int):    VK playlist id. (Take it from methods for playlist).
             access_key (str):     VK access key. (Take it from methods for playlist).
             count (int):          Count of resulting songs (for VK API: default/max = 100).
             offset (int):         Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Song]: List of songs.
         """
@@ -280,19 +250,16 @@ class Service:
         return songs
 
     def get_songs_by_playlist(
-        self,
-        playlist: Playlist,
-        count: int=10,
-        offset: int=0
+        self, playlist: Playlist, count: int = 10, offset: int = 0
     ) -> List[Song]:
         """
         Get songs by instance of 'Playlist'.
-        
+
         Args:
             playlist (Playlist): Instance of 'Playlist' (take from methods for receiving Playlist).
             count (int):         Count of resulting songs (for VK API: default/max = 100).
             offset (int):        Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Song]: List of songs.
         """
@@ -318,19 +285,16 @@ class Service:
         return songs
 
     def search_songs_by_text(
-        self,
-        text: str,
-        count: int=3,
-        offset: int=0
+        self, text: str, count: int = 3, offset: int = 0
     ) -> List[Song]:
         """
         Search songs by text/query.
-        
+
         Args:
             text (str):   Text of query. Can be title of song, author, etc.
             count (int):  Count of resulting songs (for VK API: default/max = 100).
             offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Song]: List of songs.
         """
@@ -350,18 +314,16 @@ class Service:
         return songs
 
     def get_playlists_by_userid(
-        self,
-        user_id: Union[str, int],
-        count: int=5, offset: int=0
+        self, user_id: Union[str, int], count: int = 5, offset: int = 0
     ) -> List[Playlist]:
         """
         Get playlist by owner/user id.
-        
+
         Args:
             user_id (str or int): VK user id. (NOT USERNAME! vk.com/id*******).
             count (int):          Count of resulting playlists (for VK API: default = 50, max = 100).
             offset (int):         Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Playlist]: List of playlists.
         """
@@ -382,20 +344,17 @@ class Service:
         return playlists
 
     def search_playlists_by_text(
-        self,
-        text: str,
-        count: int=5,
-        offset: int=0
+        self, text: str, count: int = 5, offset: int = 0
     ) -> List[Playlist]:
         """
         Search playlists by text/query.
         Playlist - it user's collection of songs.
-        
+
         Args:
             text (str):   Text of query. Can be title of playlist, genre, etc.
             count (int):  Count of resulting playlists (for VK API: default = 50, max = 100).
             offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Playlist]: List of playlists.
         """
@@ -415,21 +374,18 @@ class Service:
         return playlists
 
     def search_albums_by_text(
-        self,
-        text: str,
-        count: int=5,
-        offset: int=0
+        self, text: str, count: int = 5, offset: int = 0
     ) -> List[Playlist]:
         """
         Search albums by text/query.
         Album - artists's album/collection of songs.
         In obj context - same as 'Playlist'.
-        
+
         Args:
             text (str):   Text of query. Can be title of album, name of artist, etc.
             count (int):  Count of resulting playlists (for VK API: default = 50, max = 100).
             offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Playlist]: List of albums.
         """
@@ -452,10 +408,10 @@ class Service:
     def save_music(song: Song) -> str:
         """
         Save song to '{workDirectory}/Music/{songname}.mp3'.
-        
+
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
-        
+
         Returns:
             str: relative path of downloaded music.
         """
@@ -476,7 +432,9 @@ class Service:
                     logger.error(".m3u8 detected!")
                     return
             else:
-                logger.warning(f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)")
+                logger.warning(
+                    f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)"
+                )
                 res = input().lower()
                 if res.lower() != "y" and res.lower() != "yes":
                     return

@@ -8,7 +8,6 @@ Functions:
 - _get_file_handler: Returns a file handler for logging to a file.
 - _get_stream_handler: Returns a stream handler for logging to the console.
 - get_logger: Returns a logger instance with configured handlers.
-
 """
 
 import os
