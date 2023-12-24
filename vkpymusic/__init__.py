@@ -1,7 +1,6 @@
 """
 VKpyMusic
-~~~~~~~~~
-
+=========
 A library for interacting with music in VK.
 
 Provides a convenient API for authorization, 
@@ -9,8 +8,17 @@ receiving audio recordings, searching for music,
 as well as downloading individual songs and 
 playlists of the user in VK.
 
-:copyright: (c) 2023-present issamansur (EDEXADE, inc)
-:license: MIT, see LICENSE for more details.
+Classes:
+    Client: A class that stores the user agent string, client ID, and client secret.
+    TokenReceiver: A class for receiving an access token.
+    TokenReceiverAsync: A class for receiving an access token asynchronously.
+    Service: A class for interacting with VK API.
+    ServiceAsync: A class for interacting with VK API asynchronously.
+    Song: A class that stores information about a song.
+    Playlist: A class that stores information about a playlist.
+
+Modules:
+    utils: A module that contains utilities for conversion and logging.
 """
 
 __title__ = "vkpymusic"

@@ -1,11 +1,5 @@
 """
 This module contains the main class 'ServiceAsync' for async working with VK API.
-
-Example usage:
-    >>> service = ServiceAsync.parse_config()
-    >>> songs = await service.search_songs_by_text("Imagine Dragons")
-    >>> song = songs[0]
-    >>> await Service.save_music(song)
 """
 import os
 import configparser
@@ -30,6 +24,14 @@ class ServiceAsync:
     Attributes:
         user_agent (str): The user agent string.
         __token (str): The access token.
+
+    Example usage:
+    ```
+    >>> service = ServiceAsync.parse_config()
+    >>> songs = await service.search_songs_by_text("Imagine Dragons")
+    >>> song = songs[0]
+    >>> await Service.save_music(song)
+    ```
     """
 
     def __init__(self, user_agent: str, token: str):

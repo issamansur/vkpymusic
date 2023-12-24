@@ -17,11 +17,8 @@ logger: logging.Logger = get_logger(__name__)
 
 
 class Converter:
-    """A class that converts a response from VK to a list of songs or playlists.
-
-    Methods:
-        response_to_songs(response: Response) -> List[Song]: Converts a response to a list of songs.
-        response_to_playlists(response: Response) -> List[Playlist]: Converts a response to a list of playlists.
+    """
+    A class that converts a response from VK to a list of songs or playlists.
     """
 
     @staticmethod

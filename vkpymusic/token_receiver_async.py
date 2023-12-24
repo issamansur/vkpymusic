@@ -2,16 +2,6 @@
 This module contains the 'TokenReceiverAsync' class, which is responsible 
 for performing authorization using the available login and password. 
 It interacts with the VK API to obtain an access token.
-
-The TokenReceiver class provides methods for handling captcha, 
-2-factor authentication, and various error scenarios. 
-It also allows saving the obtained token and user agent data to a config file.
-
-Example usage:
-    >>> receiver = TokenReceiver(login="my_username", password="my_password")
-    >>> if await receiver.auth():
-    >>>     receiver.get_token()
-    >>>     receiver.save_to_config()
 """
 
 import os
@@ -30,14 +20,25 @@ logger: logging.Logger = get_logger(__name__)
 
 class TokenReceiverAsync:
     """
-    A class that is responsible for performing authorization using the available login and password.
-    It interacts with the VK API to obtain an access token.
+    A class that is responsible for performing authorization using
+    the available login and password. It interacts with the VK API
+    to obtain an access token. The TokenReceiver class provides
+    methods for handling captcha, 2-factor authentication,
+    and various error scenarios.
 
     Attributes:
         client (Client): The client object.
         __login (str): The login.
         __password (str): The password.
         __token (str): The token.
+
+    Example usage:
+    ```
+    >>> receiver = TokenReceiver(login="my_username", password="my_password")
+    >>> if await receiver.auth():
+    ...     receiver.get_token()
+    ...     receiver.save_to_config()
+    ```
     """
 
     def __init__(self, login, password, client="Kate"):

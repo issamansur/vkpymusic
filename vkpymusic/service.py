@@ -1,11 +1,5 @@
 """
 This module contains the main class 'Service' for working with VK API.
-
-Example usage:
-    >>> service = Service.parse_config()
-    >>> songs = service.search_songs_by_text("Imagine Dragons")
-    >>> for song in songs:
-    >>>     Service.save_music(song)
 """
 
 import os
@@ -32,6 +26,14 @@ class Service:
     Attributes:
         user_agent (str): User agent string.
         __token (str):    Token for VK API.
+
+    Example usage:
+    ```
+    >>> service = Service.parse_config()
+    >>> songs = service.search_songs_by_text("Imagine Dragons")
+    >>> for song in songs:
+    ...     Service.save_music(song)
+    ```
     """
 
     def __init__(self, user_agent: str, token: str):
