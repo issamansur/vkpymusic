@@ -1,14 +1,5 @@
 """
 This module provides a logger utility for vkpymusic.
-
-Classes:
-- BCOLORS: A class that defines color codes for log messages.
-
-Functions:
-- _get_file_handler: Returns a file handler for logging to a file.
-- _get_stream_handler: Returns a stream handler for logging to the console.
-- get_logger: Returns a logger instance with configured handlers.
-
 """
 
 import os
@@ -16,8 +7,11 @@ import logging
 import datetime
 
 
-# Color codes for log messages
 class BCOLORS:
+    """
+    A class that defines color codes for log messages.
+    """
+
     CRITICAL = "\033[95m"
     OKBLUE = "\033[94m"
     OKCYAN = "\033[96m"
@@ -30,14 +24,14 @@ class BCOLORS:
 _log_format = "%(asctime)s | %(filename)s(%(lineno)d) | %(module)s.%(funcName)s(...) | [%(levelname)s] %(message)s"
 
 
-def _get_file_handler():
+def _get_file_handler() -> logging.FileHandler:
     """
     Returns a file handler for logging to a file.
 
     The log file is created in the 'logs' directory with the name 'vkpymusic_<current_date>.log'.
 
     Returns:
-    - file_handler: A file handler instance for logging to a file.
+        file_handler: A file handler instance for logging to a file.
     """
     file_path = f"logs/vkpymusic_{datetime.date.today()}.log"
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
@@ -47,7 +41,7 @@ def _get_file_handler():
     return file_handler
 
 
-def _get_stream_handler():
+def _get_stream_handler() -> logging.StreamHandler:
     """
     Returns a stream handler for logging to the console.
 
@@ -60,15 +54,15 @@ def _get_stream_handler():
     return stream_handler
 
 
-def get_logger(name):
+def get_logger(name: str) -> logging.Logger:
     """
     Returns a logger instance with configured handlers.
 
     Args:
-    - name: The name of the logger.
+        name (str): The name of the logger.
 
     Returns:
-    - logger: A logger instance with configured handlers.
+        logger (logging.Logger): A logger instance with configured handlers.
     """
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)

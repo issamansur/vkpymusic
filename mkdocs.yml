@@ -1,0 +1,28 @@
+site_name: vkpymusic docs
+
+nav:
+  - Home: index.md
+  - API Reference:
+    - Client: api/client.md
+    - Song: api/song.md
+    - Playlist: api/playlist.md
+    - TokenReceiver: api/tokenreceiver.md
+    - TokenReceiverAsync: api/tokenreceiverasync.md
+    - Service: api/service.md
+    - ServiceAsync: api/serviceasync.md
+    - .utils: api/utils.md
+  - Installation: installation.md
+  # - Usage: usage.md
+  # - Examples: examples.md
+  # - Contributing: contributing.md
+  # - Changelog: changelog.md
+  - License: license.md
+
+theme:
+  name: material
+  language: en
+
+plugins:
+  - search
+  - autorefs
+  - mkdocstrings
