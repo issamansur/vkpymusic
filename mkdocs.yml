@@ -12,10 +12,10 @@ nav:
     - ServiceAsync: api/serviceasync.md
     - .utils: api/utils.md
   - Installation: installation.md
-  - Usage: usage.md
-  - Examples: examples.md
-  - Contributing: contributing.md
-  - Changelog: changelog.md
+  # - Usage: usage.md
+  # - Examples: examples.md
+  # - Contributing: contributing.md
+  # - Changelog: changelog.md
   - License: license.md
 
 theme:
