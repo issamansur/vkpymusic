@@ -196,7 +196,7 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
         try:
             response: Response = await self.__get(user_id, count, offset)
-            songs = await Converter.response_to_songs(response)
+            songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -235,7 +235,7 @@ class ServiceAsync:
             response: Response = await self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
-            songs = await Converter.response_to_songs(response)
+            songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -270,7 +270,7 @@ class ServiceAsync:
                 playlist.playlist_id,
                 playlist.access_key,
             )
-            songs = await Converter.response_to_songs(response)
+            songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -299,7 +299,7 @@ class ServiceAsync:
         logger.info(f'Request by text: "{text}" в количестве {count}')
         try:
             response: Response = await self.__search(text, count, offset)
-            songs = await Converter.response_to_songs(response)
+            songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
             return
@@ -330,7 +330,7 @@ class ServiceAsync:
 
         try:
             response: Response = await self.__getPlaylists(user_id, count, offset)
-            playlists = await Converter.response_to_playlists(response)
+            playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -360,7 +360,7 @@ class ServiceAsync:
         logger.info(f"Request by text: {text}")
         try:
             response: Response = await self.__searchPlaylists(text, count, offset)
-            playlists = await Converter.response_to_playlists(response)
+            playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
@@ -391,7 +391,7 @@ class ServiceAsync:
         logger.info(f"Request by text: {text}")
         try:
             response: Response = await self.__searchAlbums(text, count, offset)
-            playlists = await Converter.response_to_playlists(response)
+            playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
             return
