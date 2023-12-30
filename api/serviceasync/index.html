@@ -12,11 +12,11 @@
         <link rel="prev" href="../service/">
       
       
-        <link rel="next" href="../utils/">
+        <link rel="next" href="../models/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
@@ -273,48 +273,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../song/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Song
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../playlist/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Playlist
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../tokenreceiver/" class="md-nav__link">
         
   
@@ -461,6 +419,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.ServiceAsync.check_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      check_token()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.ServiceAsync.get_count_by_user_id" class="md-nav__link">
     <span class="md-ellipsis">
       get_count_by_user_id()
@@ -550,6 +517,27 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    .models
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -681,6 +669,15 @@
   <a href="#vkpymusic.ServiceAsync.del_config" class="md-nav__link">
     <span class="md-ellipsis">
       del_config()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.ServiceAsync.check_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      check_token()
     </span>
   </a>
   
@@ -1038,6 +1035,54 @@
 
 
 
+<h3 id="vkpymusic.ServiceAsync.check_token" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">check_token</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Check token for VK API.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if token is valid, False otherwise.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
 <h3 id="vkpymusic.ServiceAsync.get_count_by_user_id" class="doc doc-heading">
           <code class="highlight language-python"><span class="n">get_count_by_user_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span></code>
   
@@ -1201,7 +1246,7 @@
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.song.Song" href="../song/#vkpymusic.Song">Song</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1335,7 +1380,7 @@
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.song.Song" href="../song/#vkpymusic.Song">Song</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1386,7 +1431,7 @@
         <tr>
           <td><code>playlist</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="vkpymusic.playlist.Playlist" href="../playlist/#vkpymusic.Playlist">Playlist</a></code>
+                <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a></code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1441,7 +1486,7 @@
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.song.Song" href="../song/#vkpymusic.Song">Song</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1547,7 +1592,7 @@
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.song.Song" href="../song/#vkpymusic.Song">Song</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1653,7 +1698,7 @@
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.playlist.Playlist" href="../playlist/#vkpymusic.Playlist">Playlist</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1760,7 +1805,7 @@ Playlist - it user's collection of songs.</p>
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.playlist.Playlist" href="../playlist/#vkpymusic.Playlist">Playlist</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1868,7 +1913,7 @@ In obj context - same as 'Playlist'.</p>
     <tbody>
         <tr>
           <td>
-                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.playlist.Playlist" href="../playlist/#vkpymusic.Playlist">Playlist</a>]</code>
+                <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
           </td>
           <td>
             <div class="doc-md-description">
@@ -1920,7 +1965,7 @@ In obj context - same as 'Playlist'.</p>
         <tr>
           <td><code>song</code></td>
           <td>
-                <code><a class="autorefs autorefs-internal" title="vkpymusic.song.Song" href="../song/#vkpymusic.Song">Song</a></code>
+                <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a></code>
           </td>
           <td>
             <div class="doc-md-description">
