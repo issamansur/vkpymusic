@@ -11,8 +11,7 @@ from typing import Optional, Union, List, Tuple
 import requests
 from requests import Response, Session
 
-from .playlist import Playlist
-from .song import Song
+from .models import Song, Playlist
 from .utils import Converter, get_logger
 
 
@@ -100,6 +99,21 @@ class Service:
             response = session.post(url=url, data=parameters)
         return response
 
+    def __getProfileInfo(self) -> Response:
+        headers = {"User-Agent": self.user_agent}
+        url = "https://api.vk.com/method/account.getProfileInfo"
+        parameters = [
+            ("access_token", self.__token),
+            ("https", 1),
+            ("lang", "ru"),
+            ("extended", 1),
+            ("v", "5.131"),
+        ]
+        with Session() as session:
+            session.headers.update(headers)
+            response = session.post(url=url, data=parameters)
+        return response
+
     def __getCount(self, user_id: int) -> Response:
         params = [("owner_id", user_id)]
         return self.__get_response("getCount", params)
@@ -159,6 +173,26 @@ class Service:
             ("offset", offset),
         ]
         return self.__get_response("searchAlbums", params)
+
+    def check_token(self) -> bool:
+        """
+        Check token for VK API.
+
+        Returns:
+            bool: True if token is valid, False otherwise.
+        """
+        logger.info("Checking token...")
+        try:
+            response = self.__getProfileInfo()
+            data = json.loads(response.content.decode("utf-8"))
+            if "error" in data:
+                logger.error("Token is invalid!")
+                return False
+        except Exception as e:
+            logger.error(e)
+            return False
+        logger.info("Token is valid!")
+        return True
 
     def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
         """

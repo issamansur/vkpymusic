@@ -14,10 +14,9 @@ Classes:
     TokenReceiverAsync: A class for receiving an access token asynchronously.
     Service: A class for interacting with VK API.
     ServiceAsync: A class for interacting with VK API asynchronously.
-    Song: A class that stores information about a song.
-    Playlist: A class that stores information about a playlist.
 
 Modules:
+    models: A module that contains all models for vkpymusic.
     utils: A module that contains utilities for conversion and logging.
 """
 
@@ -32,9 +31,8 @@ from .token_receiver import TokenReceiver
 from .token_receiver_async import TokenReceiverAsync
 from .service import Service
 from .service_async import ServiceAsync
-from .song import Song
-from .playlist import Playlist
 
+from . import models
 from . import utils
 
 __all__ = [
@@ -44,7 +42,6 @@ __all__ = [
     "TokenReceiverAsync",
     "Service",
     "ServiceAsync",
-    "Song",
-    "Playlist",
+    "models",
     "utils",
 ]

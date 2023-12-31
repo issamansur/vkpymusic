@@ -4,12 +4,11 @@ nav:
   - Home: index.md
   - API Reference:
     - Client: api/client.md
-    - Song: api/song.md
-    - Playlist: api/playlist.md
     - TokenReceiver: api/tokenreceiver.md
     - TokenReceiverAsync: api/tokenreceiverasync.md
     - Service: api/service.md
     - ServiceAsync: api/serviceasync.md
+    - .models: api/models.md
     - .utils: api/utils.md
   - Installation: installation.md
   # - Usage: usage.md

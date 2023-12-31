@@ -2,6 +2,7 @@
 This module contains the main class 'ServiceAsync' for async working with VK API.
 """
 import os
+import json
 import configparser
 import logging
 from typing import Optional, Union, Tuple, List
@@ -9,8 +10,7 @@ from typing import Optional, Union, Tuple, List
 import aiofiles
 from httpx import AsyncClient, Response
 
-from .song import Song
-from .playlist import Playlist
+from .models import Song, Playlist
 from .utils import Converter, get_logger
 
 
@@ -97,6 +97,21 @@ class ServiceAsync:
             response = await session.post(url=url, params=parameters)
         return response
 
+    async def __getProfileInfo(self) -> Response:
+        headers = {"User-Agent": self.user_agent}
+        url = "https://api.vk.com/method/account.getProfileInfo"
+        parameters = [
+            ("access_token", self.__token),
+            ("https", 1),
+            ("lang", "ru"),
+            ("extended", 1),
+            ("v", "5.131"),
+        ]
+        async with AsyncClient() as session:
+            session.headers.update(headers)
+            response = await session.post(url=url, params=parameters)
+        return response
+
     async def __getCount(self, user_id: int) -> Response:
         params = [("owner_id", user_id)]
         return await self.__get_response("getCount", params)
@@ -155,6 +170,26 @@ class ServiceAsync:
         ]
         return await self.__get_response("searchAlbums", params)
 
+    async def check_token(self) -> bool:
+        """
+        Check token for VK API.
+
+        Returns:
+            bool: True if token is valid, False otherwise.
+        """
+        logger.info("Checking token...")
+        try:
+            response = await self.__getProfileInfo()
+            data = json.loads(response.content.decode("utf-8"))
+            if "error" in data:
+                logger.error("Token is invalid!")
+                return False
+        except Exception as e:
+            logger.error(e)
+            return False
+        logger.info("Token is valid!")
+        return True
+
     async def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
         """
         Get count of all user's songs.
@@ -169,8 +204,7 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
         try:
             response = await self.__getCount(user_id)
-            # data = json.loads(response.content.decode("utf-8"))
-            data = response.json(encoding="utf-8")
+            data = json.loads(response.content.decode("utf-8"))
             songs_count = int(data["response"])
         except Exception as e:
             logger.error(e)

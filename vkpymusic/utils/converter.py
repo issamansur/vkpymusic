@@ -8,8 +8,7 @@ from typing import List
 
 from requests import Response
 
-from ..song import Song
-from ..playlist import Playlist
+from ..models import Song, Playlist
 from .logger import get_logger
 
 

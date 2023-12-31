@@ -1,4 +1,4 @@
-::: vkpymusic.Song
+::: vkpymusic.models.song
     options:
         show_root_heading: true
         heading_level: 1
