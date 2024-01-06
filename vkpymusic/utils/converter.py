@@ -8,8 +8,7 @@ from typing import List
 
 from requests import Response
 
-from ..song import Song
-from ..playlist import Playlist
+from ..models import Song, Playlist
 from .logger import get_logger
 
 
@@ -17,15 +16,12 @@ logger: logging.Logger = get_logger(__name__)
 
 
 class Converter:
-    """A class that converts a response from VK to a list of songs or playlists.
-
-    Methods:
-        response_to_songs(response: Response) -> List[Song]: Converts a response to a list of songs.
-        response_to_playlists(response: Response) -> List[Playlist]: Converts a response to a list of playlists.
+    """
+    A class that converts a response from VK to a list of songs or playlists.
     """
 
     @staticmethod
-    def response_to_songs(response: Response):
+    def response_to_songs(response: Response) -> List[Song]:
         """Converts a response to a list of songs.
 
         Args:
@@ -46,7 +42,7 @@ class Converter:
         return songs
 
     @staticmethod
-    def response_to_playlists(response: Response):
+    def response_to_playlists(response: Response) -> List[Playlist]:
         """Converts a response to a list of playlists.
 
         Args:

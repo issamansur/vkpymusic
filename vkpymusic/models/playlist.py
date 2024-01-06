@@ -2,10 +2,11 @@
 This module contains the Playlist class.
 """
 
+
 class Playlist:
     """
     A class that represents a playlist.
-    
+
     Attributes:
         title (str): The title of the playlist.
         description (str): The description of the playlist.
@@ -24,7 +25,7 @@ class Playlist:
         count: int,
         owner_id: int,
         playlist_id: int,
-        access_key: str
+        access_key: str,
     ) -> None:
         """
         Initializes a Playlist object.
@@ -59,7 +60,7 @@ class Playlist:
         return self.__dict__
 
     @classmethod
-    def from_json(cls, item):
+    def from_json(cls, item) -> "Playlist":
         """
         Converts a JSON object to a Playlist object.
 

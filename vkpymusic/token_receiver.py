@@ -1,15 +1,7 @@
 """
-This module contains the 'TokenReceiver' class, which is responsible for performing authorization
-using the available login and password. It interacts with the VK API to obtain an access token.
-
-The TokenReceiver class provides methods for handling captcha, 2-factor authentication, and
-various error scenarios. It also allows saving the obtained token and user agent data to a config file.
-
-Example usage:
-    >>> receiver = TokenReceiver(login="my_username", password="my_password")
-    >>> if receiver.auth():
-    >>>    receiver.get_token()
-    >>>    receiver.save_to_config()
+This module contains the 'TokenReceiver' class, which is responsible 
+for performing authorization using the available login and password. 
+It interacts with the VK API to obtain an access token.
 """
 
 import os
@@ -30,9 +22,10 @@ logger: logging.Logger = get_logger(__name__)
 def on_captcha_handler(url: str) -> str:
     """
     Default handler to captcha.
+
     Args:
         url (str): Url to captcha image.
-    
+
     Returns:
         str: Key/decoded captcha.
     """
@@ -45,7 +38,7 @@ def on_captcha_handler(url: str) -> str:
 def on_2fa_handler() -> str:
     """
     Default handler to 2fa.
-    
+
     Returns:
         str: code from VK/SMS.
     """
@@ -66,7 +59,7 @@ def on_invalid_client_handler():
 def on_critical_error_handler(response_auth_json):
     """
     Default handler to ctitical error.
-    
+
     Args:
         response_auth_json (...): Message or object to research.
     """
@@ -75,14 +68,28 @@ def on_critical_error_handler(response_auth_json):
 
 class TokenReceiver:
     """
-    Class for receiving token from VK.
+    A class that is responsible for performing authorization using
+    the available login and password. It interacts with the VK API
+    to obtain an access token. The TokenReceiver class provides
+    methods for handling captcha, 2-factor authentication,
+    and various error scenarios.
+
+    Attributes:
+        client (Client): The client object.
+        __login (str): The login.
+        __password (str): The password.
+        __token (str): The token.
+
+    Example usage:
+    ```
+    >>> receiver = TokenReceiver(login="my_username", password="my_password")
+    >>> if receiver.auth():
+    ...    receiver.get_token()
+    ...    receiver.save_to_config()
+    ```
     """
-    def __init__(
-        self,
-        login: str,
-        password: str,
-        client: str="Kate"
-    ) -> None:
+
+    def __init__(self, login: str, password: str, client: str = "Kate") -> None:
         """
         Initialize TokenReceiver.
 
@@ -100,9 +107,7 @@ class TokenReceiver:
         self.__token = None
 
     def __request_auth(
-        self,
-        code: Optional[str]=None,
-        captcha: Optional[Tuple[int, str]]=None
+        self, code: Optional[str] = None, captcha: Optional[Tuple[int, str]] = None
     ) -> Response:
         query_params = [
             ("grant_type", "password"),
@@ -126,16 +131,13 @@ class TokenReceiver:
         return response
 
     def __request_code(self, sid: Union[str, int]):
-        query_params = [
-            ("sid", str(sid)),
-            ("v", "5.131")
-        ]
+        query_params = [("sid", str(sid)), ("v", "5.131")]
         with Session() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
             response = session.post(
                 "https://api.vk.com/method/auth.validatePhone",
                 data=query_params,
-                allow_redirects=True
+                allow_redirects=True,
             )
         response_json = json.loads(response.content.decode("utf-8"))
         # right_response_json = {
@@ -160,13 +162,13 @@ class TokenReceiver:
         """
         Performs authorization using the available login and password.
         If necessary, interactively accepts a code from SMS or captcha.
-        
+
         Args:
             on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return key.
             on_2fa (Callable[[], str]): Handler to 2 factor auth. Return captcha.
             on_invalid_client (Callable[[], None]): Handler to invalid client.
             on_critical_error (Callable[[Any], None]): Handler to critical error. Get response.
-        
+
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
         """
@@ -229,13 +231,10 @@ class TokenReceiver:
         logger.info(token)
         return token
 
-    def save_to_config(
-        self,
-        file_path: str="config_vk.ini"
-    ):
+    def save_to_config(self, file_path: str = "config_vk.ini"):
         """
         Save token and user agent data in config (if authorisation was succesful).
-        
+
         Args:
             file_path (str): Filename of config (default value = "config_vk.ini").
         """
@@ -258,11 +257,11 @@ class TokenReceiver:
     @staticmethod
     def create_path(file_path: str) -> str:
         """
-        Create path before and after this for different funcs. 
-        
+        Create path before and after this for different funcs.
+
         Args:
             file_path (str): Relative path to file.
-        
+
         Returns:
             str: Absolute path to file.
         """
@@ -270,5 +269,7 @@ class TokenReceiver:
 
     @staticmethod
     def __on_error(response):
-        logger.critical("Unexpected error! Please, create an issue in repository for solving this problem.")
+        logger.critical(
+            "Unexpected error! Please, create an issue in repository for solving this problem."
+        )
         logger.critical(response)
