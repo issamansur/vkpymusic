@@ -35,7 +35,8 @@ class Service:
     ...     Service.save_music(song)
     ```
     """
-
+    #############
+    # CONSTRUCTOR
     def __init__(self, user_agent: str, token: str):
         """
         Initializes a Service object.
@@ -47,6 +48,8 @@ class Service:
         self.user_agent = user_agent
         self.__token = token
 
+    ##################################
+    # METHODS WITH WORKING WITH CONFIG
     @classmethod
     def parse_config(cls, filename: str = "config_vk.ini"):
         """
@@ -81,6 +84,8 @@ class Service:
         except Exception as e:
             logger.warning(e)
 
+    ##############################################
+    # METHODS FOR WORKING WITH TOKEN AND USER INFO
     @staticmethod
     def __getProfileInfo(token: str) -> Response:
         url = "https://api.vk.com/method/account.getProfileInfo"
@@ -109,7 +114,6 @@ class Service:
         logger.info("Checking token...")
         try:
             response = Service.__getProfileInfo(token)
-            print(response.content)
             data = json.loads(response.content.decode("utf-8"))
             if "error" in data:
                 logger.error("Token is invalid!")
@@ -129,28 +133,30 @@ class Service:
         """
         return Service.check_token(self.__token)
 
-    def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
+    def get_user_info(self) -> (int, str):
         """
-        Get count of all user's songs.
-
-        Args:
-            user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
+        Get user info by token.
 
         Returns:
-            int: count of all user's songs.
+            (int, str): Tuple of user id and first + last name.
         """
-        user_id = int(user_id)
-        logger.info(f"Request by user: {user_id}")
+        logger.info("Getting user info...")
         try:
-            response = self.__getCount(user_id)
+            response = Service.__getProfileInfo(self.__token)
             data = json.loads(response.content.decode("utf-8"))
-            songs_count = int(data["response"])
+            user_id = int(data["response"]["id"])
+            first_name = data["response"]["first_name"]
+            last_name = data["response"]["last_name"]
         except Exception as e:
             logger.error(e)
             return
-        logger.info(f"Count of user's songs: {songs_count}")
-        return songs_count
+        logger.info(f"User info: {user_id}, {first_name}, {last_name}")
+        return user_id, first_name + " " + last_name
 
+    #######################################
+    # PRIVATE METHODS FOR CREATING REQUESTS
+    
+    # Main method for creating requests
     def __get_response(
         self, method: str, params: List[Tuple[str, Union[str, int]]]
     ) -> Response:
@@ -170,6 +176,7 @@ class Service:
             response = session.post(url=url, data=parameters)
         return response
 
+    # Other methods
     def __getCount(self, user_id: int) -> Response:
         params = [("owner_id", user_id)]
         return self.__get_response("getCount", params)
@@ -229,6 +236,30 @@ class Service:
             ("offset", offset),
         ]
         return self.__get_response("searchAlbums", params)
+
+    #####################
+    # MAIN PUBLIC METHODS
+    def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
+        """
+        Get count of all user's songs.
+
+        Args:
+            user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
+
+        Returns:
+            int: count of all user's songs.
+        """
+        user_id = int(user_id)
+        logger.info(f"Request by user: {user_id}")
+        try:
+            response = self.__getCount(user_id)
+            data = json.loads(response.content.decode("utf-8"))
+            songs_count = int(data["response"])
+        except Exception as e:
+            logger.error(e)
+            return
+        logger.info(f"Count of user's songs: {songs_count}")
+        return songs_count
 
     def get_songs_by_userid(
         self, user_id: Union[str, int], count: int = 100, offset: int = 0
@@ -454,6 +485,8 @@ class Service:
                 logger.info(f"{i}) {playlist}")
         return playlists
 
+    ################
+    # STATIC METHODS
     @staticmethod
     def save_music(song: Song) -> str:
         """
