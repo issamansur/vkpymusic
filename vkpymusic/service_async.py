@@ -34,6 +34,8 @@ class ServiceAsync:
     ```
     """
 
+    #############
+    # Constructor
     def __init__(self, user_agent: str, token: str):
         """
         Initializes a Service object.
@@ -45,6 +47,8 @@ class ServiceAsync:
         self.user_agent = user_agent
         self.__token = token
 
+    ##################################
+    # METHODS WITH WORKING WITH CONFIG
     @classmethod
     def parse_config(cls, filename: str = "config_vk.ini"):
         """
@@ -78,6 +82,78 @@ class ServiceAsync:
         except Exception as e:
             logger.warning(e)
 
+    ##############################################
+    # METHODS FOR WORKING WITH TOKEN AND USER INFO
+    @staticmethod
+    async def __get_profile_info(token: str) -> Response:
+        url = "https://api.vk.com/method/account.getProfileInfo"
+        parameters = [
+            ("access_token", token),
+            ("https", 1),
+            ("lang", "ru"),
+            ("extended", 1),
+            ("v", "5.131"),
+        ]
+        async with AsyncClient() as session:
+            response = await session.post(url=url, params=parameters)
+        return response
+
+    @staticmethod
+    async def check_token(token: str) -> bool:
+        """
+        Check token for VK API.
+
+        Returns:
+            bool: True if token is valid, False otherwise.
+        """
+        logger.info("Checking token...")
+        try:
+            response = await ServiceAsync.__get_profile_info(token)
+            data = json.loads(response.content.decode("utf-8"))
+            if "error" in data:
+                logger.error("Token is invalid!")
+                return False
+        except Exception as e:
+            logger.error(e)
+            return False
+        logger.info("Token is valid!")
+        return True
+
+    async def is_token_valid(self) -> bool:
+        """
+        Check token for VK API.
+
+        Returns:
+            bool: True if token is valid, False otherwise.
+        """
+        logger.info("Checking token...")
+        return await ServiceAsync.check_token(self.__token)
+
+    async def get_user_info(self) -> (int, str):
+        """
+        Get user id and username.
+
+        Returns:
+            tuple[int, str]: Tuple of user id and username.
+        """
+        logger.info("Getting user info...")
+        try:
+            response = await ServiceAsync.__get_profile_info(self.__token)
+            data = json.loads(response.content.decode("utf-8"))
+            user_id = int(data["response"]["id"])
+            first_name = data["response"]["first_name"]
+            last_name = data["response"]["last_name"]
+        except Exception as e:
+            logger.error(e)
+            return
+        logger.info(f"User info: {user_id}, {first_name}, {last_name}")
+        return user_id, first_name + " " + last_name
+
+
+    #######################################
+    # PRIVATE METHODS FOR CREATING REQUESTS
+
+    # Main method for creating requests
     async def __get_response(
         self, method: str, params: List[Tuple[str, Union[str, int]]]
     ) -> Response:
@@ -97,22 +173,8 @@ class ServiceAsync:
             response = await session.post(url=url, params=parameters)
         return response
 
-    async def __getProfileInfo(self) -> Response:
-        headers = {"User-Agent": self.user_agent}
-        url = "https://api.vk.com/method/account.getProfileInfo"
-        parameters = [
-            ("access_token", self.__token),
-            ("https", 1),
-            ("lang", "ru"),
-            ("extended", 1),
-            ("v", "5.131"),
-        ]
-        async with AsyncClient() as session:
-            session.headers.update(headers)
-            response = await session.post(url=url, params=parameters)
-        return response
-
-    async def __getCount(self, user_id: int) -> Response:
+    # Others methods for creating requests
+    async def __get_count(self, user_id: int) -> Response:
         params = [("owner_id", user_id)]
         return await self.__get_response("getCount", params)
 
@@ -140,7 +202,7 @@ class ServiceAsync:
         ]
         return await self.__get_response("search", params)
 
-    async def __getPlaylists(
+    async def __get_playlists(
         self, user_id: int, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
@@ -150,7 +212,7 @@ class ServiceAsync:
         ]
         return await self.__get_response("getPlaylists", params)
 
-    async def __searchPlaylists(
+    async def __search_playlists(
         self, text: str, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
@@ -160,7 +222,7 @@ class ServiceAsync:
         ]
         return await self.__get_response("searchPlaylists", params)
 
-    async def __searchAlbums(
+    async def __search_albums(
         self, text: str, count: int = 50, offset: int = 0
     ) -> Response:
         params = [
@@ -170,26 +232,8 @@ class ServiceAsync:
         ]
         return await self.__get_response("searchAlbums", params)
 
-    async def check_token(self) -> bool:
-        """
-        Check token for VK API.
-
-        Returns:
-            bool: True if token is valid, False otherwise.
-        """
-        logger.info("Checking token...")
-        try:
-            response = await self.__getProfileInfo()
-            data = json.loads(response.content.decode("utf-8"))
-            if "error" in data:
-                logger.error("Token is invalid!")
-                return False
-        except Exception as e:
-            logger.error(e)
-            return False
-        logger.info("Token is valid!")
-        return True
-
+    #####################
+    # MAIN PUBLIC METHODS
     async def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
         """
         Get count of all user's songs.
@@ -203,7 +247,7 @@ class ServiceAsync:
         user_id = int(user_id)
         logger.info(f"Request by user: {user_id}")
         try:
-            response = await self.__getCount(user_id)
+            response = await self.__get_count(user_id)
             data = json.loads(response.content.decode("utf-8"))
             songs_count = int(data["response"])
         except Exception as e:
@@ -363,7 +407,7 @@ class ServiceAsync:
         logger.info(f"Request by user: {user_id}")
 
         try:
-            response: Response = await self.__getPlaylists(user_id, count, offset)
+            response: Response = await self.__get_playlists(user_id, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
@@ -393,7 +437,7 @@ class ServiceAsync:
         """
         logger.info(f"Request by text: {text}")
         try:
-            response: Response = await self.__searchPlaylists(text, count, offset)
+            response: Response = await self.__search_playlists(text, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
@@ -424,7 +468,7 @@ class ServiceAsync:
         """
         logger.info(f"Request by text: {text}")
         try:
-            response: Response = await self.__searchAlbums(text, count, offset)
+            response: Response = await self.__search_albums(text, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
@@ -437,6 +481,8 @@ class ServiceAsync:
                 logger.info(f"{i}) {playlist}")
         return playlists
 
+    ################
+    # STATIC METHODS
     @staticmethod
     async def save_music(song: Song, overwrite: bool = False) -> str:
         """
