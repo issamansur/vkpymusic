@@ -428,6 +428,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.ServiceAsync.is_token_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_token_valid()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.ServiceAsync.get_user_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_user_info()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.ServiceAsync.get_count_by_user_id" class="md-nav__link">
     <span class="md-ellipsis">
       get_count_by_user_id()
@@ -678,6 +696,24 @@
   <a href="#vkpymusic.ServiceAsync.check_token" class="md-nav__link">
     <span class="md-ellipsis">
       check_token()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.ServiceAsync.is_token_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_token_valid()
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.ServiceAsync.get_user_info" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_user_info()
     </span>
   </a>
   
@@ -1036,7 +1072,56 @@
 
 
 <h3 id="vkpymusic.ServiceAsync.check_token" class="doc doc-heading">
-          <code class="highlight language-python"><span class="n">check_token</span><span class="p">()</span></code>
+          <code class="highlight language-python"><span class="n">check_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+      <small class="doc doc-label doc-label-staticmethod"><code>staticmethod</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Check token for VK API.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+<th>Name</th>        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+<td><code>bool</code></td>          <td>
+                <code>bool</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>True if token is valid, False otherwise.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="vkpymusic.ServiceAsync.is_token_valid" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">is_token_valid</span><span class="p">()</span></code>
   
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -1067,6 +1152,54 @@
           <td>
             <div class="doc-md-description">
               <p>True if token is valid, False otherwise.</p>
+            </div>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+
+<h3 id="vkpymusic.ServiceAsync.get_user_info" class="doc doc-heading">
+          <code class="highlight language-python"><span class="n">get_user_info</span><span class="p">()</span></code>
+  
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Get user id and username.</p>
+
+
+
+  <p><strong>Returns:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>(int, str)</code>
+          </td>
+          <td>
+            <div class="doc-md-description">
+              <p>tuple[int, str]: Tuple of user id and username.</p>
             </div>
           </td>
         </tr>
