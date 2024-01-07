@@ -154,7 +154,7 @@ class Service:
 
     #######################################
     # PRIVATE METHODS FOR CREATING REQUESTS
-    
+
     # Main method for creating requests
     def __get_response(
         self, method: str, params: List[Tuple[str, Union[str, int]]]
