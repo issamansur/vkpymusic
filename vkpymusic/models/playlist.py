@@ -72,7 +72,10 @@ class Playlist:
         """
         title = str(item["title"])
         description = str(item["description"])
-        photo = str(item["photo"]["photo_1200"])
+        if "photo" in item:
+            photo = str(item["photo"]["photo_1200"])
+        else:
+            photo = ""
         count = int(item["count"])
         owner_id = int(item["owner_id"])
         playlist_id = int(item["id"])
