@@ -6,7 +6,7 @@ service = Service.parse_config()
 # service = Service("<your_user_agent>", "<your_token>")
 
 if service is not None:
-    if not service.check_token():
+    if not service.is_token_valid():
         print("Token expired!")
         print("Run first 'receive_token_example.py'")
         exit()

@@ -11,6 +11,7 @@ from typing import Optional, Union, List, Tuple
 import requests
 from requests import Response, Session
 
+from .client import clients
 from .models import Song, Playlist
 from .utils import Converter, get_logger
 
@@ -80,6 +81,76 @@ class Service:
         except Exception as e:
             logger.warning(e)
 
+    @staticmethod
+    def __getProfileInfo(token: str) -> Response:
+        url = "https://api.vk.com/method/account.getProfileInfo"
+        parameters = [
+            ("access_token", token),
+            ("https", 1),
+            ("lang", "ru"),
+            ("extended", 1),
+            ("v", "5.131"),
+        ]
+        with Session() as session:
+            response = session.post(url=url, data=parameters)
+        return response
+
+    @staticmethod
+    def check_token(token: str) -> bool:
+        """
+        Check token for VK API.
+
+        Args:
+            token (str): Token for VK API.
+
+        Returns:
+            bool: True if token is valid, False otherwise.
+        """
+        logger.info("Checking token...")
+        try:
+            response = Service.__getProfileInfo(token)
+            print(response.content)
+            data = json.loads(response.content.decode("utf-8"))
+            if "error" in data:
+                logger.error("Token is invalid!")
+                return False
+        except Exception as e:
+            logger.error(e)
+            return False
+        logger.info("Token is valid!")
+        return True
+
+    def is_token_valid(self) -> bool:
+        """
+        Check token for VK API.
+
+        Returns:
+            bool: True if token is valid, False otherwise.
+        """
+        return Service.check_token(self.__token)
+
+    def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
+        """
+        Get count of all user's songs.
+
+        Args:
+            user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
+
+        Returns:
+            int: count of all user's songs.
+        """
+        user_id = int(user_id)
+        logger.info(f"Request by user: {user_id}")
+        try:
+            response = self.__getCount(user_id)
+            data = json.loads(response.content.decode("utf-8"))
+            songs_count = int(data["response"])
+        except Exception as e:
+            logger.error(e)
+            return
+        logger.info(f"Count of user's songs: {songs_count}")
+        return songs_count
+
     def __get_response(
         self, method: str, params: List[Tuple[str, Union[str, int]]]
     ) -> Response:
@@ -94,21 +165,6 @@ class Service:
         ]
         for pair in params:
             parameters.append(pair)
-        with Session() as session:
-            session.headers.update(headers)
-            response = session.post(url=url, data=parameters)
-        return response
-
-    def __getProfileInfo(self) -> Response:
-        headers = {"User-Agent": self.user_agent}
-        url = "https://api.vk.com/method/account.getProfileInfo"
-        parameters = [
-            ("access_token", self.__token),
-            ("https", 1),
-            ("lang", "ru"),
-            ("extended", 1),
-            ("v", "5.131"),
-        ]
         with Session() as session:
             session.headers.update(headers)
             response = session.post(url=url, data=parameters)
@@ -173,48 +229,6 @@ class Service:
             ("offset", offset),
         ]
         return self.__get_response("searchAlbums", params)
-
-    def check_token(self) -> bool:
-        """
-        Check token for VK API.
-
-        Returns:
-            bool: True if token is valid, False otherwise.
-        """
-        logger.info("Checking token...")
-        try:
-            response = self.__getProfileInfo()
-            data = json.loads(response.content.decode("utf-8"))
-            if "error" in data:
-                logger.error("Token is invalid!")
-                return False
-        except Exception as e:
-            logger.error(e)
-            return False
-        logger.info("Token is valid!")
-        return True
-
-    def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
-        """
-        Get count of all user's songs.
-
-        Args:
-            user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
-
-        Returns:
-            int: count of all user's songs.
-        """
-        user_id = int(user_id)
-        logger.info(f"Request by user: {user_id}")
-        try:
-            response = self.__getCount(user_id)
-            data = json.loads(response.content.decode("utf-8"))
-            songs_count = int(data["response"])
-        except Exception as e:
-            logger.error(e)
-            return
-        logger.info(f"Count of user's songs: {songs_count}")
-        return songs_count
 
     def get_songs_by_userid(
         self, user_id: Union[str, int], count: int = 100, offset: int = 0
