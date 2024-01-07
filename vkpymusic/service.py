@@ -11,7 +11,6 @@ from typing import Optional, Union, List, Tuple
 import requests
 from requests import Response, Session
 
-from .client import clients
 from .models import Song, Playlist
 from .utils import Converter, get_logger
 
