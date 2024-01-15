@@ -34,6 +34,7 @@ class Service:
     ...     Service.save_music(song)
     ```
     """
+
     #############
     # CONSTRUCTOR
     def __init__(self, user_agent: str, token: str):

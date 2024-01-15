@@ -17,12 +17,22 @@ class Playlist:
         access_key (str): The access key of the playlist.
     """
 
+    title: str
+    description: str
+    photo: str
+    count: int
+    followers: int
+    owner_id: int
+    playlist_id: int
+    access_key: str
+
     def __init__(
         self,
         title: str,
         description: str,
         photo: str,
         count: int,
+        followers: int,
         owner_id: int,
         playlist_id: int,
         access_key: str,
@@ -43,6 +53,7 @@ class Playlist:
         self.description = description
         self.photo = photo
         self.count = count
+        self.followers = followers
         self.owner_id = owner_id
         self.playlist_id = playlist_id
         self.access_key = access_key
@@ -77,10 +88,18 @@ class Playlist:
         else:
             photo = ""
         count = int(item["count"])
+        followers = int(item["followers"])
         owner_id = int(item["owner_id"])
         playlist_id = int(item["id"])
         access_key = str(item["access_key"])
         playlist = cls(
-            title, description, photo, count, owner_id, playlist_id, access_key
+            title,
+            description,
+            photo,
+            count,
+            followers,
+            owner_id,
+            playlist_id,
+            access_key,
         )
         return playlist

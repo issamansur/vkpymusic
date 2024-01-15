@@ -18,7 +18,22 @@ class Song:
         url (str): The URL of the song.
     """
 
-    def __init__(self, title, artist, duration, track_id, owner_id, url=""):
+    title: str
+    artist: str
+    duration: int
+    track_id: str
+    owner_id: str
+    url: str
+
+    def __init__(
+        self,
+        title: str,
+        artist: str,
+        duration: int,
+        track_id: str,
+        owner_id: str,
+        url: str = "",
+    ):
         """
         Initializes a Song object.
 
