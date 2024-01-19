@@ -145,27 +145,58 @@ class TokenReceiverAsync:
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_client":
                 del self.__login
-                del self.__password
                 await on_invalid_client()
                 return False
             else:
                 del self.__login
-                del self.__password
                 await on_critical_error(response_auth_json)
                 self.__on_error(response_auth_json)
                 return False
         if "access_token" in response_auth_json:
             del self.__login
-            del self.__password
             access_token = response_auth_json["access_token"]
             logger.info("Token was received!")
             self.__token = access_token
             return True
         del self.__login
-        del self.__password
         self.__on_error(response_auth_json)
         await on_critical_error(response_auth_json)
         return False
+
+   async def __request_to_change_pass(self, new_password: str) -> Response:
+        url = "https://api.vk.com/method/account.changePassword"
+        parameters = [
+            ("access_token", self.__token),
+            ("old_password", self.__password),
+            ("new_password", new_password),
+            ("https", 1),
+            ("lang", "ru"),
+            ("v", "5.131"),
+        ]
+        async with AsyncClient() as session:
+            response = await session.post(url=url, params=parameters)
+        return response
+
+    async def change_password(self, new_password: str) -> bool:
+        """
+        Get user id and username.
+
+        Returns:
+            tuple[int, str]: Tuple of user id and username.
+        """
+        logger.info("Changing password...")
+        try:
+            response = await self.__request_to_change_pass(new_password)
+            data = json.loads(response.content.decode("utf-8"))
+            token = int(data["response"]["token"])
+            self.__token = token
+        except Exception as e:
+            logger.error(e)
+            return false
+        
+        logger.info(f"Password was changed. New token was saved")
+        del self.__password
+        return true 
 
     def get_token(self) -> str:
         """
