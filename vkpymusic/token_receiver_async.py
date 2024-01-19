@@ -188,15 +188,15 @@ class TokenReceiverAsync:
         try:
             response = await self.__request_to_change_pass(new_password)
             data = json.loads(response.content.decode("utf-8"))
-            token = int(data["response"]["token"])
+            token = str(data["response"]["token"])
             self.__token = token
         except Exception as e:
             logger.error(e)
-            return false
+            return False
         
         logger.info(f"Password was changed. New token was saved")
         del self.__password
-        return true 
+        return True 
 
     def get_token(self) -> str:
         """
