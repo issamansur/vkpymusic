@@ -10,7 +10,7 @@ from typing import Optional, Union, Tuple, List
 import aiofiles
 from httpx import AsyncClient, Response
 
-from .models import Song, Playlist
+from .models import Song, Playlist, UserInfo
 from .utils import Converter, get_logger
 
 
@@ -110,9 +110,12 @@ class ServiceAsync:
         try:
             response = await ServiceAsync.__get_profile_info(token)
             data = json.loads(response.content.decode("utf-8"))
-            if "error" in data:
+            if "error" in data or "id" not in data:
                 logger.error("Token is invalid!")
                 return False
+            if "id" in data["response"]:
+                logger.info("Token is valid!")
+                return True
         except Exception as e:
             logger.error(e)
             return False
@@ -129,26 +132,22 @@ class ServiceAsync:
         logger.info("Checking token...")
         return await ServiceAsync.check_token(self.__token)
 
-    async def get_user_info(self) -> (int, str):
+    async def get_user_info(self) -> UserInfo:
         """
-        Get user id and username.
+        Get user info by token.
 
         Returns:
-            tuple[int, str]: Tuple of user id and username.
+            UserInfo: Instance of 'UserInfo'.
         """
         logger.info("Getting user info...")
         try:
-            response = await ServiceAsync.__get_profile_info(self.__token)
-            data = json.loads(response.content.decode("utf-8"))
-            user_id = int(data["response"]["id"])
-            first_name = data["response"]["first_name"]
-            last_name = data["response"]["last_name"]
+            response: Response = await ServiceAsync.__get_profile_info(self.__token)
+            userInfo = Converter.response_to_userinfo(response)
         except Exception as e:
             logger.error(e)
             return
-        logger.info(f"User info: {user_id}, {first_name}, {last_name}")
-        return user_id, first_name + " " + last_name
-
+        logger.info(f"User info: {userInfo}")
+        return userInfo
 
     #######################################
     # PRIVATE METHODS FOR CREATING REQUESTS

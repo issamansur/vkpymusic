@@ -106,9 +106,19 @@ class TokenReceiver:
             self.client = clients["Kate"]
         self.__token = None
 
-    def __request_auth(
+    def request_auth(
         self, code: Optional[str] = None, captcha: Optional[Tuple[int, str]] = None
     ) -> Response:
+        """
+        Request auth from VK.
+
+        Args:
+            code (Optional[str]): Code from VK/SMS (default value = None).
+            captcha (Optional[Tuple[int, str]]): Captcha (default value = None).
+
+        Returns:
+            Response: Response from VK.
+        """
         query_params = [
             ("grant_type", "password"),
             ("client_id", self.client.client_id),
@@ -130,7 +140,16 @@ class TokenReceiver:
             response = session.post("https://oauth.vk.com/token", data=query_params)
         return response
 
-    def __request_code(self, sid: Union[str, int]):
+    def request_code(self, sid: Union[str, int]):
+        """
+        Request code from VK.
+
+        Args:
+            sid (Union[str, int]): Sid from VK.
+
+        Returns:
+            Response: Response from VK.
+        """
         query_params = [("sid", str(sid)), ("v", "5.131")]
         with Session() as session:
             session.headers.update({"User-Agent": self.client.user_agent})
@@ -172,7 +191,7 @@ class TokenReceiver:
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
         """
-        response_auth: requests.Response = self.__request_auth()
+        response_auth: requests.Response = self.request_auth()
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
         while "error" in response_auth_json:
             error = response_auth_json["error"]
@@ -181,20 +200,20 @@ class TokenReceiver:
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
                 captcha_key: str = on_captcha(captcha_img)
-                response_auth = self.__request_auth(captcha=(captcha_sid, captcha_key))
+                response_auth = self.request_auth(captcha=(captcha_sid, captcha_key))
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "need_validation":
                 sid = response_auth_json["validation_sid"]
                 # response2: requests.Response =
-                self.__request_code(sid)
+                self.request_code(sid)
                 # response2_json = json.loads(response2.content.decode('utf-8'))
                 code: str = on_2fa()
-                response_auth = self.__request_auth(code=code)
+                response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_request":
                 logger.warn("Invalid code. Try again!")
                 code: str = on_2fa()
-                response_auth = self.__request_auth(code=code)
+                response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_client":
                 del self.__login

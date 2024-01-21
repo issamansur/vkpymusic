@@ -11,7 +11,7 @@ from typing import Optional, Union, List, Tuple
 import requests
 from requests import Response, Session
 
-from .models import Song, Playlist
+from .models import Song, Playlist, UserInfo
 from .utils import Converter, get_logger
 
 
@@ -97,7 +97,7 @@ class Service:
             ("v", "5.131"),
         ]
         with Session() as session:
-            response = session.post(url=url, data=parameters)
+            response: Response = session.post(url=url, data=parameters)
         return response
 
     @staticmethod
@@ -118,6 +118,9 @@ class Service:
             if "error" in data:
                 logger.error("Token is invalid!")
                 return False
+            if "id" in data["response"]:
+                logger.info("Token is valid!")
+                return True
         except Exception as e:
             logger.error(e)
             return False
@@ -133,25 +136,22 @@ class Service:
         """
         return Service.check_token(self.__token)
 
-    def get_user_info(self) -> (int, str):
+    def get_user_info(self) -> UserInfo:
         """
         Get user info by token.
 
         Returns:
-            (int, str): Tuple of user id and first + last name.
+            UserInfo: Instance of 'UserInfo'.
         """
         logger.info("Getting user info...")
         try:
-            response = Service.__get_profile_info(self.__token)
-            data = json.loads(response.content.decode("utf-8"))
-            user_id = int(data["response"]["id"])
-            first_name = data["response"]["first_name"]
-            last_name = data["response"]["last_name"]
+            response: Response = Service.__get_profile_info(self.__token)
+            userInfo: UserInfo = Converter.response_to_userinfo(response)
         except Exception as e:
             logger.error(e)
             return
-        logger.info(f"User info: {user_id}, {first_name}, {last_name}")
-        return user_id, first_name + " " + last_name
+        logger.info(f"User info: {userInfo}")
+        return userInfo
 
     #######################################
     # PRIVATE METHODS FOR CREATING REQUESTS

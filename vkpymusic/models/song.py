@@ -33,7 +33,7 @@ class Song:
         track_id: str,
         owner_id: str,
         url: str = "",
-    ):
+    ) -> None:
         """
         Initializes a Song object.
 
