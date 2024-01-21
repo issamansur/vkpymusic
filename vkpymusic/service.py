@@ -118,6 +118,9 @@ class Service:
             if "error" in data:
                 logger.error("Token is invalid!")
                 return False
+            if "id" in data["response"]:
+                logger.info("Token is valid!")
+                return True
         except Exception as e:
             logger.error(e)
             return False
