@@ -46,7 +46,7 @@ class UserInfo:
         self.phone = phone
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.userid} {self.first_name} {self.last_name}"
 
     def to_dict(self) -> dict:
         """

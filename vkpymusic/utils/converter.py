@@ -8,7 +8,7 @@ from typing import List
 
 from requests import Response
 
-from ..models import Song, Playlist
+from ..models import Song, Playlist, UserInfo
 from .logger import get_logger
 
 
@@ -61,3 +61,21 @@ class Converter:
             playlist = Playlist.from_json(item)
             playlists.append(playlist)
         return playlists
+
+    @staticmethod
+    def response_to_userinfo(response: Response) -> UserInfo:
+        """Converts a response to a UserInfo.
+
+        Args:
+            response (Response): The response object from VK.
+
+        Returns:
+            UserInfo: A UserInfo converted from the response.
+        """
+        response = json.loads(response.content.decode("utf-8"))
+        try:
+            items = response["response"]
+        except Exception as e:
+            logger.error(e)
+        userinfo: UserInfo = UserInfo.from_json(items)
+        return userinfo
