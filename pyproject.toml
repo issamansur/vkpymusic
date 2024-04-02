@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vkpymusic"
-version = "3.3.0"
+version = "3.3.1"
 homepage = "https://github.com/issamansur/vkpymusic"
 repository = "https://github.com/issamansur/vkpymusic"
 description = "Python library for VK Audio (API)"

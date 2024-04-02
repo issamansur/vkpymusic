@@ -54,7 +54,7 @@ def _get_stream_handler() -> logging.StreamHandler:
     return stream_handler
 
 
-def get_logger(name: str) -> logging.Logger:
+def get_logger(name: str, console_debug: bool = False) -> logging.Logger:
     """
     Returns a logger instance with configured handlers.
 
@@ -67,5 +67,6 @@ def get_logger(name: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     logger.addHandler(_get_file_handler())
-    logger.addHandler(_get_stream_handler())
+    if console_debug:
+        logger.addHandler(_get_stream_handler())
     return logger
