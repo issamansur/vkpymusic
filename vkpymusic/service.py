@@ -136,7 +136,7 @@ class Service:
         """
         return Service.check_token(self.__token)
 
-    def get_user_info(self) -> UserInfo:
+    def get_user_info(self) -> Optional[UserInfo]:
         """
         Get user info by token.
 
@@ -146,12 +146,12 @@ class Service:
         logger.info("Getting user info...")
         try:
             response: Response = Service.__get_profile_info(self.__token)
-            userInfo: UserInfo = Converter.response_to_userinfo(response)
+            user_info: UserInfo = Converter.response_to_userinfo(response)
         except Exception as e:
             logger.error(e)
             return
-        logger.info(f"User info: {userInfo}")
-        return userInfo
+        logger.info(f"User info: {user_info}")
+        return user_info
 
     #######################################
     # PRIVATE METHODS FOR CREATING REQUESTS
@@ -257,7 +257,7 @@ class Service:
             songs_count = int(data["response"])
         except Exception as e:
             logger.error(e)
-            return
+            return 0
         logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
 
@@ -282,7 +282,7 @@ class Service:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -321,7 +321,7 @@ class Service:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -356,7 +356,7 @@ class Service:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -385,7 +385,7 @@ class Service:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -415,7 +415,7 @@ class Service:
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(playlists) == 0:
             logger.info("No results found ._.")
         else:
@@ -445,7 +445,7 @@ class Service:
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(playlists) == 0:
             logger.info("No results found ._.")
         else:
@@ -459,7 +459,7 @@ class Service:
     ) -> List[Playlist]:
         """
         Search albums by text/query.
-        Album - artists's album/collection of songs.
+        Album - artists' album/collection of songs.
         In obj context - same as 'Playlist'.
 
         Args:
@@ -476,7 +476,7 @@ class Service:
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(playlists) == 0:
             logger.info("No results found ._.")
         else:
@@ -488,9 +488,9 @@ class Service:
     ################
     # STATIC METHODS
     @staticmethod
-    def save_music(song: Song) -> str:
+    def save_music(song: Song) -> Optional[str]:
         """
-        Save song to '{workDirectory}/Music/{songname}.mp3'.
+        Save song to '{workDirectory}/Music/{song name}.mp3'.
 
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
@@ -521,6 +521,9 @@ class Service:
                 res = input().lower()
                 if res.lower() != "y" and res.lower() != "yes":
                     return
+        else:
+            logger.error(f"Error while downloading {song}: {response.status_code}")
+            return
         response.close()
         logger.info(f"Downloading {song}...")
         with open(file_path, "wb") as output_file:

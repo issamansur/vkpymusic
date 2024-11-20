@@ -27,10 +27,12 @@ class ServiceAsync:
 
     Example usage:
     ```
+    >>> import asyncio
+    >>>
     >>> service = ServiceAsync.parse_config()
-    >>> songs = await service.search_songs_by_text("Imagine Dragons")
+    >>> songs = asyncio.run(service.search_songs_by_text("Imagine Dragons"))
     >>> song = songs[0]
-    >>> await Service.save_music(song)
+    >>> asyncio.run(ServiceAsync.save_music(song))
     ```
     """
 
@@ -132,7 +134,7 @@ class ServiceAsync:
         logger.info("Checking token...")
         return await ServiceAsync.check_token(self.__token)
 
-    async def get_user_info(self) -> UserInfo:
+    async def get_user_info(self) -> Optional[UserInfo]:
         """
         Get user info by token.
 
@@ -142,12 +144,12 @@ class ServiceAsync:
         logger.info("Getting user info...")
         try:
             response: Response = await ServiceAsync.__get_profile_info(self.__token)
-            userInfo = Converter.response_to_userinfo(response)
+            user_info = Converter.response_to_userinfo(response)
         except Exception as e:
             logger.error(e)
             return
-        logger.info(f"User info: {userInfo}")
-        return userInfo
+        logger.info(f"User info: {user_info}")
+        return user_info
 
     #######################################
     # PRIVATE METHODS FOR CREATING REQUESTS
@@ -251,7 +253,7 @@ class ServiceAsync:
             songs_count = int(data["response"])
         except Exception as e:
             logger.error(e)
-            return
+            return 0
         logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
 
@@ -276,7 +278,7 @@ class ServiceAsync:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -315,7 +317,7 @@ class ServiceAsync:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -350,7 +352,7 @@ class ServiceAsync:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -379,7 +381,7 @@ class ServiceAsync:
             songs = Converter.response_to_songs(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(songs) == 0:
             logger.info("No results found ._.")
         else:
@@ -410,7 +412,7 @@ class ServiceAsync:
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(playlists) == 0:
             logger.info("No results found ._.")
         else:
@@ -440,7 +442,7 @@ class ServiceAsync:
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(playlists) == 0:
             logger.info("No results found ._.")
         else:
@@ -454,7 +456,7 @@ class ServiceAsync:
     ) -> List[Playlist]:
         """
         Search albums by text/query.
-        Album - artists's album/collection of songs.
+        Album - artists' album/collection of songs.
         In obj context - same as 'Playlist'.
 
         Args:
@@ -471,7 +473,7 @@ class ServiceAsync:
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             logger.error(e)
-            return
+            return []
         if len(playlists) == 0:
             logger.info("No results found ._.")
         else:
@@ -483,9 +485,9 @@ class ServiceAsync:
     ################
     # STATIC METHODS
     @staticmethod
-    async def save_music(song: Song, overwrite: bool = False) -> str:
+    async def save_music(song: Song, overwrite: bool = False) -> Optional[str]:
         """
-        Save song to '{workDirectory}/Music/{songname}.mp3'.
+        Save song to '{workDirectory}/Music/{song name}.mp3'.
 
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
@@ -512,6 +514,9 @@ class ServiceAsync:
                     logger.warning(f"File with name '{file_name_mp3}' exists.")
                     if not overwrite:
                         return file_path
+            else:
+                logger.error(f"Error while downloading {song}: {response.status_code}")
+                return
             logger.info(f"Downloading {song}...")
             async with aiofiles.open(file_path, "wb") as output_file:
                 await output_file.write(response.read())
