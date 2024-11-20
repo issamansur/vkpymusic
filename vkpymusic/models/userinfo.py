@@ -64,6 +64,10 @@ class UserInfo:
         last_name = str(item["last_name"])
         if "photo_200" in item:
             photo = str(item["photo_200"])
+        else:
+            photo = ""
         if "phone" in item:
             phone = str(item["phone"])
+        else:
+            phone = ""
         return cls(userid, first_name, last_name, photo, phone)
