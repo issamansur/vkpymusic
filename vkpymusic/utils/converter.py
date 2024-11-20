@@ -4,7 +4,7 @@ This module contains the Converter class.
 
 import json
 import logging
-from typing import List
+from typing import List, Optional
 
 from requests import Response
 
@@ -22,7 +22,8 @@ class Converter:
 
     @staticmethod
     def response_to_songs(response: Response) -> List[Song]:
-        """Converts a response to a list of songs.
+        """
+        Converts a response to a list of songs.
 
         Args:
             response (Response): The response object from VK.
@@ -35,6 +36,8 @@ class Converter:
             items = response["response"]["items"]
         except Exception as e:
             logger.error(e)
+            return []
+
         songs: List[Song] = []
         for item in items:
             song = Song.from_json(item)
@@ -43,7 +46,8 @@ class Converter:
 
     @staticmethod
     def response_to_playlists(response: Response) -> List[Playlist]:
-        """Converts a response to a list of playlists.
+        """
+        Converts a response to a list of playlists.
 
         Args:
             response (Response): The response object from VK.
@@ -52,10 +56,13 @@ class Converter:
             List[Playlist]: A list of playlists converted from the response.
         """
         response = json.loads(response.content.decode("utf-8"))
+
         try:
             items = response["response"]["items"]
         except Exception as e:
             logger.error(e)
+            return []
+
         playlists: List[Playlist] = []
         for item in items:
             playlist = Playlist.from_json(item)
@@ -63,8 +70,9 @@ class Converter:
         return playlists
 
     @staticmethod
-    def response_to_userinfo(response: Response) -> UserInfo:
-        """Converts a response to a UserInfo.
+    def response_to_userinfo(response: Response) -> Optional[UserInfo]:
+        """
+        Converts a response to a UserInfo.
 
         Args:
             response (Response): The response object from VK.
@@ -77,5 +85,6 @@ class Converter:
             items = response["response"]
         except Exception as e:
             logger.error(e)
+            return
         userinfo: UserInfo = UserInfo.from_json(items)
         return userinfo
