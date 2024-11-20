@@ -60,6 +60,7 @@ def get_logger(name: str, console_debug: bool = False) -> logging.Logger:
 
     Args:
         name (str): The name of the logger.
+        console_debug (bool): Whether to enable debug messages in the console.
 
     Returns:
         logger (logging.Logger): A logger instance with configured handlers.
