@@ -7,7 +7,7 @@ It interacts with the VK API to obtain an access token.
 import os
 import json
 import logging
-from typing import Awaitable, Callable, Union, Tuple
+from typing import Awaitable, Callable, Union, Tuple, Optional
 
 from httpx import AsyncClient, Response
 
@@ -22,9 +22,11 @@ class TokenReceiverAsync:
     """
     A class that is responsible for performing authorization using
     the available login and password. It interacts with the VK API
-    to obtain an access token. The TokenReceiver class provides
+    to obtain an access token.
+    WARNING!!! The TokenReceiverAsync class DOESN'T provide
     methods for handling captcha, 2-factor authentication,
-    and various error scenarios.
+    and various error scenarios. You need to implement them
+    yourself using the appropriate handlers.
 
     Attributes:
         client (Client): The client object.
@@ -34,8 +36,11 @@ class TokenReceiverAsync:
 
     Example usage:
     ```
-    >>> receiver = TokenReceiver(login="my_username", password="my_password")
-    >>> if await receiver.auth():
+    >>> import asyncio
+    >>> from vkpymusic import TokenReceiverAsync
+    >>>
+    >>> receiver = TokenReceiverAsync(login="my_username", password="my_password")
+    >>> if asyncio.run(receiver.auth()):
     ...     receiver.get_token()
     ...     receiver.save_to_config()
     ```
@@ -51,14 +56,14 @@ class TokenReceiverAsync:
         self.__token = None
 
     async def request_auth(
-        self, code: str = None, captcha: Tuple[int, str] = None
+        self, code: str = None, captcha: Tuple[str, str] = None
     ) -> Response:
         """
         Request auth from VK.
 
         Args:
             code (Optional[str]): Code from VK/SMS (default value = None).
-            captcha (Optional[Tuple[int, str]]): Captcha (default value = None).
+            captcha (Optional[Tuple[str, str]]): Captcha (default value = None).
 
         Returns:
             Response: Response from VK.
@@ -130,7 +135,7 @@ class TokenReceiverAsync:
 
         Args:
             on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return key.
-            on_2fa (Callable[[], str]): ASYNC handler to 2 factor auth. Return captcha.
+            on_2fa (Callable[[], str]): ASYNC handler to 2-factor auth. Return captcha.
             on_invalid_client (Callable[[], None]): ASYNC handler to invalid client.
             on_critical_error (Callable[[Any], None]): ASYNC handler to crit error. Get response.
 
@@ -141,6 +146,7 @@ class TokenReceiverAsync:
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
         while "error" in response_auth_json:
             error = response_auth_json["error"]
+            error_type = response_auth_json.get("error_type", "")
             if error == "need_captcha":
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
@@ -158,7 +164,7 @@ class TokenReceiverAsync:
                 response_auth = await self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_request":
-                logger.warn("Invalid code. Try again!")
+                logger.warning("Invalid code. Try again!")
                 code: str = await on_2fa()
                 response_auth = await self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
@@ -166,6 +172,11 @@ class TokenReceiverAsync:
                 del self.__login
                 del self.__password
                 await on_invalid_client()
+                return False
+            elif error_type == "password_bruteforce_attempt":
+                logger.error("Password bruteforce attempt!")
+                del self.__login
+                del self.__password
                 return False
             else:
                 del self.__login
@@ -186,13 +197,13 @@ class TokenReceiverAsync:
         await on_critical_error(response_auth_json)
         return False
 
-    def get_token(self) -> str:
+    def get_token(self) -> Optional[str]:
         """
-        Prints token in console (if authorisation was succesful).
+        Prints token in console (if authorisation was successful).
         """
         token = self.__token
         if not token:
-            logger.warn('Please, first call the method "auth".')
+            logger.warning('Please, first call the method "auth".')
             return
         logger.info(token)
         return token
@@ -206,7 +217,7 @@ class TokenReceiverAsync:
         """
         token: str = self.__token
         if not token:
-            logger.warn('Please, first call the method "auth"')
+            logger.warning('Please, first call the method "auth"')
             return
         full_fp = self.create_path(file_path)
         if os.path.isfile(full_fp):

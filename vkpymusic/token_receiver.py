@@ -58,7 +58,7 @@ def on_invalid_client_handler():
 
 def on_critical_error_handler(response_auth_json):
     """
-    Default handler to ctitical error.
+    Default handler to critical error.
 
     Args:
         response_auth_json (...): Message or object to research.
@@ -107,14 +107,14 @@ class TokenReceiver:
         self.__token = None
 
     def request_auth(
-        self, code: Optional[str] = None, captcha: Optional[Tuple[int, str]] = None
+        self, code: Optional[str] = None, captcha: Optional[Tuple[str, str]] = None
     ) -> Response:
         """
         Request auth from VK.
 
         Args:
             code (Optional[str]): Code from VK/SMS (default value = None).
-            captcha (Optional[Tuple[int, str]]): Captcha (default value = None).
+            captcha (Optional[Tuple[str, str]]): Captcha (default value = None).
 
         Returns:
             Response: Response from VK.
@@ -184,7 +184,7 @@ class TokenReceiver:
 
         Args:
             on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return key.
-            on_2fa (Callable[[], str]): Handler to 2 factor auth. Return captcha.
+            on_2fa (Callable[[], str]): Handler to 2-factor auth. Return captcha.
             on_invalid_client (Callable[[], None]): Handler to invalid client.
             on_critical_error (Callable[[Any], None]): Handler to critical error. Get response.
 
@@ -195,7 +195,7 @@ class TokenReceiver:
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
         while "error" in response_auth_json:
             error = response_auth_json["error"]
-            sid = 0
+            error_type = response_auth_json.get("error_type", "")
             if error == "need_captcha":
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
@@ -211,7 +211,7 @@ class TokenReceiver:
                 response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_request":
-                logger.warn("Invalid code. Try again!")
+                logger.warning("Invalid code. Try again!")
                 code: str = on_2fa()
                 response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
@@ -219,6 +219,11 @@ class TokenReceiver:
                 del self.__login
                 del self.__password
                 on_invalid_client()
+                return False
+            elif error_type == "password_bruteforce_attempt":
+                logger.error("Password bruteforce attempt!")
+                del self.__login
+                del self.__password
                 return False
             else:
                 del self.__login
@@ -241,25 +246,25 @@ class TokenReceiver:
 
     def get_token(self) -> Optional[str]:
         """
-        Prints token in console (if authorisation was succesful).
+        Prints token in console (if authorisation was successful).
         """
         token = self.__token
         if not token:
-            logger.warn('Please, first call the method "auth".')
+            logger.warning('Please, first call the method "auth".')
             return
         logger.info(token)
         return token
 
     def save_to_config(self, file_path: str = "config_vk.ini"):
         """
-        Save token and user agent data in config (if authorisation was succesful).
+        Save token and user agent data in config (if authorisation was successful).
 
         Args:
             file_path (str): Filename of config (default value = "config_vk.ini").
         """
         token: str = self.__token
         if not token:
-            logger.warn('Please, first call the method "auth"')
+            logger.warning('Please, first call the method "auth"')
             return
         full_fp = self.create_path(file_path)
         if os.path.isfile(full_fp):
