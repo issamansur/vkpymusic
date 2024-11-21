@@ -3,16 +3,11 @@ This module contains the Converter class.
 """
 
 import json
-import logging
 from typing import List, Optional
 
 from requests import Response
 
 from ..models import Song, Playlist, UserInfo
-from .logger import get_logger
-
-
-logger: logging.Logger = get_logger(__name__)
 
 
 class Converter:
@@ -32,11 +27,7 @@ class Converter:
             List[Song]: A list of songs converted from the response.
         """
         response = json.loads(response.content.decode("utf-8"))
-        try:
-            items = response["response"]["items"]
-        except Exception as e:
-            logger.error(e)
-            return []
+        items = response["response"]["items"]
 
         songs: List[Song] = []
         for item in items:
@@ -56,17 +47,13 @@ class Converter:
             List[Playlist]: A list of playlists converted from the response.
         """
         response = json.loads(response.content.decode("utf-8"))
-
-        try:
-            items = response["response"]["items"]
-        except Exception as e:
-            logger.error(e)
-            return []
+        items = response["response"]["items"]
 
         playlists: List[Playlist] = []
         for item in items:
             playlist = Playlist.from_json(item)
             playlists.append(playlist)
+
         return playlists
 
     @staticmethod
@@ -81,10 +68,7 @@ class Converter:
             UserInfo: A UserInfo converted from the response.
         """
         response = json.loads(response.content.decode("utf-8"))
-        try:
-            items = response["response"]
-        except Exception as e:
-            logger.error(e)
-            return
-        userinfo: UserInfo = UserInfo.from_json(items)
+        item = response["response"]
+        userinfo: UserInfo = UserInfo.from_json(item)
+
         return userinfo
