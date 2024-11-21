@@ -12,10 +12,10 @@ from typing import Awaitable, Callable, Union, Tuple, Optional
 from httpx import AsyncClient, Response
 
 from .client import clients
-from .utils import get_logger
+from .utils import create_logger
 
 
-logger: logging.Logger = get_logger(__name__)
+logger: logging.Logger = create_logger(__name__)
 
 
 class TokenReceiverAsync:

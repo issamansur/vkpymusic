@@ -12,10 +12,10 @@ import requests
 from requests import Response, Session
 
 from .models import Song, Playlist, UserInfo
-from .utils import Converter, get_logger
+from .utils import Converter, create_logger
 
 
-logger: logging.Logger = get_logger(__name__)
+logger: logging.Logger = create_logger(__name__)
 
 
 class Service:

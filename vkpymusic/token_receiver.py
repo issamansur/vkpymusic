@@ -13,10 +13,10 @@ import requests
 from requests import Session, Response
 
 from .client import clients
-from .utils import get_logger
+from .utils import create_logger
 
 
-logger: logging.Logger = get_logger(__name__)
+logger: logging.Logger = create_logger(__name__)
 
 
 def on_captcha_handler(url: str) -> str:

@@ -7,9 +7,9 @@ Classes:
 """
 
 from .converter import Converter
-from .logger import get_logger
+from .logger import create_logger
 
 __all__ = [
     "Converter",
-    "get_logger",
+    "create_logger",
 ]

@@ -54,20 +54,26 @@ def _get_stream_handler() -> logging.StreamHandler:
     return stream_handler
 
 
-def get_logger(name: str, console_debug: bool = False) -> logging.Logger:
+def create_logger(
+        name: str,
+        console: bool = True,
+        file: bool = True
+    ) -> logging.Logger:
     """
     Returns a logger instance with configured handlers.
 
     Args:
         name (str): The name of the logger.
-        console_debug (bool): Whether to enable debug messages in the console.
+        console (bool): Whether to enable debug messages in the console.
+        file (bool): Whether to enable debug messages in the log file.
 
     Returns:
         logger (logging.Logger): A logger instance with configured handlers.
     """
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
-    logger.addHandler(_get_file_handler())
-    if console_debug:
+    if console:
         logger.addHandler(_get_stream_handler())
+    if file:
+        logger.addHandler(_get_file_handler())
     return logger
