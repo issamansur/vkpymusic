@@ -15,9 +15,6 @@ from .models import Song, Playlist, UserInfo
 from .utils import Converter, create_logger
 
 
-logger: logging.Logger = create_logger(__name__)
-
-
 class Service:
     """
     A class for working with VK API.
@@ -25,6 +22,7 @@ class Service:
     Attributes:
         user_agent (str): User agent string.
         __token (str):    Token for VK API.
+        logger (logging.Logger): The logger for class.
 
     Example usage:
     ```
@@ -34,10 +32,15 @@ class Service:
     ...     Service.save_music(song)
     ```
     """
+    logger: logging.Logger = create_logger(__name__)
 
     #############
     # CONSTRUCTOR
-    def __init__(self, user_agent: str, token: str):
+    def __init__(
+            self,
+            user_agent: str,
+            token: str
+    ) -> None:
         """
         Initializes a Service object.
 
@@ -47,6 +50,16 @@ class Service:
         """
         self.user_agent = user_agent
         self.__token = token
+
+    @classmethod
+    def set_logger(cls, logger: logging.Logger) -> None:
+        """
+        Set logger for class.
+
+        Args:
+            logger (logging.Logger): Logger.
+        """
+        cls.logger = logger
 
     ##################################
     # METHODS WITH WORKING WITH CONFIG
@@ -65,12 +78,12 @@ class Service:
             config.read(configfile_path, encoding="utf-8")
             user_agent = config["VK"]["user_agent"]
             token = config["VK"]["token_for_audio"]
-            return Service(user_agent, token)
+            return cls(user_agent, token)
         except Exception as e:
-            logger.warning(e)
+            cls.logger.error("Config not found or invalid: " + str(e))
 
-    @staticmethod
-    def del_config(filename: str = "config_vk.ini"):
+    @classmethod
+    def del_config(cls, filename: str = "config_vk.ini"):
         """
         Delete config created by 'TokenReceiver'.
 
@@ -80,9 +93,9 @@ class Service:
         configfile_path = os.path.join(os.path.dirname(__file__), filename)
         try:
             os.remove(configfile_path)
-            logger.info("Config successful deleted!")
+            cls.logger.info("Config successful deleted!")
         except Exception as e:
-            logger.warning(e)
+            cls.logger.warning(e)
 
     ##############################################
     # METHODS FOR WORKING WITH TOKEN AND USER INFO
@@ -100,8 +113,8 @@ class Service:
             response: Response = session.post(url=url, data=parameters)
         return response
 
-    @staticmethod
-    def check_token(token: str) -> bool:
+    @classmethod
+    def check_token(cls, token: str) -> bool:
         """
         Check token for VK API.
 
@@ -111,20 +124,20 @@ class Service:
         Returns:
             bool: True if token is valid, False otherwise.
         """
-        logger.info("Checking token...")
+        cls.logger.info("Checking token...")
         try:
-            response = Service.__get_profile_info(token)
+            response = cls.__get_profile_info(token)
             data = json.loads(response.content.decode("utf-8"))
             if "error" in data:
-                logger.error("Token is invalid!")
+                cls.logger.error("Token is invalid!")
                 return False
             if "id" in data["response"]:
-                logger.info("Token is valid!")
+                cls.logger.info("Token is valid!")
                 return True
         except Exception as e:
-            logger.error(e)
+            cls.logger.error(e)
             return False
-        logger.info("Token is valid!")
+        cls.logger.info("Token is valid!")
         return True
 
     def is_token_valid(self) -> bool:
@@ -134,7 +147,7 @@ class Service:
         Returns:
             bool: True if token is valid, False otherwise.
         """
-        return Service.check_token(self.__token)
+        return self.check_token(self.__token)
 
     def get_user_info(self) -> Optional[UserInfo]:
         """
@@ -143,14 +156,14 @@ class Service:
         Returns:
             UserInfo: Instance of 'UserInfo'.
         """
-        logger.info("Getting user info...")
+        self.logger.info("Getting user info...")
         try:
-            response: Response = Service.__get_profile_info(self.__token)
+            response: Response = self.__get_profile_info(self.__token)
             user_info: UserInfo = Converter.response_to_userinfo(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return
-        logger.info(f"User info: {user_info}")
+        self.logger.info(f"User info: {user_info}")
         return user_info
 
     #######################################
@@ -250,15 +263,15 @@ class Service:
             int: count of all user's songs.
         """
         user_id = int(user_id)
-        logger.info(f"Request by user: {user_id}")
+        self.logger.info(f"Request by user: {user_id}")
         try:
             response = self.__get_count(user_id)
             data = json.loads(response.content.decode("utf-8"))
             songs_count = int(data["response"])
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return 0
-        logger.info(f"Count of user's songs: {songs_count}")
+        self.logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
 
     def get_songs_by_userid(
@@ -276,19 +289,19 @@ class Service:
             list[Song]: List of songs.
         """
         user_id = int(user_id)
-        logger.info(f"Request by user: {user_id}")
+        self.logger.info(f"Request by user: {user_id}")
         try:
             response: Response = self.__get(user_id, count, offset)
             songs = Converter.response_to_songs(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(songs) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, song in enumerate(songs, start=1):
-                logger.info(f"{i}) {song}")
+                self.logger.info(f"{i}) {song}")
         return songs
 
     def get_songs_by_playlist_id(
@@ -313,21 +326,21 @@ class Service:
             list[Song]: List of songs.
         """
         user_id = int(user_id)
-        logger.info(f"Request by user: {user_id}")
+        self.logger.info(f"Request by user: {user_id}")
         try:
             response: Response = self.__get(
                 user_id, count, offset, playlist_id, access_key
             )
             songs = Converter.response_to_songs(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(songs) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, song in enumerate(songs, start=1):
-                logger.info(f"{i}) {song}")
+                self.logger.info(f"{i}) {song}")
         return songs
 
     def get_songs_by_playlist(
@@ -344,7 +357,7 @@ class Service:
         Returns:
             list[Song]: List of songs.
         """
-        logger.info(f"Request by playlist: {playlist}")
+        self.logger.info(f"Request by playlist: {playlist}")
         try:
             response: Response = self.__get(
                 playlist.owner_id,
@@ -355,14 +368,14 @@ class Service:
             )
             songs = Converter.response_to_songs(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(songs) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, song in enumerate(songs, start=1):
-                logger.info(f"{i}) {song}")
+                self.logger.info(f"{i}) {song}")
         return songs
 
     def search_songs_by_text(
@@ -379,19 +392,19 @@ class Service:
         Returns:
             list[Song]: List of songs.
         """
-        logger.info(f'Request by text: "{text}" в количестве {count}')
+        self.logger.info(f'Request by text: "{text}" в количестве {count}')
         try:
             response = self.__search(text, count, offset)
             songs = Converter.response_to_songs(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(songs) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, song in enumerate(songs, start=1):
-                logger.info(f"{i}) {song}")
+                self.logger.info(f"{i}) {song}")
         return songs
 
     def get_playlists_by_userid(
@@ -409,19 +422,19 @@ class Service:
             list[Playlist]: List of playlists.
         """
         user_id = int(user_id)
-        logger.info(f"Request by user: {user_id}")
+        self.logger.info(f"Request by user: {user_id}")
         try:
             response = self.__get_playlists(user_id, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(playlists) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, playlist in enumerate(playlists, start=1):
-                logger.info(f"{i}) {playlist}")
+                self.logger.info(f"{i}) {playlist}")
         return playlists
 
     def search_playlists_by_text(
@@ -439,19 +452,19 @@ class Service:
         Returns:
             list[Playlist]: List of playlists.
         """
-        logger.info(f"Request by text: {text}")
+        self.logger.info(f"Request by text: {text}")
         try:
             response = self.__search_playlists(text, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(playlists) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, playlist in enumerate(playlists, start=1):
-                logger.info(f"{i}) {playlist}")
+                self.logger.info(f"{i}) {playlist}")
         return playlists
 
     def search_albums_by_text(
@@ -470,25 +483,25 @@ class Service:
         Returns:
             list[Playlist]: List of albums.
         """
-        logger.info(f"Request by text: {text}")
+        self.logger.info(f"Request by text: {text}")
         try:
             response = self.__search_albums(text, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
-            logger.error(e)
+            self.logger.error(e)
             return []
         if len(playlists) == 0:
-            logger.info("No results found ._.")
+            self.logger.info("No results found ._.")
         else:
-            logger.info("Results:")
+            self.logger.info("Results:")
             for i, playlist in enumerate(playlists, start=1):
-                logger.info(f"{i}) {playlist}")
+                self.logger.info(f"{i}) {playlist}")
         return playlists
 
     ################
-    # STATIC METHODS
-    @staticmethod
-    def save_music(song: Song) -> Optional[str]:
+    # EXTENSION METHODS
+    @classmethod
+    def save_music(cls, song: Song) -> Optional[str]:
         """
         Save song to '{workDirectory}/Music/{song name}.mp3'.
 
@@ -502,31 +515,31 @@ class Service:
         file_name_mp3 = f"{song}.mp3"
         url = song.url
         if url == "":
-            logger.warning("Url no found")
+            cls.logger.warning("Url no found")
             return
         response = requests.get(url=url)
         if response.status_code == 200:
             if not os.path.exists("Music"):
                 os.makedirs("Music")
-                logger.info("Folder 'Music' was created")
+                cls.logger.info("Folder 'Music' was created")
             file_path = os.path.join(os.getcwd(), "Music", file_name_mp3)
             if not os.path.exists(file_path):
                 if "index.m3u8" in url:
-                    logger.error(".m3u8 detected!")
+                    cls.logger.error(".m3u8 detected!")
                     return
             else:
-                logger.warning(
+                cls.logger.warning(
                     f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)"
                 )
                 res = input().lower()
                 if res.lower() != "y" and res.lower() != "yes":
                     return
         else:
-            logger.error(f"Error while downloading {song}: {response.status_code}")
+            cls.logger.error(f"Error while downloading {song}: {response.status_code}")
             return
         response.close()
-        logger.info(f"Downloading {song}...")
+        cls.logger.info(f"Downloading {song}...")
         with open(file_path, "wb") as output_file:
             output_file.write(response.content)
-        logger.info(f"Success! Music was downloaded in '{file_path}'")
+        cls.logger.info(f"Success! Music was downloaded in '{file_path}'")
         return file_path
