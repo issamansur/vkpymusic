@@ -15,9 +15,6 @@ from .client import clients
 from .utils import create_logger
 
 
-logger: logging.Logger = create_logger(__name__)
-
-
 class TokenReceiverAsync:
     """
     A class that is responsible for performing authorization using
@@ -33,6 +30,7 @@ class TokenReceiverAsync:
         __login (str): The login.
         __password (str): The password.
         __token (str): The token.
+        _logger (logging.Logger): The logger.
 
     Example usage:
     ```
@@ -46,7 +44,22 @@ class TokenReceiverAsync:
     ```
     """
 
-    def __init__(self, login, password, client="Kate"):
+    def __init__(
+            self,
+            login,
+            password,
+            client="Kate",
+            logger=create_logger(__name__)
+    ) -> None:
+        """
+        Initialize TokenReceiver.
+
+        Args:
+            login (str): Login to VK.
+            password (str): Password to VK.
+            client (str): Client to VK (default value = "Kate").
+            logger (logging.Logger): Logger (default value = my logger).
+        """
         self.__login: str = str(login)
         self.__password: str = str(password)
         if client in clients:
@@ -54,6 +67,7 @@ class TokenReceiverAsync:
         else:
             self.client = clients["Kate"]
         self.__token = None
+        self._logger = logger
 
     async def request_auth(
         self, code: str = None, captcha: Tuple[str, str] = None
@@ -148,6 +162,7 @@ class TokenReceiverAsync:
             error = response_auth_json["error"]
             error_type = response_auth_json.get("error_type", "")
             if error == "need_captcha":
+                self._logger.info("Captcha is needed!")
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
                 captcha_key: str = await on_captcha(captcha_img)
@@ -156,25 +171,31 @@ class TokenReceiverAsync:
                 )
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "need_validation":
+                self._logger.info("2FA is needed!")
+                validation_type = response_auth_json["validation_type"]
+                validation_description = response_auth_json["error_description"]
+                if validation_type == "2fa_app":
+                    self._logger.info("Code from 2FA app is needed!")
+                else:
+                    self._logger.info(validation_description)
                 sid = response_auth_json["validation_sid"]
-                # response2: requests.Response =
                 await self.request_code(sid)
-                # response2_json = json.loads(response2.content.decode('utf-8'))
                 code: str = await on_2fa()
                 response_auth = await self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_request":
-                logger.warning("Invalid code. Try again!")
+                self._logger.warning("Invalid code. Try again!")
                 code: str = await on_2fa()
                 response_auth = await self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_client":
+                self._logger.error("Login or password is invalid!")
                 del self.__login
                 del self.__password
                 await on_invalid_client()
                 return False
             elif error_type == "password_bruteforce_attempt":
-                logger.error("Password bruteforce attempt!")
+                self._logger.error("Password bruteforce attempt!")
                 del self.__login
                 del self.__password
                 return False
@@ -188,7 +209,7 @@ class TokenReceiverAsync:
             del self.__login
             del self.__password
             access_token = response_auth_json["access_token"]
-            logger.info("Token was received!")
+            self._logger.info("Token was received!")
             self.__token = access_token
             return True
         del self.__login
@@ -203,9 +224,9 @@ class TokenReceiverAsync:
         """
         token = self.__token
         if not token:
-            logger.warning('Please, first call the method "auth".')
+            self._logger.warning('Please, first call the method "auth".')
             return
-        logger.info(token)
+        self._logger.info(token)
         return token
 
     def save_to_config(self, file_path: str = "config_vk.ini"):
@@ -217,7 +238,7 @@ class TokenReceiverAsync:
         """
         token: str = self.__token
         if not token:
-            logger.warning('Please, first call the method "auth"')
+            self._logger.warning('Please, first call the method "auth"')
             return
         full_fp = self.create_path(file_path)
         if os.path.isfile(full_fp):
@@ -229,7 +250,13 @@ class TokenReceiverAsync:
             output_file.write("[VK]\n")
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
-            logger.info("Token was saved!")
+            self._logger.info("Token was saved!")
+
+    def __on_error(self, response):
+        self._logger.critical(
+            "Unexpected error! Please, create an issue in repository for solving this problem."
+        )
+        self._logger.critical(response)
 
     @staticmethod
     def create_path(file_path: str) -> str:
@@ -243,10 +270,3 @@ class TokenReceiverAsync:
             str: Absolute path to file.
         """
         return os.path.join(os.path.dirname(__file__), file_path)
-
-    @staticmethod
-    def __on_error(response):
-        logger.critical(
-            "Unexpected error! Please, create an issue in repository for solving this problem."
-        )
-        logger.critical(response)

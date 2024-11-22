@@ -16,9 +16,6 @@ from .client import clients
 from .utils import create_logger
 
 
-logger: logging.Logger = create_logger(__name__)
-
-
 def on_captcha_handler(url: str) -> str:
     """
     Default handler to captcha.
@@ -29,7 +26,6 @@ def on_captcha_handler(url: str) -> str:
     Returns:
         str: Key/decoded captcha.
     """
-    logger.info("Are you a bot? You need to enter captcha...")
     os.system(url)
     captcha_key: str = input("Captcha: ")
     return captcha_key
@@ -42,9 +38,6 @@ def on_2fa_handler() -> str:
     Returns:
         str: code from VK/SMS.
     """
-    logger.info(
-        "SMS with a confirmation code has been sent to your phone! The code is valid for a few minutes!"
-    )
     code = input("Code: ")
     return code
 
@@ -53,7 +46,7 @@ def on_invalid_client_handler():
     """
     Default handler to invalid_client.
     """
-    logger.error("Invalid login or password")
+    pass
 
 
 def on_critical_error_handler(response_auth_json):
@@ -63,7 +56,7 @@ def on_critical_error_handler(response_auth_json):
     Args:
         response_auth_json (...): Message or object to research.
     """
-    print(f"on_critical_error: {response_auth_json}")
+    pass
 
 
 class TokenReceiver:
@@ -79,6 +72,7 @@ class TokenReceiver:
         __login (str): The login.
         __password (str): The password.
         __token (str): The token.
+        _logger (logging.Logger): The logger.
 
     Example usage:
     ```
@@ -89,7 +83,13 @@ class TokenReceiver:
     ```
     """
 
-    def __init__(self, login: str, password: str, client: str = "Kate") -> None:
+    def __init__(
+            self,
+            login: str,
+            password: str,
+            client: str = "Kate",
+            logger: logging.Logger = create_logger(__name__)
+    ) -> None:
         """
         Initialize TokenReceiver.
 
@@ -97,6 +97,7 @@ class TokenReceiver:
             login (str): Login to VK.
             password (str): Password to VK.
             client (str): Client to VK (default value = "Kate").
+            logger (logging.Logger): Logger (default value = my logger).
         """
         self.__login: str = str(login)
         self.__password: str = str(password)
@@ -105,6 +106,7 @@ class TokenReceiver:
         else:
             self.client = clients["Kate"]
         self.__token = None
+        self._logger = logger
 
     def request_auth(
         self, code: Optional[str] = None, captcha: Optional[Tuple[str, str]] = None
@@ -197,31 +199,38 @@ class TokenReceiver:
             error = response_auth_json["error"]
             error_type = response_auth_json.get("error_type", "")
             if error == "need_captcha":
+                self._logger.info("Captcha is needed!")
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
                 captcha_key: str = on_captcha(captcha_img)
                 response_auth = self.request_auth(captcha=(captcha_sid, captcha_key))
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "need_validation":
+                self._logger.info("2fa is needed!")
+                validation_type = response_auth_json["validation_type"]
+                validation_description = response_auth_json["error_description"]
+                if validation_type == "2fa_app":
+                    self._logger.info("Code from 2FA app is needed!")
+                else:
+                    self._logger.info(validation_description)
                 sid = response_auth_json["validation_sid"]
-                # response2: requests.Response =
                 self.request_code(sid)
-                # response2_json = json.loads(response2.content.decode('utf-8'))
                 code: str = on_2fa()
                 response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_request":
-                logger.warning("Invalid code. Try again!")
+                self._logger.warning("Invalid code. Try again!")
                 code: str = on_2fa()
                 response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
             elif error == "invalid_client":
+                self._logger.error("Login or password is invalid!")
                 del self.__login
                 del self.__password
                 on_invalid_client()
                 return False
             elif error_type == "password_bruteforce_attempt":
-                logger.error("Password bruteforce attempt!")
+                self._logger.error("Password bruteforce attempt!")
                 del self.__login
                 del self.__password
                 return False
@@ -235,7 +244,7 @@ class TokenReceiver:
             del self.__login
             del self.__password
             access_token = response_auth_json["access_token"]
-            logger.info("Token was received!")
+            self._logger.info("Token was received!")
             self.__token = access_token
             return True
         del self.__login
@@ -250,9 +259,9 @@ class TokenReceiver:
         """
         token = self.__token
         if not token:
-            logger.warning('Please, first call the method "auth".')
+            self._logger.warning('Please, first call the method "auth".')
             return
-        logger.info(token)
+        self._logger.info(token)
         return token
 
     def save_to_config(self, file_path: str = "config_vk.ini"):
@@ -264,11 +273,11 @@ class TokenReceiver:
         """
         token: str = self.__token
         if not token:
-            logger.warning('Please, first call the method "auth"')
+            self._logger.warning('Please, first call the method "auth"')
             return
         full_fp = self.create_path(file_path)
         if os.path.isfile(full_fp):
-            logger.info('File already exist! Enter "OK" for rewriting it')
+            self._logger.info('File already exist! Enter "OK" for rewriting it')
             if input().lower() != "ok":
                 return
         os.makedirs(os.path.dirname(full_fp), exist_ok=True)
@@ -276,7 +285,13 @@ class TokenReceiver:
             output_file.write("[VK]\n")
             output_file.write(f"user_agent={self.client.user_agent}\n")
             output_file.write(f"token_for_audio={token}")
-            logger.info("Token was saved!")
+            self._logger.info("Token was saved!")
+
+    def __on_error(self, response):
+        self._logger.critical(
+            "Unexpected error! Please, create an issue in repository for solving this problem."
+        )
+        self._logger.critical(response)
 
     @staticmethod
     def create_path(file_path: str) -> str:
@@ -290,10 +305,3 @@ class TokenReceiver:
             str: Absolute path to file.
         """
         return os.path.join(os.path.dirname(__file__), file_path)
-
-    @staticmethod
-    def __on_error(response):
-        logger.critical(
-            "Unexpected error! Please, create an issue in repository for solving this problem."
-        )
-        logger.critical(response)
