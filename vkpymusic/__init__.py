@@ -23,8 +23,8 @@ Modules:
 __title__ = "vkpymusic"
 __author__ = "issamansur"
 __license__ = "MIT"
-__copyright__ = "Copyright 2023-present issamansur (EDEXADE, inc)"
-__version__ = "3.3.1"
+__copyright__ = "Copyright 2023-present issamansur (EDEXADE, Inc)"
+__version__ = "3.3.3"
 
 from .client import Client, clients
 from .token_receiver import TokenReceiver

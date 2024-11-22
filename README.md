@@ -1,6 +1,6 @@
 ![Лицензия](https://img.shields.io/badge/Лицензия-MIT-blue)
-![Совместимость с Python](https://img.shields.io/badge/Python-3.7--3.9-blue)
-![Версия библиотеки](https://img.shields.io/badge/pip-3.3.1-blue)
+![Совместимость с Python](https://img.shields.io/badge/Python-3.8--3.12-blue)
+![Версия библиотеки](https://img.shields.io/badge/pip-3.3.3-blue)
 
 # VKpyMusic 
 ### is a Python library that provides a simple interface for interacting with the VKontakte (VK) music service API. The library allows developers to easily perform operations related to music and other functionalities available through the VK API.
