@@ -236,6 +236,30 @@ class ServiceAsync:
         ]
         return await self.__get_response("searchAlbums", params)
 
+    async def __get_popular(self, count: int = 500, offset: int = 0) -> Response:
+        params = [
+            ("count", count),
+            ("offset", offset),
+        ]
+        return await self.__get_response("getPopular", params)
+
+    async def __get_recommendations(
+        self,
+        user_id: Optional[int] = None,
+        song_id: Optional[int] = None,
+        count: int = 300,
+        offset: int = 0,
+    ) -> Response:
+        params = [
+            ("count", count),
+            ("offset", offset),
+        ]
+        if user_id:
+            params.append(("user_id", user_id))
+        if song_id:
+            params.append(("target_id", song_id))
+        return await self.__get_response("getRecommendations", params)
+
     #####################
     # MAIN PUBLIC METHODS
     async def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
@@ -484,6 +508,68 @@ class ServiceAsync:
             for i, playlist in enumerate(playlists, start=1):
                 self.logger.info(f"{i}) {playlist}")
         return playlists
+
+    async def get_popular_songs(self, count: int = 50, offset: int = 0) -> List[Song]:
+        """
+        Get popular songs. (Be careful, it always returns less than count)
+
+        Args:
+            count (int):  Count of resulting songs (for VK API: default = 50, max = 300).
+            offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
+
+        Returns:
+            list[Song]: List of songs.
+        """
+        self.logger.info(f"Request popular songs")
+        try:
+            response: Response = await self.__get_popular(count, offset)
+            songs = Converter.response_to_popular(response)
+        except Exception as e:
+            self.logger.error(e)
+            return []
+        if len(songs) == 0:
+            self.logger.info("No results found ._.")
+        else:
+            self.logger.info("Results:")
+            for i, song in enumerate(songs, start=1):
+                self.logger.info(f"{i}) {song}")
+        return songs
+
+    async def get_recommendations(
+        self,
+        user_id: Optional[Union[str, int]] = None,
+        song_id: Optional[Union[str, int]] = None,
+        count: int = 50,
+        offset: int = 0,
+    ) -> List[Song]:
+        """
+        Get recommendations by user id or song id. (Be careful, it always returns less than count)
+
+        Args:
+            user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
+            song_id (str | int): VK song id. (track_id from Song).
+            count (int):         Count of resulting songs (for VK API: default = 50, max = 300).
+            offset (int):        Set offset for result. For example, count = 100, offset = 100 -> 101-200.
+
+        Returns:
+            list[Song]: List of songs.
+        """
+        self.logger.info(f"Request recommendations")
+        try:
+            response: Response = await self.__get_recommendations(
+                user_id, song_id, count, offset
+            )
+            songs = Converter.response_to_songs(response)
+        except Exception as e:
+            self.logger.error(e)
+            return []
+        if len(songs) == 0:
+            self.logger.info("No results found ._.")
+        else:
+            self.logger.info("Results:")
+            for i, song in enumerate(songs, start=1):
+                self.logger.info(f"{i}) {song}")
+        return songs
 
     ################
     # EXTENSION METHODS

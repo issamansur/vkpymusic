@@ -3,6 +3,7 @@ This module contains the Converter class.
 """
 
 import json
+import logging
 from typing import List, Optional
 
 from requests import Response
@@ -72,3 +73,24 @@ class Converter:
         userinfo: UserInfo = UserInfo.from_json(item)
 
         return userinfo
+
+    @staticmethod
+    def response_to_popular(response: Response) -> List[Song]:
+        """
+        Converts a response to a list of POPULAR songs.
+
+        Args:
+            response (Response): The response object from VK.
+
+        Returns:
+            List[Song]: A list of songs converted from the response.
+        """
+        response = json.loads(response.content.decode("utf-8"))
+        items = response["response"]
+
+        songs: List[Song] = []
+        for item in items:
+            song = Song.from_json(item)
+            songs.append(song)
+
+        return songs

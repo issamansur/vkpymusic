@@ -250,6 +250,30 @@ class Service:
         ]
         return self.__get_response("searchAlbums", params)
 
+    def __get_popular(self, count: int = 500, offset: int = 0) -> Response:
+        params = [
+            ("count", count),
+            ("offset", offset),
+        ]
+        return self.__get_response("getPopular", params)
+
+    def __get_recommendations(
+            self,
+            user_id: Optional[int] = None,
+            song_id: Optional[int] = None,
+            count: int = 300,
+            offset: int = 0
+    ) -> Response:
+        params = [
+            ("count", count),
+            ("offset", offset),
+        ]
+        if user_id:
+            params.append(("user_id", user_id))
+        if song_id:
+            params.append(("target_id", song_id))
+        return self.__get_response("getRecommendations", params)
+
     #####################
     # MAIN PUBLIC METHODS
     def get_count_by_user_id(self, user_id: Union[str, int]) -> int:
@@ -394,7 +418,7 @@ class Service:
         """
         self.logger.info(f'Request by text: "{text}" в количестве {count}')
         try:
-            response = self.__search(text, count, offset)
+            response: Response = self.__search(text, count, offset)
             songs = Converter.response_to_songs(response)
         except Exception as e:
             self.logger.error(e)
@@ -454,7 +478,7 @@ class Service:
         """
         self.logger.info(f"Request by text: {text}")
         try:
-            response = self.__search_playlists(text, count, offset)
+            response: Response = self.__search_playlists(text, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             self.logger.error(e)
@@ -485,7 +509,7 @@ class Service:
         """
         self.logger.info(f"Request by text: {text}")
         try:
-            response = self.__search_albums(text, count, offset)
+            response: Response = self.__search_albums(text, count, offset)
             playlists = Converter.response_to_playlists(response)
         except Exception as e:
             self.logger.error(e)
@@ -497,6 +521,70 @@ class Service:
             for i, playlist in enumerate(playlists, start=1):
                 self.logger.info(f"{i}) {playlist}")
         return playlists
+
+    def get_popular(self, count: int = 50, offset: int = 0) -> List[Song]:
+        """
+        Get popular songs. (Be careful, it always returns less than count)
+
+        Args:
+            count (int):  Count of resulting songs (for VK API: default = 50, max = 500).
+            offset (int): Set offset for result. For example, count = 100, offset = 100 -> 101-200.
+
+        Returns:
+            list[Song]: List of songs.
+        """
+        self.logger.info("Request popular songs")
+        try:
+            response: Response = self.__get_popular(count, offset)
+            songs = Converter.response_to_popular(response)
+        except Exception as e:
+            self.logger.error(e)
+            return []
+        if len(songs) == 0:
+            self.logger.info("No results found ._.")
+        else:
+            self.logger.info("Results:")
+            for i, song in enumerate(songs, start=1):
+                self.logger.info(f"{i}) {song}")
+        return songs
+
+    def get_recommendations(
+        self,
+        user_id: Optional[Union[str, int]] = None,
+        song_id: Optional[Union[str, int]] = None,
+        count: int = 50,
+        offset: int = 0
+    ) -> List[Song]:
+        """
+        Get recommendations by user id or song id. (Be careful, it always returns less than count)
+
+        Args:
+            user_id (int):  VK user id. (NOT USERNAME! vk.com/id*******).
+            song_id (int):  VK song id.
+            count (int):    Count of resulting songs (for VK API: default = 50, max = 300).
+            offset (int):   Set offset for result. For example, count = 100, offset = 100 -> 101-200.
+
+        Returns:
+            list[Song]: List of songs.
+        """
+        self.logger.info(
+            f"Request recommendations by user id: {user_id or '[NOT SET]'} and song id: {song_id or '[NOT SET]'}"
+        )
+        try:
+            response: Response = self.__get_recommendations(
+                user_id, song_id, count, offset
+            )
+            songs = Converter.response_to_songs(response)
+        except Exception as e:
+            self.logger.error(e)
+            return []
+        if len(songs) == 0:
+            self.logger.info("No results found ._.")
+        else:
+            self.logger.info("Results:")
+            for i, song in enumerate(songs, start=1):
+                self.logger.info(f"{i}) {song}")
+        return songs
 
     ################
     # EXTENSION METHODS
