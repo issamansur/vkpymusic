@@ -142,7 +142,7 @@ class TokenReceiver:
             response = session.post("https://oauth.vk.com/token", data=query_params)
         return response
 
-    def request_code(self, sid: Union[str, int]):
+    def request_code(self, sid: Union[str, int]) -> Response:
         """
         Request code from VK.
 

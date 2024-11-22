@@ -1,4 +1,4 @@
-::: vkpymusic.Client
+::: vkpymusic
     options:
         merge_init_into_class: true
         docstring_style: google

@@ -105,7 +105,7 @@ class TokenReceiverAsync:
             )
         return response
 
-    async def request_code(self, sid: Union[str, int]):
+    async def request_code(self, sid: Union[str, int]) -> Response:
         """
         Request code from VK.
 
