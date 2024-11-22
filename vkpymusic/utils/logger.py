@@ -72,6 +72,8 @@ def create_logger(
     """
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
+    while logger.hasHandlers():
+        logger.removeHandler(logger.handlers[0])
     if console:
         logger.addHandler(_get_stream_handler())
     if file:
