@@ -3,7 +3,6 @@ This module contains the Converter class.
 """
 
 import json
-import logging
 from typing import List, Optional
 
 from requests import Response
