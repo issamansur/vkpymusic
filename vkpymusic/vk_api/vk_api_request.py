@@ -6,6 +6,15 @@ from typing import Optional
 
 
 class VkApiRequest:
+    """
+    A class that represents a request to VK API.
+
+    Attributes:
+        method (str): The HTTP method.
+        url (str): The URL.
+        headers (dict): The headers.
+        params (dict): The parameters.
+    """
     method: str
     url: str
     headers: dict
@@ -18,6 +27,15 @@ class VkApiRequest:
             headers: Optional[dict] = None,
             params: Optional[dict] = None,
     ) -> None:
+        """
+        Initializes a VkApiRequest object.
+
+        Args:
+            method (str): The HTTP method.
+            url (str): The URL.
+            headers (dict): The headers. (default None)
+            params (dict): The parameters. (default None)
+        """
         self.method = method
         self.url = url
         self.headers = headers or {}

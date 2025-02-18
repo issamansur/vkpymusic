@@ -1,4 +1,4 @@
-::: vkpymusic.models.playlist
+::: vkpymusic.vk_api.VkApiResponse
     options:
         show_root_heading: true
         heading_level: 1

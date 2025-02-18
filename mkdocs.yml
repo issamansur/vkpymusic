@@ -7,8 +7,8 @@ nav:
     - TokenReceiver: api/tokenreceiver.md
     - TokenReceiverAsync: api/tokenreceiverasync.md
     - Service: api/service.md
-    - ServiceAsync: api/serviceasync.md
     - .models: api/models.md
+    - .vk_api: api/vk_api.md
     - .utils: api/utils.md
   - Installation: installation.md
   # - Usage: usage.md

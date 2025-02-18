@@ -1,4 +1,4 @@
-::: vkpymusic.ServiceAsync
+::: vkpymusic.models.Playlist
     options:
         show_root_heading: true
         heading_level: 1
