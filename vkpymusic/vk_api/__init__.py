@@ -4,7 +4,7 @@ This module contains different classes, using for requests to VK API.
 Classes:
     VkApiRequest: A class that represents a request.
     VkApiRequestBuilder: A class that builds requests.
-    VkApiResponse: A class that represents an error.
+    VkApiResponse: A class that represents a response.
     VkApiException: A class that represents an error.
 
 Constants:
