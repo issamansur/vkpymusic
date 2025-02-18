@@ -12,7 +12,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.45">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0253249f.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.8608ea7d.min.css">
       
       
 
@@ -194,6 +194,7 @@
   
   <span class="md-ellipsis">
     Home
+    
   </span>
   
 
@@ -224,6 +225,7 @@
   
   <span class="md-ellipsis">
     API Reference
+    
   </span>
   
 
@@ -249,6 +251,7 @@
   
   <span class="md-ellipsis">
     Client
+    
   </span>
   
 
@@ -270,6 +273,7 @@
   
   <span class="md-ellipsis">
     TokenReceiver
+    
   </span>
   
 
@@ -291,6 +295,7 @@
   
   <span class="md-ellipsis">
     TokenReceiverAsync
+    
   </span>
   
 
@@ -312,27 +317,7 @@
   
   <span class="md-ellipsis">
     Service
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../api/serviceasync/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ServiceAsync
+    
   </span>
   
 
@@ -354,6 +339,29 @@
   
   <span class="md-ellipsis">
     .models
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/vk_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    .vk_api
+    
   </span>
   
 
@@ -375,6 +383,7 @@
   
   <span class="md-ellipsis">
     .utils
+    
   </span>
   
 
@@ -403,6 +412,7 @@
   
   <span class="md-ellipsis">
     Installation
+    
   </span>
   
 
@@ -423,6 +433,7 @@
   
   <span class="md-ellipsis">
     License
+    
   </span>
   
 
@@ -651,18 +662,36 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vkpymusic.Service.check_token" class="md-nav__link">
+  <a href="#vkpymusic.Service.fill_user_agent_and_token" class="md-nav__link">
     <span class="md-ellipsis">
-      check_token
+      fill_user_agent_and_token
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#vkpymusic.Service.is_token_valid" class="md-nav__link">
+  <a href="#vkpymusic.Service.validate_and_parse_response" class="md-nav__link">
     <span class="md-ellipsis">
-      is_token_valid
+      validate_and_parse_response
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.make_request" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_request
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.make_request_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      make_request_async
     </span>
   </a>
   
@@ -678,9 +707,63 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_user_info_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_user_info_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.check_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      check_token
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.check_token_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      check_token_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.is_token_valid" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_token_valid
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.is_token_valid_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      is_token_valid_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.get_count_by_user_id" class="md-nav__link">
     <span class="md-ellipsis">
       get_count_by_user_id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_count_by_user_id_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_count_by_user_id_async
     </span>
   </a>
   
@@ -696,9 +779,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_songs_by_userid_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_songs_by_userid_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.get_songs_by_playlist_id" class="md-nav__link">
     <span class="md-ellipsis">
       get_songs_by_playlist_id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_songs_by_playlist_id_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_songs_by_playlist_id_async
     </span>
   </a>
   
@@ -714,9 +815,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_songs_by_playlist_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_songs_by_playlist_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.search_songs_by_text" class="md-nav__link">
     <span class="md-ellipsis">
       search_songs_by_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.search_songs_by_text_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      search_songs_by_text_async
     </span>
   </a>
   
@@ -732,9 +851,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_playlists_by_userid_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_playlists_by_userid_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.search_playlists_by_text" class="md-nav__link">
     <span class="md-ellipsis">
       search_playlists_by_text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.search_playlists_by_text_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      search_playlists_by_text_async
     </span>
   </a>
   
@@ -750,9 +887,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.search_albums_by_text_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      search_albums_by_text_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.get_popular" class="md-nav__link">
     <span class="md-ellipsis">
       get_popular
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_popular_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_popular_async
     </span>
   </a>
   
@@ -768,6 +923,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_recommendations_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_recommendations_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.save_music" class="md-nav__link">
     <span class="md-ellipsis">
       save_music
@@ -776,160 +940,10 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync" class="md-nav__link">
-    <span class="md-ellipsis">
-      ServiceAsync
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="ServiceAsync">
-      <ul class="md-nav__list">
-        
           <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.parse_config" class="md-nav__link">
+  <a href="#vkpymusic.Service.save_music_async" class="md-nav__link">
     <span class="md-ellipsis">
-      parse_config
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.del_config" class="md-nav__link">
-    <span class="md-ellipsis">
-      del_config
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.check_token" class="md-nav__link">
-    <span class="md-ellipsis">
-      check_token
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.is_token_valid" class="md-nav__link">
-    <span class="md-ellipsis">
-      is_token_valid
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_user_info" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_user_info
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_count_by_user_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_count_by_user_id
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_songs_by_userid" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_songs_by_userid
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_songs_by_playlist_id" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_songs_by_playlist_id
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_songs_by_playlist" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_songs_by_playlist
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.search_songs_by_text" class="md-nav__link">
-    <span class="md-ellipsis">
-      search_songs_by_text
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_playlists_by_userid" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_playlists_by_userid
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.search_playlists_by_text" class="md-nav__link">
-    <span class="md-ellipsis">
-      search_playlists_by_text
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.search_albums_by_text" class="md-nav__link">
-    <span class="md-ellipsis">
-      search_albums_by_text
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_popular_songs" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_popular_songs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.get_recommendations" class="md-nav__link">
-    <span class="md-ellipsis">
-      get_recommendations
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.ServiceAsync.save_music" class="md-nav__link">
-    <span class="md-ellipsis">
-      save_music
+      save_music_async
     </span>
   </a>
   
@@ -953,6 +967,7 @@
               <article class="md-content__inner md-typeset">
                 
                   
+
 
 
 <div class="doc doc-object doc-module">
@@ -1016,14 +1031,6 @@ playlists of the user in VK.</p>
               </div>
             </td>
           </tr>
-          <tr class="doc-section-item">
-            <td><code><a class="autorefs autorefs-internal" title="vkpymusic.ServiceAsync" href="#vkpymusic.ServiceAsync">ServiceAsync</a></code></td>
-            <td>
-              <div class="doc-md-description">
-                <p>A class for interacting with VK API asynchronously.</p>
-              </div>
-            </td>
-          </tr>
       </tbody>
     </table>
 
@@ -1053,13 +1060,16 @@ playlists of the user in VK.</p>
               </div>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td><code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api" href="../api/vk_api/#vkpymusic.vk_api">vk_api</a></code></td>
+            <td>
+              <div class="doc-md-description">
+                <p>A module that contains classes for requests to VK API.</p>
+              </div>
+            </td>
+          </tr>
       </tbody>
     </table>
-
-
-
-
-
 
 
 
@@ -1149,9 +1159,7 @@ playlists of the user in VK.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_agent</code>
-            </td>
+            <td><code>user_agent</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1165,9 +1173,7 @@ playlists of the user in VK.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>client_id</code>
-            </td>
+            <td><code>client_id</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1181,9 +1187,7 @@ playlists of the user in VK.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>client_secret</code>
-            </td>
+            <td><code>client_secret</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1198,11 +1202,6 @@ playlists of the user in VK.</p>
           </tr>
       </tbody>
     </table>
-
-
-
-
-
 
 
 
@@ -1334,9 +1333,7 @@ and various error scenarios.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>login</code>
-            </td>
+            <td><code>login</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1350,9 +1347,7 @@ and various error scenarios.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>password</code>
-            </td>
+            <td><code>password</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1366,9 +1361,7 @@ and various error scenarios.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>client</code>
-            </td>
+            <td><code>client</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1382,9 +1375,7 @@ and various error scenarios.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>logger</code>
-            </td>
+            <td><code>logger</code></td>
             <td>
                   <code><span title="logging.Logger">Logger</span></code>
             </td>
@@ -1399,11 +1390,6 @@ and various error scenarios.</p>
           </tr>
       </tbody>
     </table>
-
-
-
-
-
 
 
 
@@ -1444,9 +1430,7 @@ and various error scenarios.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>code</code>
-            </td>
+            <td><code>code</code></td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -1460,9 +1444,7 @@ and various error scenarios.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>captcha</code>
-            </td>
+            <td><code>captcha</code></td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.Tuple">Tuple</span>[str, str]]</code>
             </td>
@@ -1531,9 +1513,7 @@ and various error scenarios.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>sid</code>
-            </td>
+            <td><code>sid</code></td>
             <td>
                   <code><span title="typing.Union">Union</span>[str, int]</code>
             </td>
@@ -1603,9 +1583,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>on_captcha</code>
-            </td>
+            <td><code>on_captcha</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[str], str]</code>
             </td>
@@ -1619,9 +1597,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>on_2fa</code>
-            </td>
+            <td><code>on_2fa</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[], str]</code>
             </td>
@@ -1635,9 +1611,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>on_invalid_client</code>
-            </td>
+            <td><code>on_invalid_client</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[], None]</code>
             </td>
@@ -1651,9 +1625,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>on_critical_error</code>
-            </td>
+            <td><code>on_critical_error</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[Any], None]</code>
             </td>
@@ -1739,9 +1711,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>file_path</code>
-            </td>
+            <td><code>file_path</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1791,9 +1761,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>file_path</code>
-            </td>
+            <td><code>file_path</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1958,9 +1926,7 @@ yourself using the appropriate handlers.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>login</code>
-            </td>
+            <td><code>login</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1974,9 +1940,7 @@ yourself using the appropriate handlers.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>password</code>
-            </td>
+            <td><code>password</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -1990,9 +1954,7 @@ yourself using the appropriate handlers.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>client</code>
-            </td>
+            <td><code>client</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2006,9 +1968,7 @@ yourself using the appropriate handlers.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>logger</code>
-            </td>
+            <td><code>logger</code></td>
             <td>
                   <code><span title="logging.Logger">Logger</span></code>
             </td>
@@ -2023,11 +1983,6 @@ yourself using the appropriate handlers.</p>
           </tr>
       </tbody>
     </table>
-
-
-
-
-
 
 
 
@@ -2072,9 +2027,7 @@ yourself using the appropriate handlers.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>code</code>
-            </td>
+            <td><code>code</code></td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[str]</code>
             </td>
@@ -2088,9 +2041,7 @@ yourself using the appropriate handlers.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>captcha</code>
-            </td>
+            <td><code>captcha</code></td>
             <td>
                   <code><span title="typing.Optional">Optional</span>[<span title="typing.Tuple">Tuple</span>[str, str]]</code>
             </td>
@@ -2163,9 +2114,7 @@ yourself using the appropriate handlers.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>sid</code>
-            </td>
+            <td><code>sid</code></td>
             <td>
                   <code><span title="typing.Union">Union</span>[str, int]</code>
             </td>
@@ -2239,9 +2188,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>on_captcha</code>
-            </td>
+            <td><code>on_captcha</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[str], str]</code>
             </td>
@@ -2255,9 +2202,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>on_2fa</code>
-            </td>
+            <td><code>on_2fa</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[], str]</code>
             </td>
@@ -2271,9 +2216,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>on_invalid_client</code>
-            </td>
+            <td><code>on_invalid_client</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[], None]</code>
             </td>
@@ -2287,9 +2230,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>on_critical_error</code>
-            </td>
+            <td><code>on_critical_error</code></td>
             <td>
                   <code><span title="typing.Callable">Callable</span>[[Any], None]</code>
             </td>
@@ -2375,9 +2316,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>file_path</code>
-            </td>
+            <td><code>file_path</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2427,9 +2366,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>file_path</code>
-            </td>
+            <td><code>file_path</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2546,6 +2483,10 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 &gt;&gt;&gt; songs = service.search_songs_by_text(&quot;Imagine Dragons&quot;)
 &gt;&gt;&gt; for song in songs:
 ...     Service.save_music(song)
+&gt;&gt;&gt; // or
+&gt;&gt;&gt; songs = await service.search_songs_by_text_async(&quot;Imagine Dragons&quot;)
+&gt;&gt;&gt; for song in songs:
+...     await Service.save_music_async(song)
 </code></pre>
 
         <p>Initializes a Service object.</p>
@@ -2563,9 +2504,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_agent</code>
-            </td>
+            <td><code>user_agent</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2579,9 +2518,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>token</code>
-            </td>
+            <td><code>token</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2596,11 +2533,6 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
           </tr>
       </tbody>
     </table>
-
-
-
-
-
 
 
 
@@ -2645,9 +2577,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>logger</code>
-            </td>
+            <td><code>logger</code></td>
             <td>
                   <code><span title="logging.Logger">Logger</span></code>
             </td>
@@ -2682,7 +2612,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Create an instance of Service from config.</p>
+        <p>Create an instance of Service from config created by 'TokenReceiver'.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2697,9 +2627,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>filename</code>
-            </td>
+            <td><code>filename</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2725,10 +2653,6 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 <h3 id="vkpymusic.Service.del_config" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">del_config</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;config_vk.ini&#39;</span><span class="p">)</span></code>
 
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
 </h3>
 
 
@@ -2749,9 +2673,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>filename</code>
-            </td>
+            <td><code>filename</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2762,6 +2684,425 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
             <td>
                   <code>&#39;config_vk.ini&#39;</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.fill_user_agent_and_token" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">fill_user_agent_and_token</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Fill user-agent and token in request.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>request</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiRequest" href="../api/vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Request to fill.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.validate_and_parse_response" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">validate_and_parse_response</span><span class="p">(</span><span class="n">api_response</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Validate and parse response from VK API.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>response</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiResponse" href="../api/vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Response from VK API.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.make_request" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">make_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Makes a synchronous request to the VK API.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>request</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiRequest" href="../api/vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The request to make.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>VkApiResponse</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiResponse" href="../api/vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The response from the VK API.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response status code is not 200.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.make_request_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">make_request_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Makes an asynchronous request to the VK API.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>request</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiRequest" href="../api/vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The request to make.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>VkApiResponse</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiResponse" href="../api/vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The response from the VK API.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response status code is not 200.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_user_info" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_user_info</span><span class="p">()</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get user info by token (sync).</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>UserInfo</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.UserInfo" href="../api/models/#vkpymusic.models.UserInfo">UserInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Instance of 'UserInfo'.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_user_info_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_user_info_async</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get user info by token (async).</p>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>UserInfo</code></td>            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.UserInfo" href="../api/models/#vkpymusic.models.UserInfo">UserInfo</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Instance of 'UserInfo'.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
             </td>
           </tr>
       </tbody>
@@ -2786,7 +3127,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Check token for VK API.</p>
+        <p>Check token for VK API (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2801,9 +3142,81 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
+            <td><code>token</code></td>
             <td>
-                <code>token</code>
+                  <code>str</code>
             </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Token for VK API.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>bool</code></td>            <td>
+                  <code>bool</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>True if token is valid, False otherwise.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.check_token_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">check_token_async</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Check token for VK API (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>token</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -2857,7 +3270,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Check token for VK API.</p>
+        <p>Check token for VK API (sync).</p>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -2889,15 +3302,19 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="vkpymusic.Service.get_user_info" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_user_info</span><span class="p">()</span></code>
+<h3 id="vkpymusic.Service.is_token_valid_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">is_token_valid_async</span><span class="p">()</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
 
 </h3>
 
 
     <div class="doc doc-contents ">
 
-        <p>Get user info by token.</p>
+        <p>Check token for VK API (async).</p>
 
 
     <p><span class="doc-section-title">Returns:</span></p>
@@ -2910,12 +3327,12 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-<td><code>UserInfo</code></td>            <td>
-                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.UserInfo" href="../api/models/#vkpymusic.models.UserInfo">UserInfo</a>]</code>
+<td><code>bool</code></td>            <td>
+                  <code>bool</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Instance of 'UserInfo'.</p>
+                <p>True if token is valid, False otherwise.</p>
               </div>
             </td>
           </tr>
@@ -2937,7 +3354,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Get count of all user's songs.</p>
+        <p>Get count of all user's songs (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -2952,9 +3369,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
+            <td><code>user_id</code></td>
             <td>
                   <code>str | int</code>
             </td>
@@ -2993,6 +3408,125 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </tbody>
     </table>
 
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_count_by_user_id_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_count_by_user_id_async</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get count of all user's songs (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>user_id</code></td>
+            <td>
+                  <code>str | int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>int</code></td>            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>count of all user's songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
     </div>
 
 </div>
@@ -3008,7 +3542,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Search songs by owner/user id.</p>
+        <p>Search songs by owner/user id (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3023,9 +3557,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
+            <td><code>user_id</code></td>
             <td>
                   <code>str | int</code>
             </td>
@@ -3039,9 +3571,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3055,9 +3585,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3090,6 +3618,153 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             <td>
               <div class="doc-md-description">
                 <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_songs_by_userid_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_songs_by_userid_async</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Search songs by owner/user id (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>user_id</code></td>
+            <td>
+                  <code>str | int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting songs (for VK API: default/max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>100</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
               </div>
             </td>
           </tr>
@@ -3111,7 +3786,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Get songs by playlist id.</p>
+        <p>Get songs by playlist id (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3126,9 +3801,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
+            <td><code>user_id</code></td>
             <td>
                   <code>str | int</code>
             </td>
@@ -3142,9 +3815,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>playlist_id</code>
-            </td>
+            <td><code>playlist_id</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3158,9 +3829,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>access_key</code>
-            </td>
+            <td><code>access_key</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -3174,9 +3843,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3190,9 +3857,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3225,6 +3890,181 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             <td>
               <div class="doc-md-description">
                 <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_songs_by_playlist_id_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_songs_by_playlist_id_async</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">,</span> <span class="n">access_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get songs by playlist id (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>user_id</code></td>
+            <td>
+                  <code>str | int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>playlist_id</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK playlist id. (Take it from methods for playlist).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>access_key</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK access key. (Take it from methods for playlist).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting songs (for VK API: default/max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>100</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
               </div>
             </td>
           </tr>
@@ -3246,7 +4086,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Get songs by instance of 'Playlist'.</p>
+        <p>Get songs by instance of 'Playlist' (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3261,9 +4101,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>playlist</code>
-            </td>
+            <td><code>playlist</code></td>
             <td>
                   <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a></code>
             </td>
@@ -3277,9 +4115,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3293,9 +4129,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3328,6 +4162,153 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             <td>
               <div class="doc-md-description">
                 <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_songs_by_playlist_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_songs_by_playlist_async</span><span class="p">(</span><span class="n">playlist</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get songs by instance of 'Playlist' (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>playlist</code></td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Instance of 'Playlist' (take from methods for receiving Playlist).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting songs (for VK API: default/max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>10</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
               </div>
             </td>
           </tr>
@@ -3349,7 +4330,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Search songs by text/query.</p>
+        <p>Search songs by text/query (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3364,9 +4345,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>text</code>
-            </td>
+            <td><code>text</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -3380,9 +4359,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3396,9 +4373,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3437,6 +4412,153 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </tbody>
     </table>
 
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.search_songs_by_text_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">search_songs_by_text_async</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Search songs by text/query (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>text</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Text of query. Can be title of song, author, etc.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting songs (for VK API: default/max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>3</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
     </div>
 
 </div>
@@ -3452,7 +4574,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Get playlist by owner/user id.</p>
+        <p>Get playlist by owner/user id (sync).</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3467,9 +4589,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
+            <td><code>user_id</code></td>
             <td>
                   <code>str or int</code>
             </td>
@@ -3483,9 +4603,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3499,9 +4617,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3534,6 +4650,153 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             <td>
               <div class="doc-md-description">
                 <p>list[Playlist]: List of playlists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_playlists_by_userid_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_playlists_by_userid_async</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get playlist by owner/user id (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>user_id</code></td>
+            <td>
+                  <code>str or int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting playlists (for VK API: default = 50, max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>5</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Playlist]: List of playlists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
               </div>
             </td>
           </tr>
@@ -3555,7 +4818,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Search playlists by text/query.
+        <p>Search playlists by text/query (sync).
 Playlist - it user's collection of songs.</p>
 
 
@@ -3571,9 +4834,7 @@ Playlist - it user's collection of songs.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>text</code>
-            </td>
+            <td><code>text</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -3587,9 +4848,7 @@ Playlist - it user's collection of songs.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3603,9 +4862,7 @@ Playlist - it user's collection of songs.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3644,6 +4901,154 @@ Playlist - it user's collection of songs.</p>
       </tbody>
     </table>
 
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.search_playlists_by_text_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">search_playlists_by_text_async</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Search playlists by text/query (async).
+Playlist - it user's collection of songs.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>text</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Text of query. Can be title of playlist, genre, etc.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting playlists (for VK API: default = 50, max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>5</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Playlist]: List of playlists.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
     </div>
 
 </div>
@@ -3659,7 +5064,7 @@ Playlist - it user's collection of songs.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Search albums by text/query.
+        <p>Search albums by text/query (sync).
 Album - artists' album/collection of songs.
 In obj context - same as 'Playlist'.</p>
 
@@ -3676,9 +5081,7 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>text</code>
-            </td>
+            <td><code>text</code></td>
             <td>
                   <code>str</code>
             </td>
@@ -3692,9 +5095,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3708,9 +5109,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3749,6 +5148,155 @@ In obj context - same as 'Playlist'.</p>
       </tbody>
     </table>
 
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.search_albums_by_text_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">search_albums_by_text_async</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Search albums by text/query (async).
+Album - artists' album/collection of songs.
+In obj context - same as 'Playlist'.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>text</code></td>
+            <td>
+                  <code>str</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Text of query. Can be title of album, name of artist, etc.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting playlists (for VK API: default = 50, max = 100).</p>
+              </div>
+            </td>
+            <td>
+                  <code>5</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Playlist]: List of albums.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
     </div>
 
 </div>
@@ -3764,7 +5312,7 @@ In obj context - same as 'Playlist'.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Get popular songs. (Be careful, it always returns less than count)</p>
+        <p>Get popular songs (sync). (Be careful, it always returns less than count)</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3779,9 +5327,7 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3795,9 +5341,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3830,6 +5374,139 @@ In obj context - same as 'Playlist'.</p>
             <td>
               <div class="doc-md-description">
                 <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_popular_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_popular_async</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get popular songs (async). (Be careful, it always returns less than count)</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting songs (for VK API: default = 50, max = 500).</p>
+              </div>
+            </td>
+            <td>
+                  <code>50</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
               </div>
             </td>
           </tr>
@@ -3851,7 +5528,7 @@ In obj context - same as 'Playlist'.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Get recommendations by user id or song id. (Be careful, it always returns less than count)</p>
+        <p>Get recommendations by user id or song id (sync). (Be careful, it always returns less than count)</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3866,9 +5543,7 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
+            <td><code>user_id</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3882,9 +5557,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>song_id</code>
-            </td>
+            <td><code>song_id</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3898,9 +5571,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
+            <td><code>count</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3914,9 +5585,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
+            <td><code>offset</code></td>
             <td>
                   <code>int</code>
             </td>
@@ -3949,6 +5618,167 @@ In obj context - same as 'Playlist'.</p>
             <td>
               <div class="doc-md-description">
                 <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_recommendations_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_recommendations_async</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">song_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get recommendations by user id or song id (async). (Be careful, it always returns less than count)</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td><code>user_id</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>song_id</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>VK song id.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>count</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Count of resulting songs (for VK API: default = 50, max = 300).</p>
+              </div>
+            </td>
+            <td>
+                  <code>50</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td><code>offset</code></td>
+            <td>
+                  <code>int</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
+              </div>
+            </td>
+            <td>
+                  <code>0</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
               </div>
             </td>
           </tr>
@@ -3974,7 +5804,9 @@ In obj context - same as 'Playlist'.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Save song to '{workDirectory}/Music/{song name}.mp3'.</p>
+        <p>Save song (sync) to '{workDirectory}/Music/{song name}.mp3'.
+If you wanna another behavior, you can override this method
+or use your own method for saving music.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -3989,9 +5821,7 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>song</code>
-            </td>
+            <td><code>song</code></td>
             <td>
                   <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a></code>
             </td>
@@ -4023,205 +5853,8 @@ In obj context - same as 'Playlist'.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>relative path of downloaded music.</p>
+                <p>relative path of downloaded music or None if error.</p>
               </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-
-
-  </div>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-class">
-
-
-
-<h2 id="vkpymusic.ServiceAsync" class="doc doc-heading">
-              <code class="highlight language-python"><span class="n">vkpymusic</span><span class="o">.</span><span class="n">ServiceAsync</span><span class="p">(</span><span class="n">user_agent</span><span class="p">,</span> <span class="n">token</span><span class="p">)</span></code>
-
-</h2>
-
-
-    <div class="doc doc-contents ">
-
-
-        <p>A class that provides methods for working with VK API.</p>
-
-
-<p><span class="doc-section-title">Attributes:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td><code><span title="vkpymusic.ServiceAsync.user_agent">user_agent</span></code></td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The user agent string.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="vkpymusic.ServiceAsync.__token">__token</span></code></td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The access token.</p>
-              </div>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td><code><span title="vkpymusic.ServiceAsync.logger">logger</span></code></td>
-            <td>
-                  <code><span title="logging.Logger">Logger</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The logger for class.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-        <p>Example usage:</p>
-<pre><code>&gt;&gt;&gt; import asyncio
-&gt;&gt;&gt;
-&gt;&gt;&gt; service = ServiceAsync.parse_config()
-&gt;&gt;&gt; songs = asyncio.run(service.search_songs_by_text(&quot;Imagine Dragons&quot;))
-&gt;&gt;&gt; song = songs[0]
-&gt;&gt;&gt; asyncio.run(ServiceAsync.save_music(song))
-</code></pre>
-
-        <p>Initializes a ServiceAsync object.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_agent</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The user agent string.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>token</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>The access token.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-
-
-
-
-
-
-
-  <div class="doc doc-children">
-
-
-
-
-
-
-
-
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.parse_config" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">parse_config</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;config_vk.ini&#39;</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Create an instance of ServiceAsync from config.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>filename</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Filename of config (default = "config_vk.ini").</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;config_vk.ini&#39;</code>
             </td>
           </tr>
       </tbody>
@@ -4234,60 +5867,8 @@ In obj context - same as 'Playlist'.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="vkpymusic.ServiceAsync.del_config" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">del_config</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="s1">&#39;config_vk.ini&#39;</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Delete config created by 'TokenReceiver'.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>filename</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Filename of config (default = "config_vk.ini").</p>
-              </div>
-            </td>
-            <td>
-                  <code>&#39;config_vk.ini&#39;</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.check_token" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">check_token</span><span class="p">(</span><span class="n">token</span><span class="p">)</span></code>
+<h3 id="vkpymusic.Service.save_music_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">save_music_async</span><span class="p">(</span><span class="n">song</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4299,139 +5880,9 @@ In obj context - same as 'Playlist'.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Check token for VK API.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>bool</code></td>            <td>
-                  <code>bool</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>True if token is valid, False otherwise.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.is_token_valid" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">is_token_valid</span><span class="p">()</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Check token for VK API.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>bool</code></td>            <td>
-                  <code>bool</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>True if token is valid, False otherwise.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_user_info" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_user_info</span><span class="p">()</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get user info by token.</p>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>UserInfo</code></td>            <td>
-                  <code><span title="typing.Optional">Optional</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.UserInfo" href="../api/models/#vkpymusic.models.UserInfo">UserInfo</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Instance of 'UserInfo'.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_count_by_user_id" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_count_by_user_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get count of all user's songs.</p>
+        <p>Save song (async) to '{workDirectory}/Music/{song name}.mp3'.
+If you wanna another behavior, you can override this method
+or use your own method for saving music.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -4446,1109 +5897,17 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code>str | int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>int</code></td>            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>count of all user's songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_songs_by_userid" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_songs_by_userid</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Search songs by owner/user id.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code>str | int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting songs (for VK API: default/max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>100</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Song]: List of songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_songs_by_playlist_id" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_songs_by_playlist_id</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">playlist_id</span><span class="p">,</span> <span class="n">access_key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get songs by playlist id.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code>str | int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>playlist_id</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK playlist id. (Take it from methods for playlist).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>access_key</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK access key. (Take it from methods for playlist).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting songs (for VK API: default/max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>100</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Song]: List of songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_songs_by_playlist" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_songs_by_playlist</span><span class="p">(</span><span class="n">playlist</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get songs by instance of 'Playlist'.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>playlist</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Instance of 'Playlist' (take from methods for receiving Playlist).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting songs (for VK API: default/max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>10</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Song]: List of songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.search_songs_by_text" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">search_songs_by_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Search songs by text/query.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>text</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Text of query. Can be title of song, author, etc.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting songs (for VK API: default/max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>3</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Song]: List of songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_playlists_by_userid" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_playlists_by_userid</span><span class="p">(</span><span class="n">user_id</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get playlist by owner/user id.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code>str | int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting playlists (for VK API: default = 50, max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>5</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Playlist]: List of playlists.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.search_playlists_by_text" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">search_playlists_by_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Search playlists by text/query.
-Playlist - it user's collection of songs.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>text</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Text of query. Can be title of playlist, genre, etc.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting playlists (for VK API: default = 50, max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>5</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Playlist]: List of playlists.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.search_albums_by_text" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">search_albums_by_text</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Search albums by text/query.
-Album - artists' album/collection of songs.
-In obj context - same as 'Playlist'.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>text</code>
-            </td>
-            <td>
-                  <code>str</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Text of query. Can be title of album, name of artist, etc.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting playlists (for VK API: default = 50, max = 100).</p>
-              </div>
-            </td>
-            <td>
-                  <code>5</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../api/models/#vkpymusic.models.Playlist">Playlist</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Playlist]: List of albums.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_popular_songs" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_popular_songs</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get popular songs. (Be careful, it always returns less than count)</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting songs (for VK API: default = 50, max = 300).</p>
-              </div>
-            </td>
-            <td>
-                  <code>50</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Song]: List of songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.get_recommendations" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">get_recommendations</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">song_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">offset</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Get recommendations by user id or song id. (Be careful, it always returns less than count)</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>user_id</code>
-            </td>
-            <td>
-                  <code>str | int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK user id. (NOT USERNAME! vk.com/id<strong><em>*</em></strong>).</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>song_id</code>
-            </td>
-            <td>
-                  <code>str | int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>VK song id. (track_id from Song).</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>count</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Count of resulting songs (for VK API: default = 50, max = 300).</p>
-              </div>
-            </td>
-            <td>
-                  <code>50</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>offset</code>
-            </td>
-            <td>
-                  <code>int</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Set offset for result. For example, count = 100, offset = 100 -&gt; 101-200.</p>
-              </div>
-            </td>
-            <td>
-                  <code>0</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>list[Song]: List of songs.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.ServiceAsync.save_music" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">save_music</span><span class="p">(</span><span class="n">song</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
-
-  <span class="doc doc-labels">
-      <small class="doc doc-label doc-label-async"><code>async</code></small>
-      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
-  </span>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Save song to '{workDirectory}/Music/{song name}.mp3'.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>song</code>
-            </td>
+            <td><code>song</code></td>
             <td>
                   <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../api/models/#vkpymusic.models.Song">Song</a></code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>'Song' instance obtained from 'ServiceAsync' methods.</p>
+                <p>'Song' instance obtained from 'Service' methods.</p>
               </div>
             </td>
             <td>
                 <em>required</em>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>overwrite</code>
-            </td>
-            <td>
-                  <code>bool</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Overwrite file if it exists</p>
-              </div>
-            </td>
-            <td>
-                  <code>False</code>
             </td>
           </tr>
       </tbody>
@@ -5570,7 +5929,7 @@ In obj context - same as 'Playlist'.</p>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>relative path of downloaded music.</p>
+                <p>relative path of downloaded music or None if error.</p>
               </div>
             </td>
           </tr>
@@ -5643,10 +6002,10 @@ In obj context - same as 'Playlist'.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      <script src="../assets/javascripts/bundle.f1b6f286.min.js"></script>
       
     
   </body>
