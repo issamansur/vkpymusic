@@ -877,7 +877,7 @@ class Service:
     ################
     # EXTENSION METHODS
     @classmethod
-    def save_music(cls, song: Song) -> Optional[str]:
+    def save_music(cls, song: Song, overwrite: bool = False) -> Optional[str]:
         """
         Save song (sync) to '{workDirectory}/Music/{song name}.mp3'.
         If you wanna another behavior, you can override this method
@@ -885,6 +885,7 @@ class Service:
 
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
+            overwrite (bool): If True, overwrite file if it exists. By default doesn't overwrite.
 
         Returns:
             str: relative path of downloaded music or None if error.
@@ -917,15 +918,16 @@ class Service:
 
         file_path: str = os.path.join(music_dir, file_name_mp3)
         if os.path.exists(file_path):
-            cls.logger.warning(
-                f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)"
+            cls.logger.info(
+                f"File with name {file_name_mp3} already exists."
             )
-            res = input().strip().lower()
-            if res.lower() != "y" and res.lower() != "yes":
-                return
+            if overwrite:
+                cls.logger.info("File will be overwritten")
+            else:
+                cls.logger.info("File will not be overwritten")
+                return file_path
 
         cls.logger.info(f"Downloading {song}...")
-
 
         try:
             with open(file_path, "wb") as output_file:
@@ -933,11 +935,11 @@ class Service:
             cls.logger.info(f"Success! Music was downloaded in '{file_path}'")
             return file_path
         except Exception as e:
-            cls.logger.error(f"Erorr while saving {song}: {e}")
+            cls.logger.error(f"Error while saving {song}: {e}")
             return None
 
     @classmethod
-    async def save_music_async(cls, song: Song) -> Optional[str]:
+    async def save_music_async(cls, song: Song, overwrite: bool = False) -> Optional[str]:
         """
         Save song (async) to '{workDirectory}/Music/{song name}.mp3'.
         If you wanna another behavior, you can override this method
@@ -945,6 +947,7 @@ class Service:
 
         Args:
             song (Song): 'Song' instance obtained from 'Service' methods.
+            overwrite (bool): If True, overwrite file if it exists. By default doesn't overwrite.
 
         Returns:
             str: relative path of downloaded music or None if error.
@@ -977,12 +980,14 @@ class Service:
 
         file_path: str = os.path.join(music_dir, file_name_mp3)
         if os.path.exists(file_path):
-            cls.logger.warning(
-                f"File with name {file_name_mp3} exists. Overwrite it? (Y/n)"
+            cls.logger.info(
+                f"File with name {file_name_mp3} already exists."
             )
-            res = input().strip().lower()
-            if res.lower() != "y" and res.lower() != "yes":
-                return
+            if overwrite:
+                cls.logger.info("File will be overwritten")
+            else:
+                cls.logger.info("File will not be overwritten")
+                return file_path
 
         cls.logger.info(f"Downloading {song}...")
 
@@ -992,5 +997,5 @@ class Service:
             cls.logger.info(f"Success! Music was downloaded in '{file_path}'")
             return file_path
         except Exception as e:
-            cls.logger.error(f"Erorr while saving {song}: {e}")
+            cls.logger.error(f"Error while saving {song}: {e}")
             return None

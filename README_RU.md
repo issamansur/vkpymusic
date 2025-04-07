@@ -1,4 +1,4 @@
-![Лицензия](https://img.shields.io/badge/Лицензия-MIT-blue) ![Совместимость с Python](https://img.shields.io/badge/Python-3.8--3.12-blue) ![Версия библиотеки](https://img.shields.io/badge/pip-3.4.0-blue) [![PyPi downloads](https://img.shields.io/pypi/dm/vkpymusic.svg)](https://pypi.org/project/vkpymusic/) 
+![Лицензия](https://img.shields.io/badge/Лицензия-MIT-blue) ![Совместимость с Python](https://img.shields.io/badge/Python-3.8--3.12-blue) ![Версия библиотеки](https://img.shields.io/badge/pip-3.4.1-blue) [![PyPi downloads](https://img.shields.io/pypi/dm/vkpymusic.svg)](https://pypi.org/project/vkpymusic/) 
 <!--- [![PyPi status](https://img.shields.io/pypi/status/vkpymusic.svg?style=flat-square)](https://pypi.python.org/pypi/vkpymusic) --->
 
 # <p align="center"> VKpyMusic 

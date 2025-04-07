@@ -11,6 +11,7 @@ site/
 logs/
 Music/
 123.py
+main.py
 config_vk.ini
 runner.py
 songs.txt
