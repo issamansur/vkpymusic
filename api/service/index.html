@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
       
       
 
@@ -112,11 +112,13 @@
     
     
     
-      <label class="md-header__button md-icon" for="__search">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
@@ -148,6 +150,7 @@
     </div>
   </div>
 </div>
+      
     
     
   </nav>
@@ -196,6 +199,7 @@
       <a href="../.." class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Home
     
@@ -219,6 +223,7 @@
     
     
     
+    
     <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
@@ -228,6 +233,7 @@
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
+  
   
   <span class="md-ellipsis">
     API Reference
@@ -255,6 +261,7 @@
       <a href="../client/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Client
     
@@ -277,6 +284,7 @@
       <a href="../tokenreceiver/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     TokenReceiver
     
@@ -298,6 +306,7 @@
     <li class="md-nav__item">
       <a href="../tokenreceiverasync/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     TokenReceiverAsync
@@ -330,6 +339,7 @@
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
+  
   <span class="md-ellipsis">
     Service
     
@@ -341,6 +351,7 @@
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
+  
   
   <span class="md-ellipsis">
     Service
@@ -723,6 +734,7 @@
       <a href="../models/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     .models
     
@@ -745,6 +757,7 @@
       <a href="../vk_api/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     .vk_api
     
@@ -766,6 +779,7 @@
     <li class="md-nav__item">
       <a href="../utils/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     .utils
@@ -796,6 +810,7 @@
       <a href="../../installation/" class="md-nav__link">
         
   
+  
   <span class="md-ellipsis">
     Installation
     
@@ -816,6 +831,7 @@
     <li class="md-nav__item">
       <a href="../../license/" class="md-nav__link">
         
+  
   
   <span class="md-ellipsis">
     License
@@ -1239,7 +1255,7 @@
           <tr class="doc-section-item">
             <td><code><span title="vkpymusic.Service.user_agent">user_agent</span></code></td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1250,7 +1266,7 @@
           <tr class="doc-section-item">
             <td><code><span title="vkpymusic.Service.__token">__token</span></code></td>
             <td>
-                  <code>str</code>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1281,6 +1297,12 @@
 &gt;&gt;&gt; for song in songs:
 ...     await Service.save_music_async(song)
 </code></pre>
+
+
+
+
+
+
 
 
 
@@ -1321,9 +1343,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_agent</code></td>
             <td>
-                  <code>str</code>
+                <code>user_agent</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1335,9 +1359,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>token</code></td>
             <td>
-                  <code>str</code>
+                <code>token</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1350,6 +1376,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1385,7 +1412,9 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>logger</code></td>
+            <td>
+                <code>logger</code>
+            </td>
             <td>
                   <code><span title="logging.Logger">Logger</span></code>
             </td>
@@ -1400,6 +1429,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1435,9 +1465,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>filename</code></td>
             <td>
-                  <code>str</code>
+                <code>filename</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1450,6 +1482,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1481,9 +1514,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>filename</code></td>
             <td>
-                  <code>str</code>
+                <code>filename</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1496,6 +1531,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1527,9 +1563,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>request</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiRequest" href="../vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
+                <code>request</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="VkApiRequest (vkpymusic.vk_api.VkApiRequest)" href="../vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1542,6 +1580,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1577,9 +1616,16 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>response</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiResponse" href="../vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
+                <code>response</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="VkApiResponse
+
+
+  
+      dataclass
+   (vkpymusic.vk_api.VkApiResponse)" href="../vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1592,6 +1638,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1627,9 +1674,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>request</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiRequest" href="../vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
+                <code>request</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="VkApiRequest (vkpymusic.vk_api.VkApiRequest)" href="../vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1655,7 +1704,12 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>VkApiResponse</code></td>            <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiResponse" href="../vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiResponse
+
+
+  
+      dataclass
+   (vkpymusic.vk_api.VkApiResponse)" href="../vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1678,7 +1732,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1688,6 +1742,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1724,9 +1779,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>request</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiRequest" href="../vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
+                <code>request</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="VkApiRequest (vkpymusic.vk_api.VkApiRequest)" href="../vk_api/#vkpymusic.vk_api.VkApiRequest">VkApiRequest</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1752,7 +1809,12 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>VkApiResponse</code></td>            <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiResponse" href="../vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiResponse
+
+
+  
+      dataclass
+   (vkpymusic.vk_api.VkApiResponse)" href="../vk_api/#vkpymusic.vk_api.VkApiResponse">VkApiResponse</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1775,7 +1837,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1785,6 +1847,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1815,7 +1878,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>UserInfo</code></td>            <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.UserInfo" href="../models/#vkpymusic.models.UserInfo">UserInfo</a></code>
+                  <code><a class="autorefs autorefs-internal" title="UserInfo (vkpymusic.models.UserInfo)" href="../models/#vkpymusic.models.UserInfo">UserInfo</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1838,7 +1901,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1848,6 +1911,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1882,7 +1946,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>UserInfo</code></td>            <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.UserInfo" href="../models/#vkpymusic.models.UserInfo">UserInfo</a></code>
+                  <code><a class="autorefs autorefs-internal" title="UserInfo (vkpymusic.models.UserInfo)" href="../models/#vkpymusic.models.UserInfo">UserInfo</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1905,7 +1969,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1915,6 +1979,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -1950,9 +2015,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>token</code></td>
             <td>
-                  <code>str</code>
+                <code>token</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1978,7 +2045,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>bool</code></td>            <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -1988,6 +2055,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2024,9 +2092,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>token</code></td>
             <td>
-                  <code>str</code>
+                <code>token</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2052,7 +2122,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>bool</code></td>            <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2062,6 +2132,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2092,7 +2163,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>bool</code></td>            <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2102,6 +2173,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2136,7 +2208,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>bool</code></td>            <td>
-                  <code>bool</code>
+                  <code><span title="bool">bool</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2146,6 +2218,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2177,9 +2250,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str | int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2205,7 +2280,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>int</code></td>            <td>
-                  <code>int</code>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2228,7 +2303,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2238,6 +2313,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2273,9 +2349,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str | int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2301,7 +2379,7 @@
       <tbody>
           <tr class="doc-section-item">
 <td><code>int</code></td>            <td>
-                  <code>int</code>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2324,7 +2402,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2334,6 +2412,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2365,9 +2444,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str | int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2379,9 +2460,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2393,9 +2476,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2421,7 +2506,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2444,7 +2529,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2454,6 +2539,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2489,9 +2575,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str | int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2503,9 +2591,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2517,9 +2607,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2545,7 +2637,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2568,7 +2660,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2578,6 +2670,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2609,9 +2702,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str | int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2623,9 +2718,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>playlist_id</code></td>
             <td>
-                  <code>int</code>
+                <code>playlist_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2637,9 +2734,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>access_key</code></td>
             <td>
-                  <code>str</code>
+                <code>access_key</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2651,9 +2750,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2665,9 +2766,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2693,7 +2796,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2716,7 +2819,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2726,6 +2829,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2761,9 +2865,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str | int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2775,9 +2881,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>playlist_id</code></td>
             <td>
-                  <code>int</code>
+                <code>playlist_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2789,9 +2897,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>access_key</code></td>
             <td>
-                  <code>str</code>
+                <code>access_key</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2803,9 +2913,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2817,9 +2929,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2845,7 +2959,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2868,7 +2982,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2878,6 +2992,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -2909,9 +3024,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>playlist</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a></code>
+                <code>playlist</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2923,9 +3040,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2937,9 +3056,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2965,7 +3086,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2988,7 +3109,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -2998,6 +3119,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3033,9 +3155,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>playlist</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a></code>
+                <code>playlist</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3047,9 +3171,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3061,9 +3187,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3089,7 +3217,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3112,7 +3240,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3122,6 +3250,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3153,9 +3282,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>text</code></td>
             <td>
-                  <code>str</code>
+                <code>text</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3167,9 +3298,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3181,9 +3314,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3209,7 +3344,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3232,7 +3367,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3242,6 +3377,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3277,9 +3413,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>text</code></td>
             <td>
-                  <code>str</code>
+                <code>text</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3291,9 +3429,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3305,9 +3445,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3333,7 +3475,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3356,7 +3498,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3366,6 +3508,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3397,9 +3540,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str or int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> or <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3411,9 +3556,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3425,9 +3572,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3453,7 +3602,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3476,7 +3625,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3486,6 +3635,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3521,9 +3671,11 @@
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>str or int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> or <span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3535,9 +3687,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3549,9 +3703,11 @@
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3577,7 +3733,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3600,7 +3756,7 @@
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3610,6 +3766,7 @@
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3642,9 +3799,11 @@ Playlist - it user's collection of songs.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>text</code></td>
             <td>
-                  <code>str</code>
+                <code>text</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3656,9 +3815,11 @@ Playlist - it user's collection of songs.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3670,9 +3831,11 @@ Playlist - it user's collection of songs.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3698,7 +3861,7 @@ Playlist - it user's collection of songs.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3721,7 +3884,7 @@ Playlist - it user's collection of songs.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3731,6 +3894,7 @@ Playlist - it user's collection of songs.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3767,9 +3931,11 @@ Playlist - it user's collection of songs.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>text</code></td>
             <td>
-                  <code>str</code>
+                <code>text</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3781,9 +3947,11 @@ Playlist - it user's collection of songs.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3795,9 +3963,11 @@ Playlist - it user's collection of songs.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3823,7 +3993,7 @@ Playlist - it user's collection of songs.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3846,7 +4016,7 @@ Playlist - it user's collection of songs.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3856,6 +4026,7 @@ Playlist - it user's collection of songs.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -3889,9 +4060,11 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>text</code></td>
             <td>
-                  <code>str</code>
+                <code>text</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3903,9 +4076,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3917,9 +4092,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3945,7 +4122,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3968,7 +4145,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -3978,6 +4155,7 @@ In obj context - same as 'Playlist'.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -4015,9 +4193,11 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>text</code></td>
             <td>
-                  <code>str</code>
+                <code>text</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4029,9 +4209,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4043,9 +4225,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4071,7 +4255,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Playlist" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Playlist (vkpymusic.models.Playlist)" href="../models/#vkpymusic.models.Playlist">Playlist</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4094,7 +4278,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4104,6 +4288,7 @@ In obj context - same as 'Playlist'.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -4135,9 +4320,11 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4149,9 +4336,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4177,7 +4366,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4200,7 +4389,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4210,6 +4399,7 @@ In obj context - same as 'Playlist'.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -4245,9 +4435,11 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4259,9 +4451,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4287,7 +4481,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4310,7 +4504,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4320,6 +4514,7 @@ In obj context - same as 'Playlist'.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -4351,9 +4546,11 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4365,9 +4562,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>song_id</code></td>
             <td>
-                  <code>int</code>
+                <code>song_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4379,9 +4578,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4393,9 +4594,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4421,7 +4624,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4444,7 +4647,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4454,6 +4657,7 @@ In obj context - same as 'Playlist'.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -4489,9 +4693,11 @@ In obj context - same as 'Playlist'.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>user_id</code></td>
             <td>
-                  <code>int</code>
+                <code>user_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4503,9 +4709,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>song_id</code></td>
             <td>
-                  <code>int</code>
+                <code>song_id</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4517,9 +4725,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>count</code></td>
             <td>
-                  <code>int</code>
+                <code>count</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4531,9 +4741,11 @@ In obj context - same as 'Playlist'.</p>
             </td>
           </tr>
           <tr class="doc-section-item">
-            <td><code>offset</code></td>
             <td>
-                  <code>int</code>
+                <code>offset</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4559,7 +4771,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a>]</code>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4582,7 +4794,7 @@ In obj context - same as 'Playlist'.</p>
       <tbody>
           <tr class="doc-section-item">
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.vk_api.VkApiException" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4593,6 +4805,7 @@ In obj context - same as 'Playlist'.</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -4601,7 +4814,7 @@ In obj context - same as 'Playlist'.</p>
 
 
 <h3 id="vkpymusic.Service.save_music" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">save_music</span><span class="p">(</span><span class="n">song</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">save_music</span><span class="p">(</span><span class="n">song</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
@@ -4629,9 +4842,11 @@ or use your own method for saving music.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>song</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a></code>
+                <code>song</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4640,6 +4855,22 @@ or use your own method for saving music.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>overwrite</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, overwrite file if it exists. By default doesn't overwrite.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
             </td>
           </tr>
       </tbody>
@@ -4657,7 +4888,7 @@ or use your own method for saving music.</p>
       <tbody>
           <tr class="doc-section-item">
 <td><code>str</code></td>            <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4668,6 +4899,7 @@ or use your own method for saving music.</p>
       </tbody>
     </table>
 
+
     </div>
 
 </div>
@@ -4676,7 +4908,7 @@ or use your own method for saving music.</p>
 
 
 <h3 id="vkpymusic.Service.save_music_async" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">save_music_async</span><span class="p">(</span><span class="n">song</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">save_music_async</span><span class="p">(</span><span class="n">song</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
 
   <span class="doc doc-labels">
       <small class="doc doc-label doc-label-async"><code>async</code></small>
@@ -4705,9 +4937,11 @@ or use your own method for saving music.</p>
       </thead>
       <tbody>
           <tr class="doc-section-item">
-            <td><code>song</code></td>
             <td>
-                  <code><a class="autorefs autorefs-internal" title="vkpymusic.models.Song" href="../models/#vkpymusic.models.Song">Song</a></code>
+                <code>song</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../models/#vkpymusic.models.Song">Song</a></code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4716,6 +4950,22 @@ or use your own method for saving music.</p>
             </td>
             <td>
                 <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>overwrite</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If True, overwrite file if it exists. By default doesn't overwrite.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
             </td>
           </tr>
       </tbody>
@@ -4733,7 +4983,7 @@ or use your own method for saving music.</p>
       <tbody>
           <tr class="doc-section-item">
 <td><code>str</code></td>            <td>
-                  <code><span title="typing.Optional">Optional</span>[str]</code>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
@@ -4743,6 +4993,7 @@ or use your own method for saving music.</p>
           </tr>
       </tbody>
     </table>
+
 
     </div>
 
@@ -4801,10 +5052,12 @@ or use your own method for saving music.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
     
   </body>
