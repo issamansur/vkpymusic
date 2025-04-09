@@ -1,23 +1,99 @@
 """
-This module contains the 'VkApiRequestBuilder' class 
+This module contains the 'VkApiRequestBuilder' class
 for building requests to VK API.
 """
 
-from typing import Dict, Optional
+from typing import Dict, Tuple, Optional, Union
+
+from ..client import Client
 from .vk_api_request import VkApiRequest
-from .vk_api_params import BASE_URL, DEFAULT_PARAMS
+from .vk_api_params import BASE_URL, DEFAULT_PARAMS, DEFAULT_VERSION
 
 
 class VkApiRequestBuilder:
     """
     A class for building requests to VK API.
     """
+
+    # Auth section
+
     @staticmethod
-    def build_from_base_request(
-        method: str, 
-        url: str, 
-        params: dict
+    def build_req_auth(
+        login: str,
+        password: str,
+        client: Client,
+        code: Optional[str] = None,
+        captcha: Optional[Tuple[str, str]] = None,
     ) -> VkApiRequest:
+        """
+        Builds a request to get access token.
+
+        Args:
+            login (str): The login.
+            password (str): The password.
+            client (Client): The client.
+            code (Optional[str]): Code from VK/SMS (default value = None).
+            captcha (Optional[Tuple[str, str]]): Captcha (default value = None).
+        """
+        url: str = "https://oauth.vk.com/token"
+
+        params: Dict = {
+            "grant_type": "password",
+            "client_id": client.client_id,
+            "client_secret": client.client_secret,
+            "username": login,
+            "password": password,
+            "scope": "audio,offline",
+            "2fa_supported": 1,
+            "force_sms": 1,
+            "v": DEFAULT_VERSION,
+        }
+        if captcha:
+            params.setdefault("captcha_sid", captcha[0])
+            params.setdefault("captcha_key", captcha[1])
+
+        if code:
+            params.setdefault("code", code)
+
+        request: VkApiRequest = VkApiRequest(
+            method="post",
+            url=url,
+            params=params,
+        )
+
+        request.fill_user_agent(client.user_agent)
+
+        return request
+
+    @staticmethod
+    def build_req_2fa_code(client: Client, sid: Union[str, int]) -> VkApiRequest:
+        """
+        Builds a request to get access token.
+
+        Args:
+            sid (Union[str, int]): Sid from VK.
+        """
+        url: str = "https://api.vk.com/method/auth.validatePhone"
+
+        params: Dict = {
+            "sid": str(sid),
+            "v": DEFAULT_VERSION,
+        }
+
+        request: VkApiRequest = VkApiRequest(
+            method="post",
+            url=url,
+            params=params,
+        )
+
+        request.fill_user_agent(client.user_agent)
+
+        return request
+
+    # Common section
+
+    @staticmethod
+    def build_from_base_request(method: str, url: str, params: dict) -> VkApiRequest:
         """
         Builds a request from a base request.
 
@@ -94,9 +170,7 @@ class VkApiRequestBuilder:
             params["album_id"] = playlist_id
             params["access_key"] = access_key
 
-        return cls.build_from_base_request(
-            method="get", url="audio.get", params=params
-        )
+        return cls.build_from_base_request(method="get", url="audio.get", params=params)
 
     @classmethod
     def build_req_search(
