@@ -5,12 +5,20 @@ This module contains the main class 'Service' for working with VK API.
 import os
 import configparser
 import logging
-from typing import Dict, Optional, Union, List
+from typing import Optional, Union, List
 
 import aiofiles
 from httpx import Client, AsyncClient, Response
 
-from .vk_api import VkApiRequestBuilder, VkApiRequest, VkApiResponse, VkApiException
+from .vk_api import (
+    VkApiRequestBuilder, 
+    VkApiRequest, 
+    VkApiResponse, 
+    VkApiException,
+
+    make_request,
+    make_request_async,
+)
 from .models import Song, Playlist, UserInfo
 from .utils import Converter, create_logger
 
@@ -109,89 +117,6 @@ class Service:
         request.fill_token(self.__token)
         request.fill_user_agent(self.user_agent)
 
-    @classmethod
-    def validate_and_parse_response(cls, api_response: Response) -> VkApiResponse:
-        """
-        Validate and parse response from VK API.
-
-        Args:
-            response (VkApiResponse): Response from VK API.
-        """
-        # If we have an error while making a request
-        if api_response.status_code != 200:
-            cls.logger.error(f"Error {api_response.status_code}: {api_response.text}")
-            raise VkApiException(
-                f"Error {api_response.status_code}: {api_response.text}"
-            )
-
-        # Convert response to json
-        api_response_data: Dict = api_response.json()
-
-        # Use None and validate by equals to None,
-        # because we can have an empty payload or 0 or False
-        payload: Dict = api_response_data.get("response", None)
-        error: Dict = api_response_data.get("error", None)
-
-        # If we have payload, return it
-        if payload is not None:
-            return VkApiResponse(payload)
-        # If we have an error, raise an exception
-        elif error is not None:
-            raise VkApiException(
-                error.get("error_code", 0),
-                error.get("error_msg", "Unknown error"),
-                error,
-            )
-        # If we have no payload and no error, raise an exception
-        else:
-            raise VkApiException(0, "Unknown error", {})
-
-    @classmethod
-    def make_request(cls, request: VkApiRequest) -> VkApiResponse:
-        """
-        Makes a synchronous request to the VK API.
-
-        Args:
-            request (VkApiRequest): The request to make.
-
-        Returns:
-            VkApiResponse: The response from the VK API.
-
-        Raises:
-            VkApiException: If the response status code is not 200.
-        """
-        with Client() as client:
-            response: Response = client.get(
-                url=request.url, headers=request.headers, params=request.params
-            )
-
-        vk_response: VkApiResponse = cls.validate_and_parse_response(response)
-
-        return vk_response
-
-    @classmethod
-    async def make_request_async(cls, request: VkApiRequest) -> VkApiResponse:
-        """
-        Makes an asynchronous request to the VK API.
-
-        Args:
-            request (VkApiRequest): The request to make.
-
-        Returns:
-            VkApiResponse: The response from the VK API.
-
-        Raises:
-            VkApiException: If the response status code is not 200.
-        """
-        async with AsyncClient() as client:
-            response: Response = await client.get(
-                url=request.url, headers=request.headers, params=request.params
-            )
-
-        vk_response: VkApiResponse = cls.validate_and_parse_response(response)
-
-        return vk_response
-
     ##############################################
     # METHODS FOR WORKING WITH TOKEN AND USER INFO
     def get_user_info(self) -> UserInfo:
@@ -207,7 +132,7 @@ class Service:
         self.logger.info("Getting user info...")
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_profile_info()
         request.fill_token(self.__token)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         user_info: UserInfo = Converter.response_to_userinfo(response)
         self.logger.info(f"User info: {user_info}")
         return user_info
@@ -225,7 +150,7 @@ class Service:
         self.logger.info("Getting user info...")
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_profile_info()
         request.fill_token(self.__token)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         user_info: UserInfo = Converter.response_to_userinfo(response)
         self.logger.info(f"User info: {user_info}")
         return user_info
@@ -245,7 +170,7 @@ class Service:
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_profile_info()
         request.fill_token(token)
         try:
-            cls.make_request(request)
+            make_request(request)
             cls.logger.info("Token is valid!")
             return True
         except VkApiException as e:
@@ -267,7 +192,7 @@ class Service:
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_profile_info()
         request.fill_token(token)
         try:
-            await cls.make_request_async(request)
+            await make_request_async(request)
             cls.logger.info("Token is valid!")
             return True
         except VkApiException as e:
@@ -313,7 +238,7 @@ class Service:
         self.logger.info(f"Request by user: {user_id}")
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_count(user_id)
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs_count: int = response.data
         self.logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
@@ -335,7 +260,7 @@ class Service:
         self.logger.info(f"Request by user: {user_id}")
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_count(user_id)
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs_count: int = response.data
         self.logger.info(f"Count of user's songs: {songs_count}")
         return songs_count
@@ -364,7 +289,7 @@ class Service:
             user_id, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -395,7 +320,7 @@ class Service:
             user_id, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -433,7 +358,7 @@ class Service:
             user_id, count, offset, playlist_id, access_key
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -471,7 +396,7 @@ class Service:
             user_id, count, offset, playlist_id, access_key
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -501,7 +426,7 @@ class Service:
             playlist.owner_id, count, offset, playlist.playlist_id, playlist.access_key
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -531,7 +456,7 @@ class Service:
             playlist.owner_id, count, offset, playlist.playlist_id, playlist.access_key
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -561,7 +486,7 @@ class Service:
             text, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -591,7 +516,7 @@ class Service:
             text, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs: List[Song] = Converter.response_to_songs(response)
         if len(songs) == 0:
             self.logger.info("No results found ._.")
@@ -623,7 +548,7 @@ class Service:
             user_id, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
     
@@ -650,7 +575,7 @@ class Service:
             user_id, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
 
@@ -677,7 +602,7 @@ class Service:
             text, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
 
@@ -704,7 +629,7 @@ class Service:
             text, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
 
@@ -732,7 +657,7 @@ class Service:
             text, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
     
@@ -760,7 +685,7 @@ class Service:
             text, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
 
@@ -782,7 +707,7 @@ class Service:
         self.logger.info("Request popular songs")
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_popular(count, offset)
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_popular(response)
         return songs
 
@@ -803,7 +728,7 @@ class Service:
         self.logger.info("Request popular songs")
         request: VkApiRequest = VkApiRequestBuilder.build_req_get_popular(count, offset)
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs: List[Song] = Converter.response_to_popular(response)
         return songs
 
@@ -837,7 +762,7 @@ class Service:
             user_id, song_id, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = self.make_request(request)
+        response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_songs(response)
         return songs
     
@@ -870,7 +795,7 @@ class Service:
             user_id, song_id, count, offset
         )
         self.fill_user_agent_and_token(request)
-        response: VkApiResponse = await self.make_request_async(request)
+        response: VkApiResponse = await make_request_async(request)
         songs: List[Song] = Converter.response_to_songs(response)
         return songs
 
