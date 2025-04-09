@@ -197,7 +197,7 @@ class TokenReceiver:
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
 
         # Code from 2FA, if needed
-        code: str = None
+        code: Optional[str] = None
 
         # Check if we have an error in response
         while "error" in response_auth_json:
