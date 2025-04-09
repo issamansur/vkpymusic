@@ -203,7 +203,7 @@ class TokenReceiver:
         while "error" in response_auth_json:
             error = response_auth_json["error"]
             error_type = response_auth_json.get("error_type", "")
-            print(response_auth_json)
+
             # Captcha is needed
             if error == "need_captcha":
                 self._logger.info("Captcha is needed!")
