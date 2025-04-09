@@ -26,7 +26,7 @@ def on_captcha_handler(url: str) -> str:
     Returns:
         str: Key/decoded captcha.
     """
-    os.system(url)
+    print(f"Captcha image: {url}")
     captcha_key: str = input("Captcha: ")
     return captcha_key
 
@@ -195,51 +195,69 @@ class TokenReceiver:
         """
         response_auth: requests.Response = self.request_auth()
         response_auth_json = json.loads(response_auth.content.decode("utf-8"))
+
+        # Code from 2FA, if needed
+        code: str = None
+
+        # Check if we have an error in response
         while "error" in response_auth_json:
             error = response_auth_json["error"]
             error_type = response_auth_json.get("error_type", "")
+            print(response_auth_json)
+            # Captcha is needed
             if error == "need_captcha":
                 self._logger.info("Captcha is needed!")
                 captcha_sid: str = response_auth_json["captcha_sid"]
                 captcha_img: str = response_auth_json["captcha_img"]
                 captcha_key: str = on_captcha(captcha_img)
-                response_auth = self.request_auth(captcha=(captcha_sid, captcha_key))
+                response_auth = self.request_auth(captcha=(captcha_sid, captcha_key), code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
+            # 2FA is needed
             elif error == "need_validation":
                 self._logger.info("2fa is needed!")
                 validation_type = response_auth_json["validation_type"]
                 validation_description = response_auth_json["error_description"]
+                # 2FA app is needed
                 if validation_type == "2fa_app":
                     self._logger.info("Code from 2FA app is needed!")
+                # Other type of 2FA
                 else:
-                    self._logger.info(validation_description)
+                    self._logger.info(f"{validation_type} {validation_description}")
+                    self._logger.info("Please, create an issue in repository for adding this type.")
                 sid = response_auth_json["validation_sid"]
                 self.request_code(sid)
-                code: str = on_2fa()
+                code = on_2fa()
                 response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
+            # Invalid code for 2FA
             elif error == "invalid_request":
                 self._logger.warning("Invalid code. Try again!")
-                code: str = on_2fa()
+                code = on_2fa()
                 response_auth = self.request_auth(code=code)
                 response_auth_json = json.loads(response_auth.content.decode("utf-8"))
+            # Login or password is invalid
             elif error == "invalid_client":
                 self._logger.error("Login or password is invalid!")
                 del self.__login
                 del self.__password
                 on_invalid_client()
                 return False
+            # Many unsuccessful attempts
             elif error_type == "password_bruteforce_attempt":
                 self._logger.error("Password bruteforce attempt!")
                 del self.__login
                 del self.__password
                 return False
+            # Undefined error 
+            # (I can't know all errors due to VK API undocumentation)
             else:
                 del self.__login
                 del self.__password
                 on_critical_error(response_auth_json)
                 self.__on_error(response_auth_json)
                 return False
+        
+        # Successful authorization (token is received)
         if "access_token" in response_auth_json:
             del self.__login
             del self.__password
@@ -247,6 +265,8 @@ class TokenReceiver:
             self._logger.info("Token was received!")
             self.__token = access_token
             return True
+        
+        # Unexpected error (when we don't have any errors, but token is not received)
         del self.__login
         del self.__password
         self.__on_error(response_auth_json)
