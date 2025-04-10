@@ -229,7 +229,7 @@ class Service:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
 
         Returns:
-            int: count of all user's songs.
+            int: count of all user's songs or -1 if access denied.
 
         Raises:
             VkApiException: If the response contains an error.
@@ -241,7 +241,24 @@ class Service:
         response: VkApiResponse = make_request(request)
         songs_count: int = response.data
         self.logger.info(f"Count of user's songs: {songs_count}")
-        return songs_count
+
+        if songs_count != 0:
+            return songs_count
+
+        # If count of songs is 0, it can be due to access
+        # denied to user's songs. So check this case.
+        self.logger.info(f"Trying to get songs by user id: {user_id}")
+        try:
+            self.get_songs_by_userid(user_id, 1)
+            return songs_count
+        except VkApiException as e:
+            # If error code is 201, it means access denied to user's songs.
+            if e.error_code == 201:
+                self.logger.warning(
+                    f"Access denied to user's songs."
+                )
+                return -1
+            raise
 
     async def get_count_by_user_id_async(self, user_id: Union[str, int]) -> int:
         """
@@ -251,7 +268,7 @@ class Service:
             user_id (str | int): VK user id. (NOT USERNAME! vk.com/id*******).
 
         Returns:
-            int: count of all user's songs.
+            int: count of all user's songs or -1 if access denied.
 
         Raises:
             VkApiException: If the response contains an error.
@@ -263,7 +280,24 @@ class Service:
         response: VkApiResponse = await make_request_async(request)
         songs_count: int = response.data
         self.logger.info(f"Count of user's songs: {songs_count}")
-        return songs_count
+
+        if songs_count != 0:
+            return songs_count
+
+        # If count of songs is 0, it can be due to access
+        # denied to user's songs. So check this case.
+        self.logger.info(f"Trying to get songs by user id: {user_id}")
+        try:
+            await self.get_songs_by_userid_async(user_id, 1)
+            return songs_count
+        except VkApiException as e:
+            # If error code is 201, it means access denied to user's songs.
+            if e.error_code == 201:
+                self.logger.warning(
+                    f"Access denied to user's songs."
+                )
+                return -1
+            raise
 
     # Songs section
     def get_songs_by_userid(
