@@ -3,7 +3,7 @@ This module contains utilities for conversion and logging.
 
 Classes:
     Converter: A class for performing various conversion operations.
-    get_logger: A function for getting or creating a logger.
+    create_logger: A function for getting or creating a logger.
 """
 
 from .converter import Converter
