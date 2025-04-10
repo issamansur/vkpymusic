@@ -2,8 +2,7 @@
 This module contains the Converter class.
 """
 
-import json
-from typing import List, Optional
+from typing import List
 
 from ..vk_api import VkApiResponse
 from ..models import Song, Playlist, UserInfo
