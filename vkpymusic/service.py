@@ -11,11 +11,10 @@ import aiofiles
 from httpx import Client, AsyncClient, Response
 
 from .vk_api import (
-    VkApiRequestBuilder, 
-    VkApiRequest, 
-    VkApiResponse, 
+    VkApiRequestBuilder,
+    VkApiRequest,
+    VkApiResponse,
     VkApiException,
-
     make_request,
     make_request_async,
 )
@@ -91,6 +90,7 @@ class Service:
         except Exception as e:
             cls.logger.error("Config not found or invalid: " + str(e))
 
+    @classmethod
     def del_config(cls, filename: str = "config_vk.ini"):
         """
         Delete config created by 'TokenReceiver'.
@@ -173,7 +173,7 @@ class Service:
             make_request(request)
             cls.logger.info("Token is valid!")
             return True
-        except VkApiException as e:
+        except VkApiException:
             cls.logger.info("Token is invalid!")
             return False
 
@@ -195,7 +195,7 @@ class Service:
             await make_request_async(request)
             cls.logger.info("Token is valid!")
             return True
-        except VkApiException as e:
+        except VkApiException:
             cls.logger.info("Token is invalid!")
             return False
 
@@ -254,9 +254,7 @@ class Service:
         except VkApiException as e:
             # If error code is 201, it means access denied to user's songs.
             if e.error_code == 201:
-                self.logger.warning(
-                    f"Access denied to user's songs."
-                )
+                self.logger.warning(f"Access denied to user's songs.")
                 return -1
             raise
 
@@ -293,9 +291,7 @@ class Service:
         except VkApiException as e:
             # If error code is 201, it means access denied to user's songs.
             if e.error_code == 201:
-                self.logger.warning(
-                    f"Access denied to user's songs."
-                )
+                self.logger.warning(f"Access denied to user's songs.")
                 return -1
             raise
 
@@ -572,7 +568,7 @@ class Service:
 
         Returns:
             list[Playlist]: List of playlists.
-        
+
         Raises:
             VkApiException: If the response contains an error.
         """
@@ -585,7 +581,7 @@ class Service:
         response: VkApiResponse = make_request(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
-    
+
     async def get_playlists_by_userid_async(
         self, user_id: Union[str, int], count: int = 5, offset: int = 0
     ) -> List[Playlist]:
@@ -599,7 +595,7 @@ class Service:
 
         Returns:
             list[Playlist]: List of playlists.
-        
+
         Raises:
             VkApiException: If the response contains an error.
         """
@@ -694,7 +690,7 @@ class Service:
         response: VkApiResponse = make_request(request)
         playlists: List[Playlist] = Converter.response_to_playlists(response)
         return playlists
-    
+
     async def search_albums_by_text_async(
         self, text: str, count: int = 5, offset: int = 0
     ) -> List[Playlist]:
@@ -799,7 +795,7 @@ class Service:
         response: VkApiResponse = make_request(request)
         songs: List[Song] = Converter.response_to_songs(response)
         return songs
-    
+
     async def get_recommendations_async(
         self,
         user_id: Optional[Union[str, int]] = None,
@@ -815,10 +811,10 @@ class Service:
             song_id (int):  VK song id.
             count (int):    Count of resulting songs (for VK API: default = 50, max = 300).
             offset (int):   Set offset for result. For example, count = 100, offset = 100 -> 101-200.
-        
+
         Returns:
             list[Song]: List of songs.
-        
+
         Raises:
             VkApiException: If the response contains an error.
         """
@@ -864,7 +860,9 @@ class Service:
                 response: Response = client.get(url)
 
             if response.status_code != 200:
-                cls.logger.error(f"Error while downloading {song}: {response.status_code}")
+                cls.logger.error(
+                    f"Error while downloading {song}: {response.status_code}"
+                )
                 return None
         except Exception as e:
             cls.logger.error(f"Error while downloading {song}: {e}")
@@ -877,9 +875,7 @@ class Service:
 
         file_path: str = os.path.join(music_dir, file_name_mp3)
         if os.path.exists(file_path):
-            cls.logger.info(
-                f"File with name {file_name_mp3} already exists."
-            )
+            cls.logger.info(f"File with name {file_name_mp3} already exists.")
             if overwrite:
                 cls.logger.info("File will be overwritten")
             else:
@@ -898,7 +894,9 @@ class Service:
             return None
 
     @classmethod
-    async def save_music_async(cls, song: Song, overwrite: bool = False) -> Optional[str]:
+    async def save_music_async(
+        cls, song: Song, overwrite: bool = False
+    ) -> Optional[str]:
         """
         Save song (async) to '{workDirectory}/Music/{song name}.mp3'.
         If you wanna another behavior, you can override this method
@@ -926,7 +924,9 @@ class Service:
                 response: Response = await client.get(url)
 
             if response.status_code != 200:
-                cls.logger.error(f"Error while downloading {song}: {response.status_code}")
+                cls.logger.error(
+                    f"Error while downloading {song}: {response.status_code}"
+                )
                 return None
         except Exception as e:
             cls.logger.error(f"Error while downloading {song}: {e}")
@@ -939,9 +939,7 @@ class Service:
 
         file_path: str = os.path.join(music_dir, file_name_mp3)
         if os.path.exists(file_path):
-            cls.logger.info(
-                f"File with name {file_name_mp3} already exists."
-            )
+            cls.logger.info(f"File with name {file_name_mp3} already exists.")
             if overwrite:
                 cls.logger.info("File will be overwritten")
             else:
