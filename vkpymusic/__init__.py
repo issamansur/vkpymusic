@@ -11,7 +11,6 @@ playlists of the user in VK.
 Classes:
     Client: A class that stores the user agent string, client ID, and client secret.
     TokenReceiver: A class for receiving an access token.
-    TokenReceiverAsync: A class for receiving an access token asynchronously.
     Service: A class for interacting with VK API.
 
 Modules:
@@ -24,7 +23,7 @@ __title__ = "vkpymusic"
 __author__ = "issamansur"
 __license__ = "MIT"
 __copyright__ = "Copyright 2023-present issamansur (EDEXADE, Inc)"
-__version__ = "3.4.3"
+__version__ = "3.5.0"
 
 from .client import Client, clients
 from .token_receiver import TokenReceiver

@@ -5,7 +5,6 @@ nav:
   - API Reference:
     - Client: api/client.md
     - TokenReceiver: api/tokenreceiver.md
-    - TokenReceiverAsync: api/tokenreceiverasync.md
     - Service: api/service.md
     - .models: api/models.md
     - .vk_api: api/vk_api.md

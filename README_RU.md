@@ -1,4 +1,4 @@
-![Лицензия](https://img.shields.io/badge/Лицензия-MIT-blue) ![Совместимость с Python](https://img.shields.io/badge/Python-3.8--3.13-blue) ![Версия библиотеки](https://img.shields.io/badge/pip-3.4.3-blue) [![PyPi downloads](https://img.shields.io/pypi/dm/vkpymusic.svg)](https://pypi.org/project/vkpymusic/) 
+![Лицензия](https://img.shields.io/badge/Лицензия-MIT-blue) ![Совместимость с Python](https://img.shields.io/badge/Python-3.8--3.13-blue) ![Версия библиотеки](https://img.shields.io/badge/pip-3.5.0-blue) [![PyPi downloads](https://img.shields.io/pypi/dm/vkpymusic.svg)](https://pypi.org/project/vkpymusic/) 
 <!--- [![PyPi status](https://img.shields.io/pypi/status/vkpymusic.svg?style=flat-square)](https://pypi.python.org/pypi/vkpymusic) --->
 
 # <p align="center"> VKpyMusic 
@@ -7,7 +7,7 @@ Click [here](README_EN.md) to switch to **English** version
 **VKpyMusic** - это библиотека Python, которая предоставляет простой интерфейс для взаимодействия с API музыкального сервиса **ВКонтакте (VK)**. Библиотека позволяет разработчикам легко выполнять операции, связанные с музыкой и другими функциональными возможностями, доступными через **VK API**. 
 
 # Установка
-Библиотека протестирована с Python 3.8-3.12. 
+Библиотека протестирована с Python 3.8-3.13. 
 * Установка через pip (менеджер пакетов Python):
 
 	```bash
