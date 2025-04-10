@@ -373,7 +373,7 @@ class TokenReceiver:
 
     def get_token(self) -> Optional[str]:
         """
-        Returns token in console (if authorisation was successful).
+        Returns the token if exists.
         """
         token = self.__token
         if not token:
