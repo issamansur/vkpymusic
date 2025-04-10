@@ -1,62 +1,34 @@
 """
-This module contains the 'TokenReceiver' class, which is responsible 
-for performing authorization using the available login and password. 
+This module contains the 'TokenReceiver' class, which is responsible
+for performing authorization using the available login and password.
 It interacts with the VK API to obtain an access token.
 """
 
 import os
-import json
 import logging
-from typing import Callable, Tuple, Union, Optional
+from typing import Callable, Awaitable, Tuple, Union, Optional, Dict
 
-import requests
-from requests import Session, Response
 
 from .client import clients
+from .vk_api import (
+    VkApiRequestBuilder,
+    VkApiRequest,
+    VkApiResponse,
+    VkApiException,
+    make_request,
+    make_request_async,
+)
+from .utils import (
+    on_captcha_handler,
+    on_2fa_handler,
+    on_invalid_client_handler,
+    on_critical_error_handler,
+    on_captcha_handler_async,
+    on_2fa_handler_async,
+    on_invalid_client_handler_async,
+    on_critical_error_handler_async,
+)
 from .utils import create_logger
-
-
-def on_captcha_handler(url: str) -> str:
-    """
-    Default handler to captcha.
-
-    Args:
-        url (str): Url to captcha image.
-
-    Returns:
-        str: Key/decoded captcha.
-    """
-    print(f"Captcha image: {url}")
-    captcha_key: str = input("Captcha: ")
-    return captcha_key
-
-
-def on_2fa_handler() -> str:
-    """
-    Default handler to 2fa.
-
-    Returns:
-        str: code from VK/SMS.
-    """
-    code = input("Code: ")
-    return code
-
-
-def on_invalid_client_handler():
-    """
-    Default handler to invalid_client.
-    """
-    pass
-
-
-def on_critical_error_handler(response_auth_json):
-    """
-    Default handler to critical error.
-
-    Args:
-        response_auth_json (...): Message or object to research.
-    """
-    pass
 
 
 class TokenReceiver:
@@ -80,15 +52,19 @@ class TokenReceiver:
     >>> if receiver.auth():
     ...    receiver.get_token()
     ...    receiver.save_to_config()
+    >>> # or
+    >>> if asyncio.run(receiver.auth()):
+    ...     receiver.get_token()
+    ...     receiver.save_to_config()
     ```
     """
 
     def __init__(
-            self,
-            login: str,
-            password: str,
-            client: str = "Kate",
-            logger: logging.Logger = create_logger(__name__)
+        self,
+        login: str,
+        password: str,
+        client: str = "Kate",
+        logger: logging.Logger = create_logger(__name__),
     ) -> None:
         """
         Initialize TokenReceiver.
@@ -108,59 +84,29 @@ class TokenReceiver:
         self.__token = None
         self._logger = logger
 
-    def request_auth(
+    #################
+    # PRIVATE METHODS
+
+    # synchronous
+    def __request_auth(
         self, code: Optional[str] = None, captcha: Optional[Tuple[str, str]] = None
-    ) -> Response:
-        """
-        Request auth from VK.
+    ) -> VkApiResponse:
+        request: VkApiRequest = VkApiRequestBuilder.build_req_auth(
+            login=self.__login,
+            password=self.__password,
+            client=self.client,
+            code=code,
+            captcha=captcha,
+        )
+        response: VkApiResponse = make_request(request)
 
-        Args:
-            code (Optional[str]): Code from VK/SMS (default value = None).
-            captcha (Optional[Tuple[str, str]]): Captcha (default value = None).
-
-        Returns:
-            Response: Response from VK.
-        """
-        query_params = [
-            ("grant_type", "password"),
-            ("client_id", self.client.client_id),
-            ("client_secret", self.client.client_secret),
-            ("username", self.__login),
-            ("password", self.__password),
-            ("scope", "audio,offline"),
-            ("2fa_supported", 1),
-            ("force_sms", 1),
-            ("v", 5.131),
-        ]
-        if captcha:
-            query_params.append(("captcha_sid", captcha[0]))
-            query_params.append(("captcha_key", captcha[1]))
-        if code:
-            query_params.append(("code", code))
-        with Session() as session:
-            session.headers.update({"User-Agent": self.client.user_agent})
-            response = session.post("https://oauth.vk.com/token", data=query_params)
         return response
 
-    def request_code(self, sid: Union[str, int]) -> Response:
-        """
-        Request code from VK.
-
-        Args:
-            sid (Union[str, int]): Sid from VK.
-
-        Returns:
-            Response: Response from VK.
-        """
-        query_params = [("sid", str(sid)), ("v", "5.131")]
-        with Session() as session:
-            session.headers.update({"User-Agent": self.client.user_agent})
-            response = session.post(
-                "https://api.vk.com/method/auth.validatePhone",
-                data=query_params,
-                allow_redirects=True,
-            )
-        response_json = json.loads(response.content.decode("utf-8"))
+    def __request_code(self, sid: Union[str, int]) -> VkApiResponse:
+        request: VkApiRequest = VkApiRequestBuilder.build_req_2fa_code(
+            client=self.client,
+            sid=sid,
+        )
         # right_response_json = {
         #     "response": {
         #         "type": "general",
@@ -171,8 +117,44 @@ class TokenReceiver:
         #         "validation_resend": "sms"
         #     }
         # }
-        return response_json
+        response: VkApiResponse = make_request(request)
+        return response
 
+    # asynchronous
+    async def __request_auth_async(
+        self, code: Optional[str] = None, captcha: Optional[Tuple[str, str]] = None
+    ) -> VkApiResponse:
+        request: VkApiRequest = VkApiRequestBuilder.build_req_auth(
+            login=self.__login,
+            password=self.__password,
+            client=self.client,
+            code=code,
+            captcha=captcha,
+        )
+        response: VkApiResponse = await make_request_async(request)
+
+        return response
+
+    async def __request_code_async(self, sid: Union[str, int]) -> VkApiResponse:
+        request: VkApiRequest = VkApiRequestBuilder.build_req_2fa_code(
+            client=self.client,
+            sid=sid,
+        )
+        # right_response_json = {
+        #     "response": {
+        #         "type": "general",
+        #         "sid": {str(sid)},
+        #         "delay": 60,
+        #         "libverify_support": False,
+        #         "validation_type": "sms",
+        #         "validation_resend": "sms"
+        #     }
+        # }
+        response: VkApiResponse = await make_request_async(request)
+        return response
+
+    ################
+    # PUBLIC METHODS
     def auth(
         self,
         on_captcha: Callable[[str], str] = on_captcha_handler,
@@ -181,7 +163,7 @@ class TokenReceiver:
         on_critical_error: Callable[..., None] = on_critical_error_handler,
     ) -> bool:
         """
-        Performs authorization using the available login and password.
+        Performs SYNC authorization using the available login and password.
         If necessary, interactively accepts a code from SMS or captcha.
 
         Args:
@@ -193,89 +175,205 @@ class TokenReceiver:
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
         """
-        response_auth: requests.Response = self.request_auth()
-        response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-
-        # Code from 2FA, if needed
         code: Optional[str] = None
+        captcha: Optional[Tuple[str, str]] = None
 
-        # Check if we have an error in response
-        while "error" in response_auth_json:
-            error = response_auth_json["error"]
-            error_type = response_auth_json.get("error_type", "")
+        while True:
+            try:
+                response: VkApiResponse = self.__request_auth(
+                    captcha=captcha, code=code
+                )
+                # If we have no errors, remove login and password
+                del self.__login
+                del self.__password
 
-            # Captcha is needed
-            if error == "need_captcha":
-                self._logger.info("Captcha is needed!")
-                captcha_sid: str = response_auth_json["captcha_sid"]
-                captcha_img: str = response_auth_json["captcha_img"]
-                captcha_key: str = on_captcha(captcha_img)
-                response_auth = self.request_auth(captcha=(captcha_sid, captcha_key), code=code)
-                response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-            # 2FA is needed
-            elif error == "need_validation":
-                self._logger.info("2fa is needed!")
-                validation_type = response_auth_json["validation_type"]
-                validation_description = response_auth_json["error_description"]
-                # 2FA app is needed
-                if validation_type == "2fa_app":
-                    self._logger.info("Code from 2FA app is needed!")
-                # Other type of 2FA
+                token: str = response.data.get("access_token", None)
+                if token is not None:
+                    self._logger.info("Token was received!")
+                    self.__token = token
+                    return True
+
+                # If request was successful, but we have no token
+                self.__on_error(response)
+                on_critical_error(response)
+                return False
+            except VkApiException as e:
+                problem_response: Dict = e.details
+
+                error = problem_response.get("error", None)
+                error_type = problem_response.get("error_type", None)
+
+                # If we have an error, but we don't know how to handle it
+                if error is None and error_type is None:
+                    self.__on_error(e.details)
+                    on_critical_error(e)
+                    return False
+
+                # Captcha is needed
+                if error == "need_captcha":
+                    self._logger.info("Captcha is needed!")
+                    captcha_sid: str = problem_response["captcha_sid"]
+                    captcha_img: str = problem_response["captcha_img"]
+                    captcha_key: str = on_captcha(captcha_img)
+                    captcha = (captcha_sid, captcha_key)
+                # 2FA is needed
+                elif error == "need_validation":
+                    self._logger.info("2fa is needed!")
+                    validation_type = problem_response["validation_type"]
+                    validation_description = problem_response["error_description"]
+                    # 2FA app is needed
+                    if validation_type == "2fa_app":
+                        self._logger.info("Code from 2FA app is needed!")
+                    # Other type of 2FA
+                    else:
+                        self._logger.info(f"{validation_type} {validation_description}")
+                        self._logger.info(
+                            "Please, create an issue in repository for adding this type."
+                        )
+                    # Request code from VK
+                    sid = problem_response["validation_sid"]
+                    _ = self.__request_code(sid)
+                    code = on_2fa()
+                # Invalid code for 2FA
+                elif error == "invalid_request":
+                    self._logger.warning("Invalid code. Try again!")
+                    code = on_2fa()
+                # Login or password is invalid
+                elif error == "invalid_client":
+                    self._logger.error("Login or password is invalid!")
+                    del self.__login
+                    del self.__password
+                    on_invalid_client()
+                    return False
+                # Many unsuccessful attempts
+                elif (
+                    error == "9;Flood control"
+                    or error_type == "password_bruteforce_attempt"
+                ):
+                    self._logger.error("Password bruteforce attempt!")
+                    del self.__login
+                    del self.__password
+                    return False
+                # Undefined error
+                # (I can't know all errors due to VK API undocumentation)
                 else:
-                    self._logger.info(f"{validation_type} {validation_description}")
-                    self._logger.info("Please, create an issue in repository for adding this type.")
-                sid = response_auth_json["validation_sid"]
-                self.request_code(sid)
-                code = on_2fa()
-                response_auth = self.request_auth(code=code)
-                response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-            # Invalid code for 2FA
-            elif error == "invalid_request":
-                self._logger.warning("Invalid code. Try again!")
-                code = on_2fa()
-                response_auth = self.request_auth(code=code)
-                response_auth_json = json.loads(response_auth.content.decode("utf-8"))
-            # Login or password is invalid
-            elif error == "invalid_client":
-                self._logger.error("Login or password is invalid!")
+                    del self.__login
+                    del self.__password
+                    on_critical_error(problem_response)
+                    self.__on_error(problem_response)
+                    return False
+
+    async def auth_async(
+        self,
+        on_captcha: Callable[[str], Awaitable[str]] = on_captcha_handler_async,
+        on_2fa: Callable[[], Awaitable[str]] = on_2fa_handler_async,
+        on_invalid_client: Callable[[], Awaitable[None]] = on_invalid_client_handler_async,
+        on_critical_error: Callable[..., Awaitable[None]] = on_critical_error_handler_async,
+    ) -> bool:
+        """
+        Performs ASYNC authorization using the available login and password.
+        If necessary, interactively accepts a code from SMS or captcha.
+
+        Args:
+            on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return key.
+            on_2fa (Callable[[], str]): ASYNC handler to 2-factor auth. Return captcha.
+            on_invalid_client (Callable[[], None]): ASYNC handler to invalid client.
+            on_critical_error (Callable[[Any], None]): ASYNC handler to crit error. Get response.
+
+        Returns:
+            bool: Boolean value indicating whether authorization was successful or not.
+        """
+        code: Optional[str] = None
+        captcha: Optional[Tuple[str, str]] = None
+
+        while True:
+            try:
+                response: VkApiResponse = await self.__request_auth_async(
+                    captcha=captcha, code=code
+                )
+                # If we have no errors, remove login and password
                 del self.__login
                 del self.__password
-                on_invalid_client()
+
+                token: str = response.data.get("access_token", None)
+                if token is not None:
+                    self._logger.info("Token was received!")
+                    self.__token = token
+                    return True
+
+                # If request was successful, but we have no token
+                self.__on_error(response)
+                await on_critical_error(response)
                 return False
-            # Many unsuccessful attempts
-            elif error_type == "password_bruteforce_attempt":
-                self._logger.error("Password bruteforce attempt!")
-                del self.__login
-                del self.__password
-                return False
-            # Undefined error 
-            # (I can't know all errors due to VK API undocumentation)
-            else:
-                del self.__login
-                del self.__password
-                on_critical_error(response_auth_json)
-                self.__on_error(response_auth_json)
-                return False
-        
-        # Successful authorization (token is received)
-        if "access_token" in response_auth_json:
-            del self.__login
-            del self.__password
-            access_token = response_auth_json["access_token"]
-            self._logger.info("Token was received!")
-            self.__token = access_token
-            return True
-        
-        # Unexpected error (when we don't have any errors, but token is not received)
-        del self.__login
-        del self.__password
-        self.__on_error(response_auth_json)
-        on_critical_error(response_auth_json)
-        return False
+            except VkApiException as e:
+                problem_response: Dict = e.details
+
+                error = problem_response.get("error", None)
+                error_type = problem_response.get("error_type", None)
+
+                # If we have an error, but we don't know how to handle it
+                if error is None and error_type is None:
+                    self.__on_error(e.details)
+                    await on_critical_error(e)
+                    return False
+
+                # Captcha is needed
+                if error == "need_captcha":
+                    self._logger.info("Captcha is needed!")
+                    captcha_sid: str = problem_response["captcha_sid"]
+                    captcha_img: str = problem_response["captcha_img"]
+                    captcha_key: str = await on_captcha(captcha_img)
+                    captcha = (captcha_sid, captcha_key)
+                # 2FA is needed
+                elif error == "need_validation":
+                    self._logger.info("2fa is needed!")
+                    validation_type = problem_response["validation_type"]
+                    validation_description = problem_response["error_description"]
+                    # 2FA app is needed
+                    if validation_type == "2fa_app":
+                        self._logger.info("Code from 2FA app is needed!")
+                    # Other type of 2FA
+                    else:
+                        self._logger.info(f"{validation_type} {validation_description}")
+                        self._logger.info(
+                            "Please, create an issue in repository for adding this type."
+                        )
+                    # Request code from VK
+                    sid = problem_response["validation_sid"]
+                    _ = await self.__request_code_async(sid)
+                    code = await on_2fa()
+                # Invalid code for 2FA
+                elif error == "invalid_request":
+                    self._logger.warning("Invalid code. Try again!")
+                    code = await on_2fa()
+                # Login or password is invalid
+                elif error == "invalid_client":
+                    self._logger.error("Login or password is invalid!")
+                    del self.__login
+                    del self.__password
+                    await on_invalid_client()
+                    return False
+                # Many unsuccessful attempts
+                elif (
+                    error == "9;Flood control"
+                    or error_type == "password_bruteforce_attempt"
+                ):
+                    self._logger.error("Password bruteforce attempt!")
+                    del self.__login
+                    del self.__password
+                    return False
+                # Undefined error
+                # (I can't know all errors due to VK API undocumentation)
+                else:
+                    del self.__login
+                    del self.__password
+                    on_critical_error(problem_response)
+                    self.__on_error(problem_response)
+                    return False
 
     def get_token(self) -> Optional[str]:
         """
-        Prints token in console (if authorisation was successful).
+        Returns token in console (if authorisation was successful).
         """
         token = self.__token
         if not token:
@@ -297,9 +395,7 @@ class TokenReceiver:
             return
         full_fp = self.create_path(file_path)
         if os.path.isfile(full_fp):
-            self._logger.info('File already exist! Enter "OK" for rewriting it')
-            if input().lower() != "ok":
-                return
+            self._logger.warning("File already exist! It will be overwritten.")
         os.makedirs(os.path.dirname(full_fp), exist_ok=True)
         with open(full_fp, "w") as output_file:
             output_file.write("[VK]\n")

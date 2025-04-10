@@ -28,18 +28,14 @@ __version__ = "3.4.3"
 
 from .client import Client, clients
 from .token_receiver import TokenReceiver
-from .token_receiver_async import TokenReceiverAsync
 from .service import Service
 
-from . import vk_api
-from . import models
-from . import utils
+from . import vk_api, models, utils
 
 __all__ = [
     "Client",
     "clients",
     "TokenReceiver",
-    "TokenReceiverAsync",
     "Service",
     "vk_api",
     "models",
