@@ -12,7 +12,7 @@
         <link rel="prev" href="../client/">
       
       
-        <link rel="next" href="../tokenreceiverasync/">
+        <link rel="next" href="../service/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -350,27 +350,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vkpymusic.TokenReceiver.request_auth" class="md-nav__link">
-    <span class="md-ellipsis">
-      request_auth
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.TokenReceiver.request_code" class="md-nav__link">
-    <span class="md-ellipsis">
-      request_code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#vkpymusic.TokenReceiver.auth" class="md-nav__link">
     <span class="md-ellipsis">
       auth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.TokenReceiver.auth_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth_async
     </span>
   </a>
   
@@ -412,29 +403,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tokenreceiverasync/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    TokenReceiverAsync
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -629,27 +597,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#vkpymusic.TokenReceiver.request_auth" class="md-nav__link">
-    <span class="md-ellipsis">
-      request_auth
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vkpymusic.TokenReceiver.request_code" class="md-nav__link">
-    <span class="md-ellipsis">
-      request_code
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#vkpymusic.TokenReceiver.auth" class="md-nav__link">
     <span class="md-ellipsis">
       auth
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.TokenReceiver.auth_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      auth_async
     </span>
   </a>
   
@@ -796,6 +755,10 @@ and various error scenarios.</p>
 &gt;&gt;&gt; if receiver.auth():
 ...    receiver.get_token()
 ...    receiver.save_to_config()
+&gt;&gt;&gt; # or
+&gt;&gt;&gt; if asyncio.run(receiver.auth()):
+...     receiver.get_token()
+...     receiver.save_to_config()
 </code></pre>
 
 
@@ -917,166 +880,6 @@ and various error scenarios.</p>
 <div class="doc doc-object doc-function">
 
 
-<h3 id="vkpymusic.TokenReceiver.request_auth" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">request_auth</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">captcha</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Request auth from VK.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>code</code>
-            </td>
-            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Code from VK/SMS (default value = None).</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>captcha</code>
-            </td>
-            <td>
-                  <code><span title="typing.Optional">Optional</span>[<span title="typing.Tuple">Tuple</span>[<span title="str">str</span>, <span title="str">str</span>]]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Captcha (default value = None).</p>
-              </div>
-            </td>
-            <td>
-                  <code>None</code>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>Response</code></td>            <td>
-                  <code><span title="requests.Response">Response</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Response from VK.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
-<h3 id="vkpymusic.TokenReceiver.request_code" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">request_code</span><span class="p">(</span><span class="n">sid</span><span class="p">)</span></code>
-
-</h3>
-
-
-    <div class="doc doc-contents ">
-
-        <p>Request code from VK.</p>
-
-
-<p><span class="doc-section-title">Parameters:</span></p>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Default</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-            <td>
-                <code>sid</code>
-            </td>
-            <td>
-                  <code><span title="typing.Union">Union</span>[<span title="str">str</span>, <span title="int">int</span>]</code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Sid from VK.</p>
-              </div>
-            </td>
-            <td>
-                <em>required</em>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    <p><span class="doc-section-title">Returns:</span></p>
-    <table>
-      <thead>
-        <tr>
-<th>Name</th>          <th>Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr class="doc-section-item">
-<td><code>Response</code></td>            <td>
-                  <code><span title="requests.Response">Response</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Response from VK.</p>
-              </div>
-            </td>
-          </tr>
-      </tbody>
-    </table>
-
-
-    </div>
-
-</div>
-
-<div class="doc doc-object doc-function">
-
-
 <h3 id="vkpymusic.TokenReceiver.auth" class="doc doc-heading">
             <code class="highlight language-python"><span class="n">auth</span><span class="p">(</span><span class="n">on_captcha</span><span class="o">=</span><span class="n">on_captcha_handler</span><span class="p">,</span> <span class="n">on_2fa</span><span class="o">=</span><span class="n">on_2fa_handler</span><span class="p">,</span> <span class="n">on_invalid_client</span><span class="o">=</span><span class="n">on_invalid_client_handler</span><span class="p">,</span> <span class="n">on_critical_error</span><span class="o">=</span><span class="n">on_critical_error_handler</span><span class="p">)</span></code>
 
@@ -1085,7 +888,7 @@ and various error scenarios.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Performs authorization using the available login and password.
+        <p>Performs SYNC authorization using the available login and password.
 If necessary, interactively accepts a code from SMS or captcha.</p>
 
 
@@ -1113,7 +916,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
               </div>
             </td>
             <td>
-                  <code><span title="vkpymusic.token_receiver.on_captcha_handler">on_captcha_handler</span></code>
+                  <code><a class="autorefs autorefs-internal" title="on_captcha_handler(url) (vkpymusic.utils.on_captcha_handler)" href="../utils/#vkpymusic.utils.on_captcha_handler">on_captcha_handler</a></code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1129,7 +932,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
               </div>
             </td>
             <td>
-                  <code><span title="vkpymusic.token_receiver.on_2fa_handler">on_2fa_handler</span></code>
+                  <code><a class="autorefs autorefs-internal" title="on_2fa_handler() (vkpymusic.utils.on_2fa_handler)" href="../utils/#vkpymusic.utils.on_2fa_handler">on_2fa_handler</a></code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1145,7 +948,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
               </div>
             </td>
             <td>
-                  <code><span title="vkpymusic.token_receiver.on_invalid_client_handler">on_invalid_client_handler</span></code>
+                  <code><a class="autorefs autorefs-internal" title="on_invalid_client_handler() (vkpymusic.utils.on_invalid_client_handler)" href="../utils/#vkpymusic.utils.on_invalid_client_handler">on_invalid_client_handler</a></code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1161,7 +964,148 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
               </div>
             </td>
             <td>
-                  <code><span title="vkpymusic.token_receiver.on_critical_error_handler">on_critical_error_handler</span></code>
+                  <code><a class="autorefs autorefs-internal" title="on_critical_error_handler(response_or_error) (vkpymusic.utils.on_critical_error_handler)" href="../utils/#vkpymusic.utils.on_critical_error_handler">on_critical_error_handler</a></code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+<th>Name</th>          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+<td><code>bool</code></td>            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Boolean value indicating whether authorization was successful or not.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.TokenReceiver.auth_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">auth_async</span><span class="p">(</span><span class="n">on_captcha</span><span class="o">=</span><span class="n">on_captcha_handler_async</span><span class="p">,</span> <span class="n">on_2fa</span><span class="o">=</span><span class="n">on_2fa_handler_async</span><span class="p">,</span> <span class="n">on_invalid_client</span><span class="o">=</span><span class="n">on_invalid_client_handler_async</span><span class="p">,</span> <span class="n">on_critical_error</span><span class="o">=</span><span class="n">on_critical_error_handler_async</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Performs ASYNC authorization using the available login and password.
+If necessary, interactively accepts a code from SMS or captcha.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_captcha</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[[<span title="str">str</span>], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ASYNC handler to captcha. Get url image. Return key.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="on_captcha_handler_async(url)
+
+  
+      async
+   (vkpymusic.utils.on_captcha_handler_async)" href="../utils/#vkpymusic.utils.on_captcha_handler_async">on_captcha_handler_async</a></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_2fa</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[[], <span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ASYNC handler to 2-factor auth. Return captcha.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="on_2fa_handler_async()
+
+  
+      async
+   (vkpymusic.utils.on_2fa_handler_async)" href="../utils/#vkpymusic.utils.on_2fa_handler_async">on_2fa_handler_async</a></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_invalid_client</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[[], None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ASYNC handler to invalid client.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="on_invalid_client_handler_async()
+
+  
+      async
+   (vkpymusic.utils.on_invalid_client_handler_async)" href="../utils/#vkpymusic.utils.on_invalid_client_handler_async">on_invalid_client_handler_async</a></code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>on_critical_error</code>
+            </td>
+            <td>
+                  <code><span title="typing.Callable">Callable</span>[[<span title="Any">Any</span>], None]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>ASYNC handler to crit error. Get response.</p>
+              </div>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="on_critical_error_handler_async(response_or_error)
+
+  
+      async
+   (vkpymusic.utils.on_critical_error_handler_async)" href="../utils/#vkpymusic.utils.on_critical_error_handler_async">on_critical_error_handler_async</a></code>
             </td>
           </tr>
       </tbody>
@@ -1206,7 +1150,7 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
 
     <div class="doc doc-contents ">
 
-        <p>Prints token in console (if authorisation was successful).</p>
+        <p>Returns the token if exists.</p>
 
 
     </div>
