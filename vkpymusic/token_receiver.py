@@ -255,7 +255,8 @@ class TokenReceiver:
 
     def get_token(self) -> Optional[str]:
         """
-        Prints token in console (if authorisation was successful).
+        Returns the token.
+        If the token is not available, a warning message is logged.
         """
         token = self.__token
         if not token:
