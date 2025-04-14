@@ -9,7 +9,7 @@ async def main():
     # service = Service("<your_user_agent>", "<your_token>")
 
     if service is not None:
-        if not await service.check_token_async():
+        if not await service.is_token_valid_async():
             print("Token expired!")
             print("Run first 'receive_token_example.py'")
             return
