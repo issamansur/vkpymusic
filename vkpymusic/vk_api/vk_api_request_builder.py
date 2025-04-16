@@ -3,7 +3,7 @@ This module contains the 'VkApiRequestBuilder' class
 for building requests to VK API.
 """
 
-from typing import Dict, Tuple, Optional, Union
+from typing import Dict, Tuple, Optional, Union, List
 
 from ..client import Client
 from .vk_api_request import VkApiRequest
@@ -139,6 +139,20 @@ class VkApiRequestBuilder:
 
         return cls.build_from_base_request(
             method="get", url="audio.getCount", params=params
+        )
+
+    @classmethod
+    def build_req_get_by_id(cls, audios_ids: List[str]) -> VkApiRequest:
+        """
+        Builds a request to get audio by ID.
+
+        Args:
+            audios_ids (List[str]): The list of audio IDs in the format "[owner_id]_[audio_id]".
+        """
+        params: Dict = {"audios": ",".join(audios_ids)}
+
+        return cls.build_from_base_request(
+            method="get", url="audio.getById", params=params
         )
 
     @classmethod
