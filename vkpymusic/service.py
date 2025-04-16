@@ -296,6 +296,66 @@ class Service:
             raise
 
     # Songs section
+    def get_songs_by_id(self, audios_ids: List[str]) -> List[Song]:
+        """
+        Get songs by ids (sync).
+        
+        Args:
+            audios_ids (List[str]): The list of audio IDs in the format "[owner_id]_[audio_id]".
+
+        Returns:
+            list[Song]: List of songs.
+
+        Raises:
+            VkApiException: If the response contains an error.
+        """
+        if len(audios_ids) == 0:
+            self.logger.warning("List of audio ids is empty.")
+            return []
+        self.logger.info(f"Request songs by ids: {','.join(audios_ids)}")
+        request: VkApiRequest = VkApiRequestBuilder.build_req_get_by_id(
+            audios_ids
+        )
+        self.fill_user_agent_and_token(request)
+        response: VkApiResponse = make_request(request)
+        response.data = {"items": response.data}
+        songs: List[Song] = Converter.response_to_songs(response)
+        if len(songs) == 0:
+            self.logger.info("No results found ._.")
+        else:
+            self.logger.info(f"Found {len(songs)} songs")
+        return songs
+
+    async def get_songs_by_id_async(self, audios_ids: List[str]) -> List[Song]:
+        """
+        Get songs by ids (async).
+
+        Args:
+            audios_ids (List[str]): The list of audio IDs in the format "[owner_id]_[audio_id]".
+
+        Returns:
+            list[Song]: List of songs.
+
+        Raises:
+            VkApiException: If the response contains an error.
+        """
+        if len(audios_ids) == 0:
+            self.logger.warning("List of audio ids is empty.")
+            return []
+        self.logger.info(f"Request songs by ids: {','.join(audios_ids)}")
+        request: VkApiRequest = VkApiRequestBuilder.build_req_get_by_id(
+            audios_ids
+        )
+        self.fill_user_agent_and_token(request)
+        response: VkApiResponse = await make_request_async(request)
+        response.data = {"items": response.data}
+        songs: List[Song] = Converter.response_to_songs(response)
+        if len(songs) == 0:
+            self.logger.info("No results found ._.")
+        else:
+            self.logger.info(f"Found {len(songs)} songs")
+        return songs
+
     def get_songs_by_userid(
         self, user_id: Union[str, int], count: int = 100, offset: int = 0
     ) -> List[Song]:
