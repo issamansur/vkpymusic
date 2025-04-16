@@ -479,6 +479,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.vk_api.VkApiRequestBuilder.build_req_get_by_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      build_req_get_by_id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.vk_api.VkApiRequestBuilder.build_req_get" class="md-nav__link">
     <span class="md-ellipsis">
       build_req_get
@@ -795,6 +804,15 @@
   <a href="#vkpymusic.vk_api.VkApiRequestBuilder.build_req_get_count" class="md-nav__link">
     <span class="md-ellipsis">
       build_req_get_count
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.vk_api.VkApiRequestBuilder.build_req_get_by_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      build_req_get_by_id
     </span>
   </a>
   
@@ -1619,6 +1637,59 @@ DEFAULT_PARAMS: A constant that stores the default parameters for VK API.</p>
             <td>
               <div class="doc-md-description">
                 <p>The user ID.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.vk_api.VkApiRequestBuilder.build_req_get_by_id" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">build_req_get_by_id</span><span class="p">(</span><span class="n">audios_ids</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-classmethod"><code>classmethod</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Builds a request to get audio by ID.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>audios_ids</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The list of audio IDs in the format "[owner_id]_[audio_id]".</p>
               </div>
             </td>
             <td>

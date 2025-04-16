@@ -657,6 +657,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_songs_by_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_songs_by_id
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vkpymusic.Service.get_songs_by_id_async" class="md-nav__link">
+    <span class="md-ellipsis">
+      get_songs_by_id_async
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vkpymusic.Service.get_songs_by_userid" class="md-nav__link">
     <span class="md-ellipsis">
       get_songs_by_userid
@@ -2611,6 +2629,200 @@ If necessary, interactively accepts a code from SMS or captcha.</p>
             <td>
               <div class="doc-md-description">
                 <p>count of all user's songs or -1 if access denied.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_songs_by_id" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_songs_by_id</span><span class="p">(</span><span class="n">audios_ids</span><span class="p">)</span></code>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get songs by ids (sync).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>audios_ids</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The list of audio IDs in the format "[owner_id]_[audio_id]".</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+<p><span class="doc-section-title">Raises:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="VkApiException (vkpymusic.vk_api.VkApiException)" href="../api/vk_api/#vkpymusic.vk_api.VkApiException">VkApiException</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If the response contains an error.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h3 id="vkpymusic.Service.get_songs_by_id_async" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_songs_by_id_async</span><span class="p">(</span><span class="n">audios_ids</span><span class="p">)</span></code>
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-async"><code>async</code></small>
+  </span>
+
+</h3>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Get songs by ids (async).</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>audios_ids</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The list of audio IDs in the format "[owner_id]_[audio_id]".</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Song (vkpymusic.models.Song)" href="../api/models/#vkpymusic.models.Song">Song</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>list[Song]: List of songs.</p>
               </div>
             </td>
           </tr>
