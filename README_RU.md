@@ -37,7 +37,7 @@ password = input("Enter password: ")
 tokenReceiver = TokenReceiver(login, password)
 
 if tokenReceiver.auth():
-    tokenReceiver.get_token()
+    print(tokenReceiver.get_token())
     tokenReceiver.save_to_config()
 ```
 ### Результат:
@@ -96,7 +96,7 @@ password = input("Enter password: ")
 tokenReceiver = TokenReceiver(login, password)
 
 if tokenReceiver.auth():
-    tokenReceiver.get_token()
+    print(tokenReceiver.get_token())
     tokenReceiver.save_to_config()
 
 service = Service.parse_config()
