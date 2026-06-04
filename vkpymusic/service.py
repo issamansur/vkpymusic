@@ -2,6 +2,7 @@
 This module contains the main class 'Service' for working with VK API.
 """
 
+import asyncio
 import os
 import configparser
 import logging
@@ -20,7 +21,7 @@ from .vk_api import (
     make_request_async,
 )
 from .models import Song, Playlist, UserInfo
-from .utils import Converter, create_logger
+from .utils import Converter, create_logger, download_m3u8_as_mp3_pyav
 
 
 class Service:
@@ -907,7 +908,7 @@ class Service:
             overwrite (bool): If True, overwrite file if it exists. By default doesn't overwrite.
 
         Returns:
-            str: relative path of downloaded music or None if error.
+            str | None: Absolute path to the downloaded mp3 file, or None if error.
         """
         song.to_safe()
         file_name_mp3 = f"{song}.mp3"
@@ -916,8 +917,17 @@ class Service:
             cls.logger.warning("Url no found")
             return None
         elif "index.m3u8" in url:
-            cls.logger.error(".m3u8 detected!")
-            return None
+            file_path, skip = _prepare_music_path(file_name_mp3, overwrite, cls.logger)
+            if skip:
+                return file_path
+            cls.logger.info(f"Downloading {song}...")
+            try:
+                download_m3u8_as_mp3_pyav(url, file_path)
+                cls.logger.info(f"Success! Music was downloaded in '{file_path}'")
+                return file_path
+            except Exception as e:
+                cls.logger.error(f"Error while downloading {song}: {e}")
+                return None
 
         try:
             response = curl_requests.get(url)
@@ -931,19 +941,9 @@ class Service:
             cls.logger.error(f"Error while downloading {song}: {e}")
             return None
 
-        music_dir: str = os.path.join(os.getcwd(), "Music")
-        if not os.path.exists(music_dir):
-            os.makedirs(music_dir)
-            cls.logger.info("Folder 'Music' was created")
-
-        file_path: str = os.path.join(music_dir, file_name_mp3)
-        if os.path.exists(file_path):
-            cls.logger.info(f"File with name {file_name_mp3} already exists.")
-            if overwrite:
-                cls.logger.info("File will be overwritten")
-            else:
-                cls.logger.info("File will not be overwritten")
-                return file_path
+        file_path, skip = _prepare_music_path(file_name_mp3, overwrite, cls.logger)
+        if skip:
+            return file_path
 
         cls.logger.info(f"Downloading {song}...")
 
@@ -970,7 +970,7 @@ class Service:
             overwrite (bool): If True, overwrite file if it exists. By default doesn't overwrite.
 
         Returns:
-            str: relative path of downloaded music or None if error.
+            str | None: Absolute path to the downloaded mp3 file, or None if error.
         """
         song.to_safe()
         file_name_mp3 = f"{song}.mp3"
@@ -979,8 +979,17 @@ class Service:
             cls.logger.warning("Url no found")
             return None
         elif "index.m3u8" in url:
-            cls.logger.error(".m3u8 detected!")
-            return None
+            file_path, skip = _prepare_music_path(file_name_mp3, overwrite, cls.logger)
+            if skip:
+                return file_path
+            cls.logger.info(f"Downloading {song}...")
+            try:
+                await asyncio.to_thread(download_m3u8_as_mp3_pyav, url, file_path)
+                cls.logger.info(f"Success! Music was downloaded in '{file_path}'")
+                return file_path
+            except Exception as e:
+                cls.logger.error(f"Error while downloading {song}: {e}")
+                return None
 
         try:
             async with AsyncSession() as client:
@@ -995,19 +1004,9 @@ class Service:
             cls.logger.error(f"Error while downloading {song}: {e}")
             return None
 
-        music_dir: str = os.path.join(os.getcwd(), "Music")
-        if not os.path.exists(music_dir):
-            os.makedirs(music_dir)
-            cls.logger.info("Folder 'Music' was created")
-
-        file_path: str = os.path.join(music_dir, file_name_mp3)
-        if os.path.exists(file_path):
-            cls.logger.info(f"File with name {file_name_mp3} already exists.")
-            if overwrite:
-                cls.logger.info("File will be overwritten")
-            else:
-                cls.logger.info("File will not be overwritten")
-                return file_path
+        file_path, skip = _prepare_music_path(file_name_mp3, overwrite, cls.logger)
+        if skip:
+            return file_path
 
         cls.logger.info(f"Downloading {song}...")
 
@@ -1019,3 +1018,35 @@ class Service:
         except Exception as e:
             cls.logger.error(f"Error while saving {song}: {e}")
             return None
+
+
+def _prepare_music_path(
+    file_name: str, overwrite: bool, logger: logging.Logger
+) -> tuple[str, bool]:
+    """
+    Create the Music directory if needed and resolve the output file path.
+
+    Args:
+        file_name (str): Target filename (e.g. ``song.mp3``).
+        overwrite (bool): If True, overwrite an existing file.
+        logger (logging.Logger): Logger for status messages.
+
+    Returns:
+        tuple[str, bool]: ``(file_path, skip)`` — absolute path to the file and
+        a flag that is ``True`` when the file already exists and *overwrite* is
+        ``False`` (caller should return ``file_path`` immediately).
+    """
+    music_dir = os.path.join(os.getcwd(), "Music")
+    if not os.path.exists(music_dir):
+        os.makedirs(music_dir)
+        logger.info("Folder 'Music' was created")
+
+    file_path = os.path.join(music_dir, file_name)
+    if os.path.exists(file_path):
+        logger.info(f"File with name {file_name} already exists.")
+        if not overwrite:
+            logger.info("File will not be overwritten")
+            return file_path, True
+        logger.info("File will be overwritten")
+
+    return file_path, False
