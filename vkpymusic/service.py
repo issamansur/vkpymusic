@@ -34,14 +34,17 @@ class Service:
 
     Example usage:
     ```
-    >>> service = Service.parse_config()
-    >>> songs = service.search_songs_by_text("Imagine Dragons")
-    >>> for song in songs:
-    ...     Service.save_music(song)
-    >>> // or
-    >>> songs = await service.search_songs_by_text_async("Imagine Dragons")
-    >>> for song in songs:
-    ...     await Service.save_music_async(song)
+    >>> def example_sync():
+    >>>     service = Service.parse_config()
+    >>>     songs = service.search_songs_by_text("Imagine Dragons")
+    >>>     for song in songs:
+    ...         Service.save_music(song)
+    >>> # or
+    >>> async def example_async():
+    >>>     service = Service.parse_config()
+    >>>     songs = await service.search_songs_by_text_async("Imagine Dragons")
+    >>>     for song in songs:
+    ...         await Service.save_music_async(song)
     ```
     """
 
