@@ -7,20 +7,6 @@ import logging
 import datetime
 
 
-class BCOLORS:
-    """
-    A class that defines color codes for log messages.
-    """
-
-    CRITICAL = "\033[95m"
-    OKBLUE = "\033[94m"
-    OKCYAN = "\033[96m"
-    OKGREEN = "\033[92m"
-    WARNING = "\033[93m"
-    ERROR = "\033[91m"
-    ENDC = "\033[0m"
-
-
 _log_format = "%(asctime)s | %(filename)s(%(lineno)d) | %(module)s.%(funcName)s(...) | [%(levelname)s] %(message)s"
 
 
