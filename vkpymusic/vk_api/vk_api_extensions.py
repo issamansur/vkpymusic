@@ -3,9 +3,10 @@ This module contains functions for prepare
 and making requests to the VK API.
 """
 
-from typing import Dict
+from typing import Dict, Optional
 
-from httpx import Client, AsyncClient, Response
+from curl_cffi import requests as curl_requests
+from curl_cffi.requests import AsyncSession, Response
 
 from ..vk_api import VkApiRequest, VkApiResponse, VkApiException
 
@@ -23,10 +24,12 @@ def make_request(request: VkApiRequest) -> VkApiResponse:
     Raises:
         VkApiException: If the response status code is not 200.
     """
-    with Client() as client:
-        response: Response = client.get(
-            url=request.url, headers=request.headers, params=request.params
-        )
+    response = curl_requests.get(
+        url=request.url,
+        headers=request.headers,
+        params=request.params,
+        impersonate="chrome110",
+    )
 
     vk_response: VkApiResponse = _validate_and_parse_response(response)
 
@@ -46,9 +49,12 @@ async def make_request_async(request: VkApiRequest) -> VkApiResponse:
     Raises:
         VkApiException: If the response status code is not 200.
     """
-    async with AsyncClient() as client:
-        response: Response = await client.get(
-            url=request.url, headers=request.headers, params=request.params
+    async with AsyncSession() as session:
+        response = await session.get(
+            url=request.url,
+            headers=request.headers,
+            params=request.params,
+            impersonate="chrome110",
         )
 
     vk_response: VkApiResponse = _validate_and_parse_response(response)
@@ -63,8 +69,7 @@ def _validate_and_parse_response(
     Validate and parse response from VK API.
 
     Args:
-        response (VkApiResponse): Response from VK API.
-        logger (logging.Logger): Logger instance.
+        api_response (VkApiResponse): Response from VK API.
     
     Returns:
         VkApiResponse: Parsed response from VK API.

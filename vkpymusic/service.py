@@ -8,7 +8,8 @@ import logging
 from typing import Optional, Union, List
 
 import aiofiles
-from httpx import Client, AsyncClient, Response
+from curl_cffi import requests as curl_requests
+from curl_cffi.requests import AsyncSession
 
 from .vk_api import (
     VkApiRequestBuilder,
@@ -916,8 +917,7 @@ class Service:
             return None
 
         try:
-            with Client() as client:
-                response: Response = client.get(url)
+            response = curl_requests.get(url)
 
             if response.status_code != 200:
                 cls.logger.error(
@@ -980,8 +980,8 @@ class Service:
             return None
 
         try:
-            async with AsyncClient() as client:
-                response: Response = await client.get(url)
+            async with AsyncSession() as client:
+                response = await client.get(url)
 
             if response.status_code != 200:
                 cls.logger.error(
