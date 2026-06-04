@@ -9,7 +9,7 @@ import logging
 from typing import Callable, Awaitable, Tuple, Union, Optional, Dict
 
 
-from .client import clients
+from .client import Client, VkMobileClient
 from .vk_api import (
     VkApiRequestBuilder,
     VkApiRequest,
@@ -63,7 +63,7 @@ class TokenReceiver:
         self,
         login: str,
         password: str,
-        client: str = "Kate",
+        client: Client = VkMobileClient,
         logger: logging.Logger = create_logger(__name__),
     ) -> None:
         """
@@ -72,15 +72,12 @@ class TokenReceiver:
         Args:
             login (str): Login to VK.
             password (str): Password to VK.
-            client (str): Client to VK (default value = "Kate").
+            client (Client): Client to VK (default value = VkMobileClient).
             logger (logging.Logger): Logger (default value = my logger).
         """
         self.__login: str = str(login)
         self.__password: str = str(password)
-        if client in clients:
-            self.client = clients[client]
-        else:
-            self.client = clients["Kate"]
+        self.client = client
         self.__token = None
         self._logger = logger
 

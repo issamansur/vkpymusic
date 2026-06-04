@@ -26,11 +26,16 @@ class Client:
         self.client_secret = client_secret
 
 
-KateMobile = Client(
+KateMobileClient = Client(
     user_agent="KateMobileAndroid/56 lite-460 (Android 4.4.2; SDK 19; x86; unknown Android SDK built for x86; en)",
     client_id="2685278",
     client_secret="lxhD8OD7dMsqtXIm5IUY",
 )
 
+VkMobileClient = Client(
+    user_agent="VKAndroidApp/4.13.1-1206 (Android 4.4.3; SDK 19; armeabi; ; ru)",
+    client_id="2274003",
+    client_secret="hHbZxrka2uZ6jB1inYsH",
+)
 
-clients = {"Kate": KateMobile}
+

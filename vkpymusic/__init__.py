@@ -25,7 +25,7 @@ __license__ = "MIT"
 __copyright__ = "Copyright 2023-present issamansur (EDEXADE, Inc)"
 __version__ = "3.5.1"
 
-from .client import Client, clients
+from .client import Client, KateMobileClient, VkMobileClient
 from .token_receiver import TokenReceiver
 from .service import Service
 
@@ -33,7 +33,8 @@ from . import vk_api, models, utils
 
 __all__ = [
     "Client",
-    "clients",
+    "KateMobileClient",
+    "VkMobileClient",
     "TokenReceiver",
     "Service",
     "vk_api",
