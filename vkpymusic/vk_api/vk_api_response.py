@@ -14,9 +14,9 @@ class VkApiResponse:
     Attributes:
         data (Dict): The data.
     """
-    data: Dict
+    data: Dict | int
 
-    def __init__(self, data: Dict):
+    def __init__(self, data: Dict | int):
         """
         Initialize the VkApiResponse with the given data.
 
