@@ -171,7 +171,7 @@ class TokenReceiver:
             on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return captcha result.
             on_2fa (Callable[[], str]): Handler to 2-factor auth. Return code.
             on_invalid_client (Callable[[], None]): Handler to invalid client.
-            on_critical_error (Callable[[Any], None]): Handler to critical error. Get response.
+            on_critical_error (Callable[..., None]): Handler to critical error. Get response.
 
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
@@ -277,10 +277,10 @@ class TokenReceiver:
         If necessary, interactively accepts a code from SMS or captcha.
 
         Args:
-            on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return captcha result.
-            on_2fa (Callable[[], str]): ASYNC handler to 2-factor auth. Return code.
-            on_invalid_client (Callable[[], None]): ASYNC handler to invalid client.
-            on_critical_error (Callable[[Any], None]): ASYNC handler to crit error. Get response.
+            on_captcha (Callable[[str], Awaitable[str]]): ASYNC handler to captcha. Get url image. Return captcha result.
+            on_2fa (Callable[[], Awaitable[str]]): ASYNC handler to 2-factor auth. Return code.
+            on_invalid_client (Callable[[], Awaitable[None]]): ASYNC handler to invalid client.
+            on_critical_error (Callable[..., Awaitable[None]]): ASYNC handler to crit error. Get response.
 
         Returns:
             bool: Boolean value indicating whether authorization was successful or not.
@@ -374,6 +374,9 @@ class TokenReceiver:
     def get_token(self) -> Optional[str]:
         """
         Returns the token if exists.
+
+        Returns:
+            str | None: Token string, or None if auth was not called yet.
         """
         token = self.__token
         if not token:

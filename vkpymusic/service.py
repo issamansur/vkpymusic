@@ -83,6 +83,9 @@ class Service:
 
         Args:
             filename (str): Filename of config (default = "config_vk.ini").
+
+        Returns:
+            Service | None: Instance of 'Service', or None if config not found or invalid.
         """
         dirname = os.path.dirname(__file__)
         configfile_path = os.path.join(dirname, filename)
@@ -102,6 +105,9 @@ class Service:
 
         Args:
             filename (str): Filename of config (default value = "config_vk.ini").
+
+        Returns:
+            None
         """
         configfile_path = os.path.join(os.path.dirname(__file__), filename)
         try:
@@ -839,8 +845,8 @@ class Service:
         Get recommendations by user id or song id (sync). (Be careful, it always returns less than count)
 
         Args:
-            user_id (int):  VK user id. (NOT USERNAME! vk.com/id*******).
-            song_id (int):  VK song id.
+            user_id (int | None):  VK user id. (NOT USERNAME! vk.com/id*******).
+            song_id (int | None):  VK song id.
             count (int):    Count of resulting songs (for VK API: default = 50, max = 300).
             offset (int):   Set offset for result. For example, count = 100, offset = 100 -> 101-200.
 
@@ -872,8 +878,8 @@ class Service:
         Get recommendations by user id or song id (async). (Be careful, it always returns less than count)
 
         Args:
-            user_id (int):  VK user id. (NOT USERNAME! vk.com/id*******).
-            song_id (int):  VK song id.
+            user_id (int | None):  VK user id. (NOT USERNAME! vk.com/id*******).
+            song_id (int | None):  VK song id.
             count (int):    Count of resulting songs (for VK API: default = 50, max = 300).
             offset (int):   Set offset for result. For example, count = 100, offset = 100 -> 101-200.
 
