@@ -86,7 +86,9 @@ class TokenReceiver:
 
     # synchronous
     def __request_auth(
-        self, code: Optional[str] = None, captcha: Optional[Tuple[str, str]] = None
+        self,
+        code: Optional[str] = None,
+        captcha: Optional[str] = None
     ) -> VkApiResponse:
         request: VkApiRequest = VkApiRequestBuilder.build_req_auth(
             login=self.__login,
@@ -119,7 +121,9 @@ class TokenReceiver:
 
     # asynchronous
     async def __request_auth_async(
-        self, code: Optional[str] = None, captcha: Optional[Tuple[str, str]] = None
+        self,
+        code: Optional[str] = None,
+        captcha: Optional[str] = None
     ) -> VkApiResponse:
         request: VkApiRequest = VkApiRequestBuilder.build_req_auth(
             login=self.__login,
@@ -164,8 +168,8 @@ class TokenReceiver:
         If necessary, interactively accepts a code from SMS or captcha.
 
         Args:
-            on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return key.
-            on_2fa (Callable[[], str]): Handler to 2-factor auth. Return captcha.
+            on_captcha (Callable[[str], str]): Handler to captcha. Get url image. Return captcha result.
+            on_2fa (Callable[[], str]): Handler to 2-factor auth. Return code.
             on_invalid_client (Callable[[], None]): Handler to invalid client.
             on_critical_error (Callable[[Any], None]): Handler to critical error. Get response.
 
@@ -173,7 +177,7 @@ class TokenReceiver:
             bool: Boolean value indicating whether authorization was successful or not.
         """
         code: Optional[str] = None
-        captcha: Optional[Tuple[str, str]] = None
+        captcha: Optional[str] = None
 
         while True:
             try:
@@ -184,7 +188,7 @@ class TokenReceiver:
                 del self.__login
                 del self.__password
 
-                token: str = response.data.get("access_token", None)
+                token: Optional[str] = response.data.get("access_token", None)
                 if token is not None:
                     self._logger.info("Token was received!")
                     self.__token = token
@@ -209,10 +213,8 @@ class TokenReceiver:
                 # Captcha is needed
                 if error == "need_captcha":
                     self._logger.info("Captcha is needed!")
-                    captcha_sid: str = problem_response["captcha_sid"]
-                    captcha_img: str = problem_response["captcha_img"]
-                    captcha_key: str = on_captcha(captcha_img)
-                    captcha = (captcha_sid, captcha_key)
+                    captcha_url: str = problem_response["redirect_uri"]
+                    captcha: str = on_captcha(captcha_url)
                 # 2FA is needed
                 elif error == "need_validation":
                     self._logger.info("2fa is needed!")
@@ -221,6 +223,9 @@ class TokenReceiver:
                     # 2FA app is needed
                     if validation_type == "2fa_app":
                         self._logger.info("Code from 2FA app is needed!")
+                    # Call 4 digits needed
+                    elif validation_type == "2fa_callreset":
+                        self._logger.info("Use last 4 digits from incoming call!")
                     # Other type of 2FA
                     else:
                         self._logger.info(f"{validation_type} {validation_description}")
@@ -272,8 +277,8 @@ class TokenReceiver:
         If necessary, interactively accepts a code from SMS or captcha.
 
         Args:
-            on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return key.
-            on_2fa (Callable[[], str]): ASYNC handler to 2-factor auth. Return captcha.
+            on_captcha (Callable[[str], str]): ASYNC handler to captcha. Get url image. Return captcha result.
+            on_2fa (Callable[[], str]): ASYNC handler to 2-factor auth. Return code.
             on_invalid_client (Callable[[], None]): ASYNC handler to invalid client.
             on_critical_error (Callable[[Any], None]): ASYNC handler to crit error. Get response.
 
@@ -317,10 +322,8 @@ class TokenReceiver:
                 # Captcha is needed
                 if error == "need_captcha":
                     self._logger.info("Captcha is needed!")
-                    captcha_sid: str = problem_response["captcha_sid"]
-                    captcha_img: str = problem_response["captcha_img"]
-                    captcha_key: str = await on_captcha(captcha_img)
-                    captcha = (captcha_sid, captcha_key)
+                    captcha_url: str = problem_response["redirect_uri"]
+                    captcha: str = await on_captcha(captcha_url)
                 # 2FA is needed
                 elif error == "need_validation":
                     self._logger.info("2fa is needed!")

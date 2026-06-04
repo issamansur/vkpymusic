@@ -23,7 +23,7 @@ class VkApiRequestBuilder:
         password: str,
         client: Client,
         code: Optional[str] = None,
-        captcha: Optional[Tuple[str, str]] = None,
+        captcha: Optional[str] = None,
     ) -> VkApiRequest:
         """
         Builds a request to get access token.
@@ -49,8 +49,7 @@ class VkApiRequestBuilder:
             "v": DEFAULT_VERSION,
         }
         if captcha:
-            params.setdefault("captcha_sid", captcha[0])
-            params.setdefault("captcha_key", captcha[1])
+            params.setdefault("success_token", captcha)
 
         if code:
             params.setdefault("code", code)

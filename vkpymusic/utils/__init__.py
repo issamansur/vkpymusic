@@ -18,6 +18,7 @@ from .default_handlers import (
 )
 from .converter import Converter
 from .logger import create_logger
+from .captcha import handle_captcha_selenium
 
 __all__ = [
     "Converter",

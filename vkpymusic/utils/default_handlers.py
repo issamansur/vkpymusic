@@ -5,24 +5,29 @@ These handlers are used to process various events
 
 from typing import Dict
 
+from .captcha import handle_captcha_selenium
+
+
 ##########
 # HANDLERS
 
 
 # sync
-def on_captcha_handler(url: str) -> str:
+def on_captcha_handler(redirect_uri: str) -> str:
     """
-    Default sync handler to captcha.
+    Default sync handler for captcha.
+    Opens a browser window for the user to solve VK ID Captcha.
 
     Args:
-        url (str): Url to captcha image.
+        redirect_uri (str): redirect_uri for solving VK ID Captcha.
 
     Returns:
-        str: Key/decoded captcha.
+        str: success_token after captcha is solved.
     """
-    print(f"Captcha image: {url}")
-    captcha_key: str = input("Captcha: ")
-    return captcha_key
+    print(f"Captcha required. Opening browser...")
+    token = handle_captcha_selenium(redirect_uri)
+    print(f"Captcha solved.")
+    return token
 
 
 def on_2fa_handler() -> str:
@@ -48,25 +53,28 @@ def on_critical_error_handler(response_or_error: Dict):
     Default sync handler to critical error.
 
     Args:
-        response_auth_json (...): Message or object to research.
+        response_or_error (...): Message or object to research.
     """
     pass
 
 
 # async
-async def on_captcha_handler_async(url: str) -> str:
+async def on_captcha_handler_async(data: Dict) -> str:
     """
-    Default async handler to captcha.
+    Default async handler for captcha.
+    Opens a browser window for the user to solve VK ID Captcha.
 
     Args:
-        url (str): Url to captcha image.
+        data (Dict): Error details from VK API containing redirect_uri.
 
     Returns:
-        str: Key/decoded captcha.
+        str: success_token after captcha is solved.
     """
-    print(f"Captcha image: {url}")
-    captcha_key: str = await input("Captcha: ")
-    return captcha_key
+    redirect_uri: str = data.get('redirect_uri')
+    print(f"Captcha required. Opening browser...")
+    token = handle_captcha_selenium(redirect_uri)
+    print(f"Captcha solved.")
+    return token
 
 
 async def on_2fa_handler_async() -> str:
@@ -92,6 +100,6 @@ async def on_critical_error_handler_async(response_or_error: Dict):
     Default async handler to critical error.
 
     Args:
-        response_auth_json (...): Message or object to research.
+        response_or_error (...): Message or object to research.
     """
     pass
