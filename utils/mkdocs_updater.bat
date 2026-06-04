@@ -6,7 +6,7 @@ REM Install mkdocs and required plugins
 pip install mkdocs
 pip install mkdocs-material
 pip install mkdocs-autorefs
-pip install mkdocstrings[python]
+pip install mkdocstrings-python
 
 REM Start mkdocs serve in the background
 start /B mkdocs serve

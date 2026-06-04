@@ -6,7 +6,7 @@
 pip install mkdocs
 pip install mkdocs-material
 pip install mkdocs-autorefs
-pip install mkdocstrings[python]
+pip install mkdocstrings-python
 
 # Start mkdocs serve in the background
 mkdocs serve &
