@@ -85,7 +85,7 @@ def _transcode_media_to_mp3(input_path: str, output_path: str) -> None:
         tmp_output_path = tmp.name
 
     try:
-        with av.open(input_path, format="mpegts") as inp:
+        with av.open(input_path) as inp:
             with av.open(tmp_output_path, "w", format="mp3") as out:
                 _encode_audio_frames(_decode_audio_frames(inp), out)
         shutil.move(tmp_output_path, output_path)
@@ -280,4 +280,6 @@ def _decrypt_aes_128(content: bytes, key: bytes, iv: Optional[bytes]) -> bytes:
     padding_length = decrypted[-1]
     if padding_length < 1 or padding_length > 16:
         return decrypted
+    if decrypted[-padding_length:] != bytes([padding_length]) * padding_length:
+        raise ValueError("Invalid PKCS7 padding")
     return decrypted[:-padding_length]
