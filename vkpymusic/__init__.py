@@ -23,7 +23,7 @@ __title__ = "vkpymusic"
 __author__ = "issamansur"
 __license__ = "MIT"
 __copyright__ = "Copyright 2023-present issamansur (EDEXADE, Inc)"
-__version__ = "4.0.1"
+__version__ = "4.0.2"
 
 from .client import Client, KateMobileClient, VkMobileClient
 from .token_receiver import TokenReceiver
