@@ -833,6 +833,49 @@ class Service:
         songs: List[Song] = Converter.response_to_popular(response)
         return songs
 
+    # Catalog section
+    def get_recent_songs(self) -> List[Song]:
+        """
+        Get recently played songs (sync).
+
+        Returns:
+            List[Song]: List of recently played songs.
+
+        Raises:
+            VkApiException: If the response contains an error.
+        """
+        self.logger.info("Getting recent songs...")
+        request: VkApiRequest = VkApiRequestBuilder.build_req_get_catalog_audio(
+            url="https://vk.com/audios?section=recoms&block=recent",
+            need_blocks=1,
+        )
+        self.fill_user_agent_and_token(request)
+        response: VkApiResponse = make_request(request)
+        songs: List[Song] = Converter.response_to_recent_songs(response)
+        self.logger.info(f"Found {len(songs)} recent songs")
+        return songs
+
+    async def get_recent_songs_async(self) -> List[Song]:
+        """
+        Get recently played songs (async).
+
+        Returns:
+            List[Song]: List of recently played songs.
+
+        Raises:
+            VkApiException: If the response contains an error.
+        """
+        self.logger.info("Getting recent songs...")
+        request: VkApiRequest = VkApiRequestBuilder.build_req_get_catalog_audio(
+            url="https://vk.com/audios?section=recoms&block=recent",
+            need_blocks=1,
+        )
+        self.fill_user_agent_and_token(request)
+        response: VkApiResponse = await make_request_async(request)
+        songs: List[Song] = Converter.response_to_recent_songs(response)
+        self.logger.info(f"Found {len(songs)} recent songs")
+        return songs
+
     # TODO
     def get_recommendations(
         self,

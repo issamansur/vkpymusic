@@ -68,6 +68,20 @@ class Converter:
         return userinfo
 
     @staticmethod
+    def response_to_recent_songs(response: VkApiResponse) -> List[Song]:
+        """
+        Converts a catalog.getAudio response to a list of recent songs.
+
+        Args:
+            response (VkApiResponse): The response object from VK.
+
+        Returns:
+            List[Song]: A list of songs from response.audios.
+        """
+        items: List[dict] = response.data.get("audios", [])
+        return [Song.from_json(item) for item in items]
+
+    @staticmethod
     def response_to_popular(response: VkApiResponse) -> List[Song]:
         """
         Converts a response to a list of POPULAR songs.

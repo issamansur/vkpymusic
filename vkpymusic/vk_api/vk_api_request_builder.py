@@ -310,6 +310,29 @@ class VkApiRequestBuilder:
         )
 
     @classmethod
+    def build_req_get_catalog_audio(
+        cls,
+        url: Optional[str] = None,
+        need_blocks: int = 0,
+    ) -> VkApiRequest:
+        """
+        Builds a request to get audio catalog sections.
+
+        Args:
+            url (str): Section URL to filter results (e.g. "https://vk.com/audios?section=recoms&block=recent").
+            need_blocks (int): Pass 1 to get blocks inside sections.
+        """
+        params: Dict = {}
+        if url is not None:
+            params["url"] = url
+        if need_blocks:
+            params["need_blocks"] = need_blocks
+
+        return cls.build_from_base_request(
+            method="get", url="catalog.getAudio", params=params
+        )
+
+    @classmethod
     def build_req_get_recommendations(
         cls,
         user_id: Optional[int] = None,
